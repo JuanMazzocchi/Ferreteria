@@ -3,9 +3,14 @@ from Portal.models import *
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
-from .forms import SearchForm, SearchServicioForm, SearchClienteForm
+from .forms import SearchForm, SearchServicioForm, SearchClienteForm, ArchivoCSVForm
+from .models import ArchivoCSV
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+import csv
+import itertools
+
+ 
 
 # Create your views here.
 def abm(request):
@@ -140,5 +145,51 @@ class ClienteEliminarView(SuccessMessageMixin, DeleteView):
     success_url=reverse_lazy('abm') 
     
 
+# def SubirCsvView(request):
+#     if request.method =='POST':
+#         archivo=ArchivoCSV(request.POST)
+        
+#         if archivo.is_valid():
+            
   
+class SubirCsvView(SuccessMessageMixin, CreateView):
+    model=ArchivoCSV
+    fields='__all__'
+    success_url='abm'
+    success_message='Archivo subido correctamente'
+    template_name='Administrador/subirCSV.html'
     
+def BorrarBase(request):
+    Producto.objects.all().delete()
+    #SuccessMessageMixin("Se borraron los productos de la base")
+    messages.success(request, 'Se borro la Base de datos')
+    return render(request,'Administrador/abm.html')
+
+def llenarBase(request):
+    file=open('uploads/uploads/LISTPROVconPipecorregido.csv')
+        
+    for line in file:
+        objeto= line.split(sep='|')
+        # print(objeto)
+                 
+        if len(objeto)>=6:
+                     
+            precio=objeto[4].replace('.','')     
+                          
+            armado=Producto(cod_producto=objeto[0],
+                            linea=objeto[1],
+                            rubro=objeto[2],
+                            descripcion=objeto[3],
+                            pcio_lista=float(precio),
+                            unidad=objeto[5],
+                            imagen=objeto[6] )
+                
+            try:
+                armado.save()
+            except armado.save():
+                messages.error(request,"Algo salio mal")
+    
+    messages.success(request, 'Se imprimio la Base de datos')
+    return render(request,'Administrador/abm.html')
+    
+      

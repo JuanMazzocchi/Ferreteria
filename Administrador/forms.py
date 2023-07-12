@@ -1,6 +1,7 @@
 from django import forms
 
 from Portal.models import Producto
+from Administrador.models import ArchivoCSV
 
 
 class ProductoForm(forms.ModelForm):
@@ -19,3 +20,9 @@ class SearchServicioForm(forms.Form):
 
 class SearchClienteForm(forms.Form):
             keyword=forms.CharField(max_length=150, label='Nombre o Apellido a buscar', widget=forms.TextInput(attrs={'placeholder':'nombre o apellido',"size": "100"}) )
+            
+class ArchivoCSVForm(forms.Form):
+    class Meta:
+        model=ArchivoCSV
+        fields='__all__'
+        

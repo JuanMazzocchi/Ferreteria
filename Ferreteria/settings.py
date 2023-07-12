@@ -117,8 +117,17 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
     BASE_DIR / 'static/img'
 ]
+MEDIA_URL='/media/'
+#MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'uploads'
+
 
 STATIC_ROOT = BASE_DIR / 'static_root'
+
+FILE_UPLOAD_HANDLERS=[
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -19,6 +19,10 @@ path('clienteSearch',views.clienteSearch, name='clienteSearch'),
 path('clienteEditar/<int:pk>', views.ClienteUpdateView.as_view(), name='clienteEditar'),
 path('clienteEliminar/<int:pk>', views.ClienteEliminarView.as_view(), name='clienteEliminar'),
 
+path('subirCsv',views.SubirCsvView.as_view(), name='subirCsv'),
+path('borrarBase',views.BorrarBase, name='borrarBase'),
+path('llenarBase', views.llenarBase, name='llenarBase')
+
 
  
 ]
