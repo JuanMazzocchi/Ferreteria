@@ -21,8 +21,8 @@ class SearchServicioForm(forms.Form):
 class SearchClienteForm(forms.Form):
             keyword=forms.CharField(max_length=150, label='Nombre o Apellido a buscar', widget=forms.TextInput(attrs={'placeholder':'nombre o apellido',"size": "100"}) )
             
-class ArchivoCSVForm(forms.Form):
-    class Meta:
+class ArchivoCSVForm(forms.Form):     #no esta en uso
+    class Meta:                   
         model=ArchivoCSV
         fields='__all__'
         

@@ -1,6 +1,7 @@
 {% extends 'Portal/base.html' %}
 {% block titulo %}Maxi Ferreteria | Rubros {% endblock titulo %}
 {% block contenido %}
+{% load customFilters %}
 
 <section>
 
@@ -8,22 +9,29 @@
     <div class="d-flex justify-content-center">
          <h1>Seleccione un Rubro</h1>
     </div>
-  <div class='cards_conteiner my-5  w-100'>
-        {% for key , value  in diccionarios.items %}
-        <div class="card_grid mw-100 ">
-          {% load static %}
-          <div class="card_image img mw-100 ">
-            <img id="{{value}}"src='/static/img/{{value}}.jpg' alt="Card image cap" class='w-100'>
-          </div>
-          <div class="card_btn ">
-            <a href='../gondola/{{key}}' class='btn_hover bn18 text-dark text-decoration-none d-flex align-items-center justify-content-center btn-block '>{{key}}</a>
-          </div>
+  
+  <div class='container'>
+    <div class='row'>
+    {% for key , value  in diccionarios.items %}
+    {% load static %}
+      <div class='col-3 card justify-content-between'>
+         
+        {% if value|existeLaImg %}  {% comment %} REVISA SI LA IMAGEN EXISTE, SINO DA FALSE {% endcomment %}
+        {% with value|add:'.jpg' as valor  %}
+        <img id="{{value}}" src="{% static '/img/' %}/{{valor}}" alt="Card image cap" class="imagen">
+        {% endwith %}
+        {% else %}
+        <img id='tomate {{value}}' src={% static '/img/tomate.jpg' %} alt='No hay imagen para este articulo' >
+        {% endif %}
+        <div class="card_btn pb-1">
+          <a href='../gondola/{{key}}' class='btn_hover bn18 text-dark text-decoration-none d-flex align-items-center justify-content-center btn-block '>{{key}}</a>
         </div>
-        {%endfor%}
+        
+      </div>
+    {%endfor%}
+    </div>
   </div>
 </section>
-
-  
 
 
 {% endblock contenido  %}

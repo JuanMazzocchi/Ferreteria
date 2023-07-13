@@ -7,6 +7,8 @@ from Portal.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+import os
+from pathlib import Path
 
 
 @login_required
@@ -61,10 +63,10 @@ def seleccion(request,linea):
         
         # print(imagenes)
         diccionario=dict(zip(listaDeRubros,imagenes))
-        print(diccionario)
-        
+        # print(diccionario)
+        listadoDeImagenes=listaDeImagenes()
          
-        context={'rubros':rubro, 'diccionarios':diccionario}
+        context={'rubros':rubro, 'diccionarios':diccionario, 'listadoDeImagenes': listadoDeImagenes}
         return render(request,'Portal/mostrarRubros.html', context)
     
 @login_required    
@@ -78,8 +80,6 @@ def gondola(request,rubro):
 @login_required
 def portalSearch(request):
     
-   
-   
     if request.method =='GET':
         
         keyword=request.GET.get('keyword')
@@ -131,14 +131,31 @@ def loginView(request):
     
     
 def logoutView(request):
+    
     logout(request)  
     return redirect('loginView')
 
+
 @login_required    
 def servicios(request):
+    
     servicios=Servicio.objects.all()
     # print(servicios)
     context={'servicios': servicios}
     
     return render (request, 'Portal/mostrarServicios.html',context)
+
+   
+def listaDeImagenes():
+    
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    listadoDeArchivos=os.listdir(os.path.join(BASE_DIR,'static/img'))
+    listaImagenes=[]
+    
+    for archivo in listadoDeArchivos:
         
+        modificado=archivo.replace('.jpg', '')
+        modificado=modificado.replace('.JPG', '')
+        listaImagenes.append(modificado)
+     
+    return listaImagenes    

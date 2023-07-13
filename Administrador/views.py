@@ -3,12 +3,12 @@ from Portal.models import *
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
-from .forms import SearchForm, SearchServicioForm, SearchClienteForm, ArchivoCSVForm
+from .forms import SearchForm, SearchServicioForm, SearchClienteForm
 from .models import ArchivoCSV
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-import csv
-import itertools
+
+ 
 
  
 
@@ -143,29 +143,25 @@ class ClienteEliminarView(SuccessMessageMixin, DeleteView):
     template_name='Administrador/clienteEliminar.html'
     success_message='Cliente Eliminado satisfactoriamente'
     success_url=reverse_lazy('abm') 
-    
-
-# def SubirCsvView(request):
-#     if request.method =='POST':
-#         archivo=ArchivoCSV(request.POST)
-        
-#         if archivo.is_valid():
-            
-  
+ 
 class SubirCsvView(SuccessMessageMixin, CreateView):
+    
     model=ArchivoCSV
     fields='__all__'
     success_url='abm'
     success_message='Archivo subido correctamente'
     template_name='Administrador/subirCSV.html'
     
+    
 def BorrarBase(request):
+    
     Producto.objects.all().delete()
-    #SuccessMessageMixin("Se borraron los productos de la base")
     messages.success(request, 'Se borro la Base de datos')
     return render(request,'Administrador/abm.html')
 
+
 def llenarBase(request):
+    
     file=open('uploads/uploads/LISTPROVconPipecorregido.csv')
         
     for line in file:
@@ -186,10 +182,12 @@ def llenarBase(request):
                 
             try:
                 armado.save()
+                
             except armado.save():
                 messages.error(request,"Algo salio mal")
+                return render(request,'Administrador/abm.html')
     
-    messages.success(request, 'Se imprimio la Base de datos')
+    messages.success(request, 'Se persistio la Base de datos')
     return render(request,'Administrador/abm.html')
     
       

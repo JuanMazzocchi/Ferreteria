@@ -60,6 +60,15 @@ html::-webkit-scrollbar-track {
 
 /* card styles  */
 
+.card{
+  max-height: 20rem;
+  min-height: 20rem;
+}
+.imagen{
+  overflow-y: hidden;
+  
+}
+
 .cards_conteiner {
   grid-gap: 1rem;
   display: grid;
@@ -79,6 +88,7 @@ html::-webkit-scrollbar-track {
   overflow: hidden;
   border-radius: 0;
   justify-content: start;
+  
 }
 
 .card_grid_home {
@@ -93,10 +103,14 @@ html::-webkit-scrollbar-track {
 
 .card_image {
   grid-area: image;
-  background-size: cover;
   height: 100%;
   object-fit: cover;
   object-position: center center;
+}
+
+.card_image:hover{
+  transform: scale(1.1) !important;
+  transition: all 1s ease-out; 
 }
 
 .card_text {
@@ -107,11 +121,23 @@ html::-webkit-scrollbar-track {
 }
 
 .card_btn {
-  justify-content: start;
-  grid-area: boton;
+  
+ padding-bottom: 1rem;
+}
+.btn_hover{
+  background-color:#ddd7bc;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  border: none;
 }
 
-.btn_hover {
+.btn_hover:hover {
   width: 100%;
   height: 100%;
   border-radius: 0;
@@ -124,7 +150,7 @@ html::-webkit-scrollbar-track {
   text-align: center;
   border: none;
   background-size: 300% 100%;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.7s ease-in-out;
 }
 
 .hero_text{
