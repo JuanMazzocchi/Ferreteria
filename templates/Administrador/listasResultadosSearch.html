@@ -1,0 +1,42 @@
+{% extends 'Administrador/AdministradorBase.html' %}
+{% block titulo %}Julcar | Clientes{% endblock titulo %}
+{% block contenido %}
+
+{% for lista in listas %}
+   
+<div class="row articulos justify-content-center listado item"  >
+
+   <div class="col-3 art mw-100 no-gutters text-center">
+    <p class="item-precioProducto">{{lista.id}}</p>
+  </div> 
+  <div class="col-3 art no-gutters text-center"  >
+    <p class="item-descripcionProducto ">{{lista.nombre}}</p>
+  </div>
+
+    {% comment %}  <div class="col-3 art mw-100 no-gutters text-center">
+    <p class="item-unidadDeVenta">{{articulo.email}}</p>
+  </div>   {% endcomment %}
+  {% comment %} <div class="col-1 art mw-100 no-gutters text-center">
+    <p class="item-rubro">{{articulo.rubro}}</p>
+  </div> {% endcomment %}
+  {% comment %} <div class="col-1 art mw-100 no-gutters text-center">
+    <p class="item-linea">{{articulo.linea}}</p>
+  </div> {% endcomment %}
+  <div class="col-1 art mw-100 no-gutters text-center" >
+  <a href="{% url 'listaEditar' lista.id %}" title="Editar" class="btn btn-warning">Editar</a>
+  </div>
+  <div class="col-1 art mw-100 no-gutters text-center">
+  <a href="{% url 'listaEliminar' lista.id %}" title="Eliminar" class="btn btn-danger">Eliminar</a>
+  </div> 
+  {% comment %} <div class="col-2 art mw-100 no-gutters text-center">
+   <input type="number" value="0" class='cantidadDefault' id={{articulo.id}} > <button class="btn btn-success btnAñadirAlCarrito" title="Añadir Producto">OK</button> 
+  </div> {% endcomment %}
+</div> 
+{% empty %}
+    <li>No se encontraron coincidencias.</li>
+
+{% endfor %}
+
+
+
+{% endblock contenido %}

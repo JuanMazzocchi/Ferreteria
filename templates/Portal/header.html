@@ -3,15 +3,15 @@
   <nav class="navbar navbar-expand-lg" style='background-color: #f8e89f;'>
     <div class="container-fluid">
       
-      {% if user.is_authenticated %}
-      <a class="navbar-brand logo" href="/inicio">
+      {% comment %} {% if user.is_authenticated %}
+      <a class="navbar-brand logo" href="/lineas">
         <img src="{% static 'img/logoAmarilloChico.png' %}" width="270" height="65">
       </a>
       {% else %}
       <a class="navbar-brand logo" href="/">
         <img src="{% static 'img/logoAmarilloChico.png' %}" width="270" height="65">
       </a>
-      {% endif %}
+      {% endif %} {% endcomment %}
 
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,16 +29,20 @@
         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
       </form>
       {% endif %}
+       
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="d-inline-flex flex-wrap p-2">
+        {% for linea in lineas  %}
+        <a class='btn btn-success m-1 accesoRapido'  href='/seleccion/{{linea}}' >{{linea}}</a>
+        {% endfor %}
+        </div>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center align-items-center">
-                    
           <li class="nav-item">
+            <a class='nav-link active' href='/downloadLista'>Lista de Precios</a>
+          </li>          
+          {% comment %} <li class="nav-item">
             <a class="nav-link active" href="/about"> Sobre Nosotros </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="/contacto"> Contacto <span class="sr-only"></span></a>
-          </li>
-
+          </li> {% endcomment %}
           {% if user.is_staff %}
           <li class="nav-item">
             <a class='nav-link active' href='/abm'>Panel de Administrador</a>
@@ -58,6 +62,9 @@
           <!---->
 
           {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" href="/contacto"> Contacto <span class="sr-only"></span></a>
+          </li>
           <li class="nav-item">
             <a class="btn btn-outline-success mx-3" href="/">Login</a>
           </li>

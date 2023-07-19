@@ -1,0 +1,15 @@
+{% extends 'Administrador/AdministradorBase.html' %}
+{% block titulo %}Julcar | Subir CSV{% endblock titulo %}
+{% block contenido %}
+
+<h1 class="AdministradorCreateTitle">Subir lista de precios </h1>
+ <div   class="text-center">
+<form action='' method='POST' enctype='multipart/form-data' >
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit " class="btn btn-primary m-4" >Subir</button>
+     
+</form>
+<a  href='javascript:window.history.back();' ><button class="btn btn-danger m-4"   >Cancelar</button></a>
+ </div>
+{% endblock contenido %}

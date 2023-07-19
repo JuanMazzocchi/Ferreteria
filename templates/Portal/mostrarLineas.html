@@ -1,5 +1,5 @@
 {% extends 'Portal/base.html' %}
-{% block titulo %}Maxi Ferreteria | Lineas {% endblock titulo %}
+{% block titulo %}Julcar | Lineas {% endblock titulo %}
 {% block contenido %}
 
 
@@ -14,7 +14,7 @@
     <div class="card_grid">
       {% load static %}
       <div class="card_image img">
-        <img id="{{linea}}"src='{% static linea %}.jpg' alt="Card image cap">
+       <a href='seleccion/{{linea}}'> <img id="{{linea}}"src='{% static linea %}.jpg' alt="Card image cap" width='100%'></a>
       </div>
       <div class="card_btn">
         <a href='seleccion/{{linea}}' class='btn_hover bn18 text-dark text-decoration-none d-flex align-items-center justify-content-center'>{{linea}}</a>

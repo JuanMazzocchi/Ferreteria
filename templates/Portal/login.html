@@ -1,5 +1,5 @@
 {% extends 'Portal/base.html' %}
-{% block titulo %}Ferreteria Maxi | Login{% endblock titulo %}
+{% block titulo %}Julcar | Login{% endblock titulo %}
 {% block contenido %}
 
 
@@ -24,7 +24,8 @@
   {% endif %}
   
   <div class='loginContainer mx-auto my-5 p-3'>
-    <div div class="text-md-center "> <h1 class="tituloBienvenidos">Bienvenidos a Ferreteria Maxi</h1> </div>
+    <div div class="text-md-center "> <h1 class="tituloBienvenidos">Julcar</h1> </div>
+    <div div class="text-md-center "> <h2 class="tituloBienvenidos">Bienvenidos a la plataforma de pedidos</h2> </div>
     <div class="contenedorContacto form-container" >
       
       <form class='col-5 text-center' id='formulario_login' name='formulario_login' action='{% url 'loginView' %}' method='POST'>

@@ -4,10 +4,10 @@
     <nav class="navbar navbar-expand-lg" style='background-color: #f8e89f;'>
       <div class="container-fluid">
   
-        <a class="navbar-brand mr-4 logo fs-3" href="/inicio"><img src="{% static  'img/logoAmarilloChico.png' %}" width=50%></a>
+        {% comment %} <a class="navbar-brand mr-4 logo fs-3" href="/inicio"><img src="{% static  'img/logoAmarilloChico.png' %}" width=50%></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> {% endcomment %}
         
         <a href='/abm' class='nav-link' >  <p class="bi-cursor logoPanel">Panel de Administracion</p></a>
         {% comment %} <form class="d-flex" role='search'>
@@ -26,18 +26,17 @@
             <li class="nav-item mx-2  ">
               <a class="nav-link active border border-primary border-2 rounded" href="/search">Editar/Borrar Producto <span class="sr-only"></span></a>
             </li> 
-            <li class="nav-item mx-2 " >
+            {% comment %} <li class="nav-item mx-2 " >
               <a class="nav-link active border border-success border-2 rounded" href="/servicioCreateView"> Alta Servicios </a>
             </li>
             <li class="nav-item mx-2 ">
               <a class="nav-link active border border-success border-2  rounded" href="/servicioSearch">Editar/Borrar Servicio <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-itemmx-2 ">
-              <a class="nav-link active border border-secondary border-2  rounded" href="/clienteCreateView"> Alta Clientes </a>
-              </li>
+            </li>{% endcomment %}
+            
             <li class="nav-item mx-2  ">
-              <a class="nav-link active border border-secondary border-2  rounded" href="/clienteSearch">Editar/Borrar Cliente <span class="sr-only"></span></a>
-            </li>   
+              <a class="nav-link active border border-secondary border-2  rounded" href="/subirLista">Subir lista de Precios <span class="sr-only"></span></a>
+            </li>
+               
             <li class="nav-item mx-2  ">
               <a class="nav-link active border border-secondary border-2  rounded" href="/subirCsv">Subir CSV <span class="sr-only"></span></a>
             </li>

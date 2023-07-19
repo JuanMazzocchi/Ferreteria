@@ -61,11 +61,12 @@ html::-webkit-scrollbar-track {
 /* card styles  */
 
 .card{
-  max-height: 20rem;
-  min-height: 20rem;
+  max-height: 15rem;
+  min-height: 15rem;
 }
 .imagen{
-  overflow-y: hidden;
+  overflow-y: hidden !important;
+  max-height: 180px !important;
   
 }
 
@@ -184,12 +185,12 @@ html::-webkit-scrollbar-track {
 }
 .item-image{
   position: absolute;
-   /* top: 0;
-   left: 0; */
+   /* top: 0 !important;
+   left: 0 !important; */
   z-index: 1;
   
   overflow:hidden ;
-  /* max-height: 120px; */
+  /* height: 100px; */
   width: 100px;
 }
 
@@ -266,3 +267,7 @@ html::-webkit-scrollbar-track {
   -webkit-box-orient: vertical;
   height: 55px;
 }
+.accesoRapido{
+  font-size: x-small !important;
+}
+ 

@@ -7,31 +7,33 @@ from Portal.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from Administrador.models import ListaDePrecios
+from django.http import FileResponse
 import os
 from pathlib import Path
 
 
-@login_required
-def home(request):
+# @login_required
+# def home(request):
                        
-    return render(request, 'Portal/home.html')
+#     return render(request, 'Portal/home.html')
 
-def contacto(request):
+# def contacto(request):
      
-    if request.method == 'POST':
-        formulario_contacto = FormularioContacto(request.POST)
+#     if request.method == 'POST':
+#         formulario_contacto = FormularioContacto(request.POST)
         
-        return redirect('loginView')
+#         return redirect('loginView')
                         
-    else:
+#     else:
         
-        formulario_contacto = FormularioContacto()
+#         formulario_contacto = FormularioContacto()
 
-    context = {
-        'formulario_contacto': formulario_contacto,
-    }
+#     context = {
+#         'formulario_contacto': formulario_contacto,
+#     }
 
-    return render(request, 'Portal/contacto.html', context)
+#     return render(request, 'Portal/contacto.html', context)
 
 @login_required
 def lineas(request):
@@ -47,7 +49,8 @@ def about(request):
 
 @login_required
 def seleccion(request,linea):   
-           
+         
+        lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
         rubro=Producto.objects.order_by().values_list('rubro', flat=True).distinct().filter(linea=linea)
         # print(rubro)
         imagenes=[]
@@ -58,22 +61,31 @@ def seleccion(request,linea):
             listaDeRubros.append(item)
             
             imagen=Producto.objects.distinct().filter(rubro=item)[0]
-            # print(imagen.imagen)
-            imagenes.append(imagen.imagen)
+            # print(f'({imagen.imagen[:-1]})') 
+            imagenes.append(imagen.imagen[:-1])   #le quito el salto de linea invisible al final ([:-1])
         
         # print(imagenes)
         diccionario=dict(zip(listaDeRubros,imagenes))
         # print(diccionario)
         listadoDeImagenes=listaDeImagenes()
          
-        context={'rubros':rubro, 'diccionarios':diccionario, 'listadoDeImagenes': listadoDeImagenes}
+        context={
+            'rubros':rubro,
+            'diccionarios':diccionario,
+            'listadoDeImagenes': listadoDeImagenes,
+            'lineas':lineas
+            }
         return render(request,'Portal/mostrarRubros.html', context)
     
 @login_required    
 def gondola(request,rubro):
-       
+    
+    lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
     articulos=Producto.objects.all().filter(rubro=rubro)
-    context={'articulos':articulos}
+    context={
+        'articulos':articulos,
+        'lineas':lineas
+        }
     # print(articulos)
     return render(request,'Portal/mostrarArticulos.html' ,context )
 
@@ -82,13 +94,19 @@ def portalSearch(request):
     
     if request.method =='GET':
         
+        lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct() 
         keyword=request.GET.get('keyword')
         cod=Producto.objects.all().filter(cod_producto__contains=keyword)
         linea=Producto.objects.all().filter(linea__icontains=keyword)
         rubro=Producto.objects.all().filter(rubro__icontains=keyword)
         desc=Producto.objects.all().filter(descripcion__icontains=keyword)
-        articulos=cod.union(linea,rubro,desc)
-        context ={'articulos':articulos }
+        # articulos=cod.union(linea,rubro,desc)
+        articulos=cod.union(desc)
+
+        context ={
+            'articulos':articulos,
+            'lineas':lineas
+            }
         # print(articulos)
         return render(request,'Portal\mostrarArticulos.html', context)
     pass
@@ -98,7 +116,7 @@ def loginView(request):
     
     if request.user.is_authenticated:
         # print('logueado')
-        return render(request, 'Portal/home.html' )
+        return redirect('lineas')
     
     if request.method == 'POST':
             
@@ -110,7 +128,7 @@ def loginView(request):
         if user is not None:
             login(request,user)
             # print('autorizado')
-            return render(request, 'Portal/home.html' )
+            return redirect('lineas')
         else:
             formulario_login = LoginForm()
 
@@ -136,14 +154,14 @@ def logoutView(request):
     return redirect('loginView')
 
 
-@login_required    
-def servicios(request):
+# @login_required    
+# def servicios(request):
     
-    servicios=Servicio.objects.all()
-    # print(servicios)
-    context={'servicios': servicios}
+#     servicios=Servicio.objects.all()
+#     # print(servicios)
+#     context={'servicios': servicios}
     
-    return render (request, 'Portal/mostrarServicios.html',context)
+#     return render (request, 'Portal/mostrarServicios.html',context)
 
    
 def listaDeImagenes():
@@ -159,3 +177,10 @@ def listaDeImagenes():
         listaImagenes.append(modificado)
      
     return listaImagenes    
+
+def downloadLista(request):
+    id=1
+    obj=ListaDePrecios.objects.get(id=id)
+    filename=obj.archivo.path
+    response= FileResponse(open(filename,'rb'))
+    return response

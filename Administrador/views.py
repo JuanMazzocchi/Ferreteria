@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from .forms import SearchForm, SearchServicioForm, SearchClienteForm
-from .models import ArchivoCSV
+from .models import ArchivoCSV, ListaDePrecios
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
@@ -65,84 +65,84 @@ def search(request):
     
     return render(request,'Administrador/productoSearch.html', {'busqueda' : busqueda})
         
-class ServicioCreateView(SuccessMessageMixin, CreateView):
-    model = Servicio
-    template_name ='Administrador/servicioCreateView.html'
-    fields='__all__'
-    success_message='Servicio creado satisfactoriamente'
-    success_url=reverse_lazy('abm') 
+# class ServicioCreateView(SuccessMessageMixin, CreateView):
+#     model = Servicio
+#     template_name ='Administrador/servicioCreateView.html'
+#     fields='__all__'
+#     success_message='Servicio creado satisfactoriamente'
+#     success_url=reverse_lazy('abm') 
         
 
-class ServicioUpdateView(SuccessMessageMixin, UpdateView):
-    model=Servicio
-    fields='__all__'
-    success_url=reverse_lazy('abm')
-    success_message='Servicio editado Correctamente'
-    template_name='Administrador/servicioUpdateForm.html'
+# class ServicioUpdateView(SuccessMessageMixin, UpdateView):
+#     model=Servicio
+#     fields='__all__'
+#     success_url=reverse_lazy('abm')
+#     success_message='Servicio editado Correctamente'
+#     template_name='Administrador/servicioUpdateForm.html'
     
-def servicioSearch(request):
+# def servicioSearch(request):
     
-    if request.method == 'POST':
-        busqueda=SearchServicioForm(request.POST)
+#     if request.method == 'POST':
+#         busqueda=SearchServicioForm(request.POST)
            
-        if busqueda.is_valid():
-            keyword=busqueda.cleaned_data['keyword']
+#         if busqueda.is_valid():
+#             keyword=busqueda.cleaned_data['keyword']
         
              
-            desc=Servicio.objects.all().filter(descripcion__icontains=keyword)
+#             desc=Servicio.objects.all().filter(descripcion__icontains=keyword)
                      
-            context ={'articulos':desc }
-            return render(request,'Administrador/serviciosResultadosSearch.html', context)
-    else:
-        busqueda=SearchServicioForm()    
+#             context ={'articulos':desc }
+#             return render(request,'Administrador/serviciosResultadosSearch.html', context)
+#     else:
+#         busqueda=SearchServicioForm()    
     
-    return render(request,'Administrador/servicioSearch.html', {'busqueda' : busqueda})
+#     return render(request,'Administrador/servicioSearch.html', {'busqueda' : busqueda})
 
-class ServicioEliminarView(SuccessMessageMixin, DeleteView):
-    model=Servicio
-    template_name='Administrador/servicioEliminar.html'
-    success_message='Servicio Eliminado satisfactoriamente'
-    success_url=reverse_lazy('abm')  
+# class ServicioEliminarView(SuccessMessageMixin, DeleteView):
+#     model=Servicio
+#     template_name='Administrador/servicioEliminar.html'
+#     success_message='Servicio Eliminado satisfactoriamente'
+#     success_url=reverse_lazy('abm')  
     
     
-class ClienteCreateView(SuccessMessageMixin, CreateView):
-    model=Cliente
-    template_name='Administrador/clienteCreateView.html'
-    fields='__all__'
-    success_message='Cliente creado correctamente'
-    success_url=reverse_lazy('abm')
+# class ClienteCreateView(SuccessMessageMixin, CreateView):
+#     model=Cliente
+#     template_name='Administrador/clienteCreateView.html'
+#     fields='__all__'
+#     success_message='Cliente creado correctamente'
+#     success_url=reverse_lazy('abm')
     
-def clienteSearch(request):
-    if request.method == 'POST':
-        busqueda=SearchClienteForm(request.POST)
+# def clienteSearch(request):
+#     if request.method == 'POST':
+#         busqueda=SearchClienteForm(request.POST)
            
-        if busqueda.is_valid():
-            keyword=busqueda.cleaned_data['keyword']
+#         if busqueda.is_valid():
+#             keyword=busqueda.cleaned_data['keyword']
         
              
-            nom=Cliente.objects.all().filter(nombre__icontains=keyword)
-            apell=Cliente.objects.all().filter(apellido__icontains=keyword)
-            resultados=nom.union(apell)
-            context ={'articulos':resultados }
-            return render(request,'Administrador/clienteResultadosSearch.html', context)
-    else:
-        busqueda=SearchServicioForm()    
+#             nom=Cliente.objects.all().filter(nombre__icontains=keyword)
+#             apell=Cliente.objects.all().filter(apellido__icontains=keyword)
+#             resultados=nom.union(apell)
+#             context ={'articulos':resultados }
+#             return render(request,'Administrador/clienteResultadosSearch.html', context)
+#     else:
+#         busqueda=SearchServicioForm()    
     
-    return render(request,'Administrador/clienteSearch.html', {'busqueda' : busqueda})
+#     return render(request,'Administrador/clienteSearch.html', {'busqueda' : busqueda})
     
     
-class ClienteUpdateView(SuccessMessageMixin, UpdateView):
-    model=Cliente
-    fields='__all__'
-    success_url='abm'
-    success_message='Cliente editado correctamente'
-    template_name='Administrador/clienteUpdateForm.html'
+# class ClienteUpdateView(SuccessMessageMixin, UpdateView):
+#     model=Cliente
+#     fields='__all__'
+#     success_url='abm'
+#     success_message='Cliente editado correctamente'
+#     template_name='Administrador/clienteUpdateForm.html'
     
-class ClienteEliminarView(SuccessMessageMixin, DeleteView):
-    model=Cliente
-    template_name='Administrador/clienteEliminar.html'
-    success_message='Cliente Eliminado satisfactoriamente'
-    success_url=reverse_lazy('abm') 
+# class ClienteEliminarView(SuccessMessageMixin, DeleteView):
+#     model=Cliente
+#     template_name='Administrador/clienteEliminar.html'
+#     success_message='Cliente Eliminado satisfactoriamente'
+#     success_url=reverse_lazy('abm') 
  
 class SubirCsvView(SuccessMessageMixin, CreateView):
     
@@ -169,25 +169,47 @@ def llenarBase(request):
         # print(objeto)
                  
         if len(objeto)>=6:
-                     
-            precio=objeto[4].replace('.','')     
-                          
-            armado=Producto(cod_producto=objeto[0],
-                            linea=objeto[1],
-                            rubro=objeto[2],
-                            descripcion=objeto[3],
-                            pcio_lista=float(precio),
-                            unidad=objeto[5],
-                            imagen=objeto[6] )
-                
-            try:
-                armado.save()
-                
-            except armado.save():
-                messages.error(request,"Algo salio mal")
-                return render(request,'Administrador/abm.html')
+            
+            if objeto[0]=='cod producto':
+                print(objeto[0])
+                print(type(objeto[0]))
+                pass
+                    
+            else:      
+                precio=objeto[4].replace('.','')     
+                            
+                armado=Producto(cod_producto=objeto[0],
+                                linea=objeto[1],
+                                rubro=objeto[2],
+                                descripcion=objeto[3],
+                                pcio_lista=float(precio),
+                                unidad=objeto[5],
+                                imagen=objeto[6] )
+                    
+                try:
+                    armado.save()
+                    
+                except armado.save():
+                    messages.error(request,"Algo salio mal")
+                    return render(request,'Administrador/abm.html')
     
     messages.success(request, 'Se persistio la Base de datos')
     return render(request,'Administrador/abm.html')
     
-      
+class SubirListaDePreciosView(SuccessMessageMixin, CreateView):
+        
+    model=ListaDePrecios
+    fields='__all__'
+    success_url='abm'
+    success_message='Lista de Precios subida correctamente'
+    template_name='Administrador/subirListaDePrecios.html'
+    
+ 
+    
+def ListasDePrecio(request):
+    
+    obj=ListaDePrecios.objects.all()
+    context={'listas':obj}
+    print(context)
+    return render(request, 'Administrador/listasResultadosSearch.html', context)
+    

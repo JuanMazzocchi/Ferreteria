@@ -64,7 +64,7 @@ WSGI_APPLICATION = 'Ferreteria.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'gustavo',
+        'NAME':'gustavo1',
         'USER': 'root',
        'PASSWORD': env('DB_PASS'), #En el archivo .env agregar la variable DB_PASS=su contraseña
         
@@ -120,6 +120,7 @@ STATICFILES_DIRS = [
 MEDIA_URL='/media/'
 #MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_DIR= BASE_DIR / 'uploads'
 
 
 STATIC_ROOT = BASE_DIR / 'static_root'

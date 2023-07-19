@@ -12,9 +12,8 @@ def existeLaImg(value):
     # valor=str(value)
     valor=str(value)
     for e in listadoDeImagenes:
-           
- 
-        if  e == valor[:-1]:    #el valor trae un salto de linea invisible en el ultimo caracter asi que lo recorto para comparar
+            
+        if  e == valor:     
             return True
         else:
             pass 
