@@ -1,10 +1,10 @@
 {% extends 'Administrador/AdministradorBase.html' %}
-{% block titulo %}Ferreteria Maxi | Añadir Servicio{% endblock titulo %}
+{% block titulo %}Julcar | Subir Foto{% endblock titulo %}
 
 {% block contenido %}
-<h1 class="AdministradorCreateTitle">Añadir servicio</h1>
+<h1 class="AdministradorCreateTitle">Subir Foto</h1>
 <div   class="text-center">
-    <form action='' method='POST'>
+    <form action='' method='POST' enctype='multipart/form-data'>
         {% csrf_token %}
         {{form.as_p}}
         <button type='submit' class="btn btn-primary m-4" >Añadir</button>

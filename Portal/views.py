@@ -167,7 +167,7 @@ def logoutView(request):
 def listaDeImagenes():
     
     BASE_DIR = Path(__file__).resolve().parent.parent
-    listadoDeArchivos=os.listdir(os.path.join(BASE_DIR,'static/img'))
+    listadoDeArchivos=os.listdir(os.path.join(BASE_DIR,'media/img'))
     listaImagenes=[]
     
     for archivo in listadoDeArchivos:
@@ -182,5 +182,6 @@ def downloadLista(request):
     id=1
     obj=ListaDePrecios.objects.get(id=id)
     filename=obj.archivo.path
+    print(filename)
     response= FileResponse(open(filename,'rb'))
     return response

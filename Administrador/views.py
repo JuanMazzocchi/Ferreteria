@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from .forms import SearchForm, SearchServicioForm, SearchClienteForm
-from .models import ArchivoCSV, ListaDePrecios
+from .models import ArchivoCSV, ListaDePrecios, FotosDeProductos
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
@@ -158,11 +158,13 @@ def BorrarBase(request):
     Producto.objects.all().delete()
     messages.success(request, 'Se borro la Base de datos')
     return render(request,'Administrador/abm.html')
-
-
+from Ferreteria import settings
+import os
 def llenarBase(request):
     
-    file=open('uploads/uploads/LISTPROVconPipecorregido.csv')
+    # file=open('media/uploads/LISTPROVconPipecorregido.csv')
+    path=os.path.join(settings.MEDIA_DIR, 'uploads/LISTPROVconPipecorregido.csv')
+    file=open(path )
         
     for line in file:
         objeto= line.split(sep='|')
@@ -210,6 +212,13 @@ def ListasDePrecio(request):
     
     obj=ListaDePrecios.objects.all()
     context={'listas':obj}
-    print(context)
+    # print(context)
     return render(request, 'Administrador/listasResultadosSearch.html', context)
     
+    
+class FotoCreateView(SuccessMessageMixin, CreateView):
+    model = FotosDeProductos
+    template_name ='Administrador/fotoCreateView.html'
+    fields=['archivo']
+    success_message='Foto subida correctamente'
+    success_url=reverse_lazy('abm')

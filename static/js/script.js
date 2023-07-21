@@ -429,6 +429,7 @@ function acomodadorDePedido(item){
     divPedido.innerHTML=itemPedido
     pedidoTotal.append(divPedido)
 };
+
 function modal(event){
     console.log("first")
     let id=event.currentTarget.getAttribute("id")
@@ -437,7 +438,7 @@ function modal(event){
      
     let modal=document.getElementById("imagenModal2")
      
-    modal.setAttribute("src", "/static/img/"+id+".jpg")
+    modal.setAttribute("src", "/media/img/"+id+".jpg")
     
     let titulo=document.getElementById('exampleModalLongTitle')
     

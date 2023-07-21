@@ -14,7 +14,7 @@
   <div class='container'>
     <div class='row'>
     {% for key , value  in diccionarios.items %}
-    {% load static %}
+     {% load static %}
     
       <div class='col-2 card justify-content-between'>
          
@@ -22,7 +22,7 @@
 
         {% with value|add:'.jpg' as valor  %}
         <a href='../gondola/{{key}}'>
-          <img id="{{value}}" src="{% static '/img/' %}/{{valor}}" alt="Card image cap" class="imagen overflow-hidden" width='90%' >
+          <img id="{{value}}" src="/media/img/{{valor}}" alt="Card image cap" class="imagen overflow-hidden" width='90%' >
         </a>
         {% endwith %}
 

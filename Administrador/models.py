@@ -15,6 +15,7 @@ class OverwriteStorage(FileSystemStorage):
     '''
     def get_available_name(self,nombre,max_length=None):
         if self.exists(nombre):
+           print("repetido")
            os.remove(os.path.join(self.location, nombre))
         return nombre
  
@@ -24,8 +25,9 @@ class ArchivoCSV(models.Model):
        
 class ListaDePrecios(models.Model):
     nombre=models.CharField(verbose_name='nombre', max_length=128, default='None')
-    archivo=models.FileField(verbose_name='Nombre', upload_to=settings.MEDIA_DIR, storage=OverwriteStorage(), default="None")
+    archivo=models.FileField(verbose_name='Archivo', upload_to='uploads', storage=OverwriteStorage(), default="None")
     
 
-class prueba(models.Model):
-    prueba=models.CharField(verbose_name="Prueba", max_length=100)   
+class FotosDeProductos(models.Model):
+    # nombre=models.CharField(verbose_name="nombre", max_length=100, default='Foto')
+    archivo=models.ImageField(upload_to='img',storage=OverwriteStorage(), null=True, help_text="Ejemplo: 111111.jpg")   
