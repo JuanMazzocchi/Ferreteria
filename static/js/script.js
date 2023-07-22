@@ -43,6 +43,10 @@ const contenedorCarrito = document.getElementById('modalCarrito');
 const btnVaciarCarro = document.getElementById('vaciarCarrito');
 btnVaciarCarro.addEventListener('click', btnVaciarClicked);
 
+
+const downloadListener = document.getElementById('downloadBtn');
+downloadListener.addEventListener('click', downloadClicked );
+
 const titulos=` <div class="row justify-content-center titulares">
 <div class="col-1 mw-100 text-center">
   <p>Codigo</p>
@@ -454,6 +458,30 @@ function modal(event){
      
     $('#modal2').modal('toggle')
   }
+
+
+// boton de descargar lista de precios 
+
+function downloadClicked() {
+    Toast.fire( {
+        title: 'Desea descargar la lista de precios a su dispositivo?',
+        showConfirmButton: true,
+        timer:false,
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Descargar',
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        
+        if (result.isConfirmed) {
+          Swal.fire('La lista de precios a sido enviada a su dispositivo', '', 'success'),
+          location.href ="/downloadLista";
+        } else if (result.isDenied) {
+        //   Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+    
+}
 
 
 

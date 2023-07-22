@@ -161,10 +161,10 @@ def BorrarBase(request):
 from Ferreteria import settings
 import os
 def llenarBase(request):
-    
-    # file=open('media/uploads/LISTPROVconPipecorregido.csv')
+        
     path=os.path.join(settings.MEDIA_DIR, 'uploads/LISTPROVconPipecorregido.csv')
-    file=open(path )
+    
+    file=open(path)
         
     for line in file:
         objeto= line.split(sep='|')
@@ -173,8 +173,8 @@ def llenarBase(request):
         if len(objeto)>=6:
             
             if objeto[0]=='cod producto':
-                print(objeto[0])
-                print(type(objeto[0]))
+                # print(objeto[0])
+                # print(type(objeto[0]))
                 pass
                     
             else:      

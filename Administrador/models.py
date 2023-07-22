@@ -18,14 +18,19 @@ class OverwriteStorage(FileSystemStorage):
            print("repetido")
            os.remove(os.path.join(self.location, nombre))
         return nombre
+    
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'uploads/{0}'.format('lista.xlsx')
+
  
 class ArchivoCSV(models.Model):
-    nombre=models.CharField(verbose_name='nombre', max_length=128, default='None')
+    # nombre=models.CharField(verbose_name='nombre', max_length=128, default='None')
     archivo=models.FileField(upload_to='uploads',storage=OverwriteStorage(), verbose_name='Archivo')
        
 class ListaDePrecios(models.Model):
-    nombre=models.CharField(verbose_name='nombre', max_length=128, default='None')
-    archivo=models.FileField(verbose_name='Archivo', upload_to='uploads', storage=OverwriteStorage(), default="None")
+    # nombre=models.CharField(verbose_name='nombre', max_length=128, default='None')
+    archivo=models.FileField(verbose_name='Archivo',upload_to=user_directory_path, storage=OverwriteStorage(), default="None")
     
 
 class FotosDeProductos(models.Model):
