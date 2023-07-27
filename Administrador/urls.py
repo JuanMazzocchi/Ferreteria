@@ -26,6 +26,7 @@ path('llenarBase', views.llenarBase, name='llenarBase'),
 path('subirLista',views.SubirListaDePreciosView.as_view(), name='subirLista'),
 path('listasDePrecio',views.ListasDePrecio, name='listasDePrecio'),
 path('subirFoto',views.FotoCreateView.as_view(), name='subirFoto'),
+path('subirPedidoPorMail', views.PedidoPorMailCreateView.as_view(), name='subirPedidoPorMail')
  
  
 ]

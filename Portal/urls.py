@@ -13,7 +13,10 @@ path('portalSearch', views.portalSearch, name='portalSearch'),
 path('logout',views.logoutView, name='logout'),
 # path('servicios',views.servicios, name='servicios'),
 path('listaDeImagenes',views.listaDeImagenes, name='listaDeImagenes'),
-path('downloadLista', views.downloadLista, name='downloadLista')
+path('downloadLista', views.downloadLista, name='downloadLista'),
+path('downloadPedidoPorMail', views.downloadPedidoPorMail, name='downloadPedidoPorMail'),
+path('enviarPedidoDelCarrito', views.enviarPedidoDelCarrito ,name='enviarPedidoDelCarrito')
+
  
  
 ]

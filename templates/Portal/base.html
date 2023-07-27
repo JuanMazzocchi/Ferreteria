@@ -52,24 +52,28 @@
           </div>
 
           <div id="terminarPedido" style="display:none;" >
-            <form>
+            <form method='POST' action={% url 'enviarPedidoDelCarrito' %}>
+              {% csrf_token %}
+              {% if message %}
+              <h2>{{message}}</h2>
+              {% endif %}
               <div class="container d-flex justify-content-center justify-content-evenly mb-2">   
                 <div class="form-group col-3">
                   <label for="formGroupExampleInput" class="labelForm">Nombre</label>
-                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre">
+                  <input type="text" name='textNombre' class="form-control" id="formGroupExampleInput" placeholder="Nombre">
                 </div>
                 <div class="form-group col-3">
                   <label for="formGroupExampleInput2" class="labelForm">Email</label>
-                  <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="ejemplo@email.com">
+                  <input type="textMail" name="textMail" class="form-control" id="formGroupExampleInput2" placeholder="ejemplo@email.com">
                 </div>
               </div>
-              <div class="d-flex justify-content-center mt-2"><button type="input" class="btn btn-warning">Confirmar Y Enviar</button></div>
+              <div class="d-flex justify-content-center mt-2"><button type="input" class="btn btn-warning" id="enviarFinal">Confirmar Y Enviar</button></div>
             </form>
             <div class="d-flex justify-content-center mt-2"><button class="btn btn-dark" id="btnVolver">Volver</button></div>
           </div>
   
-          <div  class="d-flex justify-content-evenly my-2" id="botonesEnviar">
-            <button type="button" class="btn btn-success"  id="btnEnviarPedido">Enviar Pedido</button>
+          <div  class="justify-content-evenly my-2" id="botonesEnviar" style="display: flex;">
+            <button type="button" class="btn btn-success"  id="btnEnviarPedido" onclick=generarCookie() >Enviar Pedido</button>
             <button type="button" class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button>
           </div>
           

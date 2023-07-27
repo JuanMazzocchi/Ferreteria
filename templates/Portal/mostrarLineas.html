@@ -6,6 +6,13 @@
 <section class=''>
   
   <div class='d-flex justify-content-center mt-2'>
+    {% if messages %}
+     {% for message in messages  %}
+     <div class="alert alert-success" role="alert">
+      {{message}}
+    </div>
+     {% endfor %}
+    {% endif %}
     <h1>Seleccione una linea</h1>
   </div>
 

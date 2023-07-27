@@ -1,16 +1,22 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
-from .forms import FormularioContacto
+# from .forms import FormularioContacto
 from Portal.models import *
-from django.views.generic.list import ListView
+# from django.views.generic.list import ListView
 from Portal.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-from Administrador.models import ListaDePrecios
+# from django.urls import reverse
+from Administrador.models import ListaDePrecios, PedidoPorMail
 from django.http import FileResponse
 import os
 from pathlib import Path
+from django.db.models import Q
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.contrib import messages
+from Ferreteria import settings
+
 
 
 # @login_required
@@ -96,10 +102,19 @@ def portalSearch(request):
         
         lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct() 
         keyword=request.GET.get('keyword')
+        # print(keyword)
+        
+        lista=keyword.split()
+        
+        query=Q()
+        
+        for palabra in lista:
+            query |=Q(descripcion__icontains=palabra) 
+                 
         cod=Producto.objects.all().filter(cod_producto__contains=keyword)
-        linea=Producto.objects.all().filter(linea__icontains=keyword)
-        rubro=Producto.objects.all().filter(rubro__icontains=keyword)
-        desc=Producto.objects.all().filter(descripcion__icontains=keyword)
+        # linea=Producto.objects.all().filter(linea__icontains=keyword)
+        # rubro=Producto.objects.all().filter(rubro__icontains=keyword)
+        desc=Producto.objects.all().filter(query) 
         # articulos=cod.union(linea,rubro,desc)
         articulos=cod.union(desc)
 
@@ -185,3 +200,53 @@ def downloadLista(request):
     print(filename)
     response= FileResponse(open(filename,'rb'))
     return response
+
+def downloadPedidoPorMail(request):
+    id=1
+    obj=PedidoPorMail.objects.get(id=id)
+    filename=obj.archivo.path
+    response= FileResponse(open(filename,'rb'))
+    return response
+
+
+def enviarPedidoDelCarrito(request):
+    
+    if request.method =='POST':
+        textNombre = "Enviado por: " + request.POST['textNombre']
+        textMail ="Email: "+  request.POST['textMail']
+        subject = 'Mail enviado desde el sitio de pedidos'
+        
+        key = request.COOKIES.get('carrito') #armo el mensaje desde las cookies del sitio 
+        if len(key)>0:
+            listaCarro=key.replace(",", "\n")
+            message =listaCarro
+        
+            template =render_to_string('Portal/datos.html',{
+                'nombre':textNombre,
+                'email':textMail,
+                'message':message
+            })
+            
+            email=EmailMessage(
+                subject,
+                template,
+                settings.EMAIL_HOST_USER,
+                ['juanmazzocchi@gmail.com']
+            )
+        
+        try:
+            
+            email.fail_silently = False
+            email.send()        
+            messages.success(request, 'Email enviado correctamente.')
+            return redirect('lineas')
+        
+        except:
+            
+            messages.error(request,'Algo salio mal')
+            return redirect('lineas')
+             
+            
+        
+        
+        

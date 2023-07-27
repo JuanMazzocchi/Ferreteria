@@ -29,7 +29,11 @@ const Toast = Swal.mixin({
   })
 
 const modBoot = document.getElementById('btnModalBoot');
-modBoot.addEventListener('click', carroBoot);
+if (modBoot){
+    modBoot.addEventListener('click', carroBoot);
+    
+}
+
 const modalcontent = document.getElementById('modalBootstrap');
 
 
@@ -46,6 +50,9 @@ btnVaciarCarro.addEventListener('click', btnVaciarClicked);
 
 const downloadListener = document.getElementById('downloadBtn');
 downloadListener.addEventListener('click', downloadClicked );
+
+const downloadPedidoListener = document.getElementById('downloadPedidoBtn');
+downloadPedidoListener.addEventListener('click', downloadPedidoClicked );
 
 const titulos=` <div class="row justify-content-center titulares">
 <div class="col-1 mw-100 text-center">
@@ -89,11 +96,17 @@ function carroBoot(){
     let productosEnElCarro;
     productosEnElCarro =obtenerProductosLS();
     if(productosEnElCarro.length===0){
-        modalcontent.innerHTML=`<div class="row justify-content-center" id="modalBootstrap"><h1>El Carro Esta Vacio</h1>
-          
+        modalcontent.innerHTML=`
+        <div class="row justify-content-center" id="modalBootstrap">
+        <h1>El Carro Esta Vacio</h1>
         </div>`;
+        let btnEnviar=document.getElementById('btnEnviarPedido')
+        btnEnviar.setAttribute('disabled','')
+
     }
     else{
+    let btnEnviar=document.getElementById('btnEnviarPedido')
+    btnEnviar.removeAttribute('disabled');
     modalcontent.innerHTML="";
     modalcontent.innerHTML=titulos;
     productosEnElCarro.forEach(arregladora);
@@ -102,14 +115,14 @@ function carroBoot(){
     borroProducto.addEventListener('click', borrarProductoCarroClicked);
     });
 
-    const restarCantidadCarro = document.querySelectorAll('.restaCantidad');
-    restarCantidadCarro.forEach(restarProducto =>{
-        restarProducto.addEventListener('click', btnRestarCantidadClicked)
-    });
-    const sumarCantidadCarro = document.querySelectorAll('.sumaCantidad');
-    sumarCantidadCarro.forEach(sumarProducto=>{
-        sumarProducto.addEventListener('click', btnSumarCantidadClicked);
-    });
+    // const restarCantidadCarro = document.querySelectorAll('.restaCantidad');
+    // restarCantidadCarro.forEach(restarProducto =>{
+    //     restarProducto.addEventListener('click', btnRestarCantidadClicked)
+    // });
+    // const sumarCantidadCarro = document.querySelectorAll('.sumaCantidad');
+    // sumarCantidadCarro.forEach(sumarProducto=>{
+    //     sumarProducto.addEventListener('click', btnSumarCantidadClicked);
+    // });
     totalCarro();}
 
 }
@@ -189,7 +202,7 @@ function arregladora(item){
     </div>
     
     <div class="col-2 art mw-100 no-gutters text-center">
-    <input class="cantidadInput" type="number" value=${item.cantidad} min="0" style="width: 50px;" ><button class="btn btn-success" onclick="btnmodificarCarrito(event)" title="Modificar">OK</button> 
+    <input class="cantidadInput" type="number" value=${item.cantidad} min="0" style="width: 50px;" ><button class="btn btn-success OKbtn" onclick="btnmodificarCarrito(event)" title="Modificar">OK</button> 
     </div>
     <div class="col-1 art mw-100 no-gutters text-center">
     <button class="btn btn-danger btnBorrarProducto" title="Quitar del Carro">X</button>
@@ -248,8 +261,9 @@ function btnVaciarClicked(){
     localStorage.clear();
     totalCarro();
     modalcontent.innerHTML="";
-    modalcontent.innerHTML=`<div class="row justify-content-center" id="modalBootstrap"><h1>El Carro Esta Vacio</h1>
-          
+    modalcontent.innerHTML=`
+    <div class="row justify-content-center" id="modalBootstrap">
+    <h1>El Carro Esta Vacio</h1>
     </div>`;
     
 };
@@ -358,11 +372,25 @@ function totalCarro(){
     };
     let totalnumero =  `<p>Total Pedido: $ ${total.toFixed(2)} </p>`;
     totalDiv.innerHTML=totalnumero;
-};
-function cantidadDefault(){
+  };
+
+function generarCookie(){   //genera una cookie con el pedido obtenido desde el localStorage
+
+  let productos =obtenerProductosLS();
+  let listaCarro=[]
+    productos.forEach(element => {
+      listaCarro.push(element.id +" "+ element.descripcion +"  Cantidad:"+ element.cantidad)
+    });
+    document.cookie= `carrito= ${listaCarro}; path=/`  
+  };
     
-     
-     
+
+    
+
+
+
+function cantidadDefault(){
+      
     var myElement=document.querySelectorAll('.cantidadDefault');
     if(myElement.length!=0){
         let productos;
@@ -405,6 +433,25 @@ function btnPedidoClicked(){
     // productos =obtenerProductosLS();
     // productos.forEach(acomodadorDePedido);
     pedidoTotal.style.display="block";
+    const buttons = document.querySelectorAll('.btnBorrarProducto');
+
+    for (const button of buttons) {
+      // ✅ Set the disabled attribute
+      button.setAttribute('disabled', '');
+    }
+    const oks =document.querySelectorAll('.OKbtn');
+
+    for (const button of oks) {
+      // ✅ Set the disabled attribute
+      button.setAttribute('disabled', '');
+    }
+
+    const cantidades=document.getElementsByClassName('cantidadInput');
+    for (const button of cantidades) {
+      // ✅ Set the disabled attribute
+      button.setAttribute('readonly', '');
+
+    } 
     document.getElementById('botonesEnviar').style.display="none";
     // document.getElementById('totalCarro').style.display="none"
 };
@@ -413,7 +460,56 @@ function btnVolverClicked(){
     pedidoTotal.style.display="none";
     document.getElementById('botonesEnviar').style.display="flex";
 
+    const buttons = document.querySelectorAll('.btnBorrarProducto');
+
+    for (const button of buttons) {
+      // ✅ Remove the disabled attribute
+      button.removeAttribute('disabled');
+    }
+    const oks =document.querySelectorAll('.OKbtn');
+
+    for (const button of oks) {
+      // ✅ Remove the disabled attribute
+      button.removeAttribute('disabled');
+    }
+
+    const cantidades=document.getElementsByClassName('cantidadInput');
+    for (const button of cantidades) {
+      // ✅ Remove the disabled attribute
+      button.removeAttribute('disabled');
+    } 
+
+
 };
+
+
+const enviarFinal=document.getElementById('enviarFinal');
+enviarFinal.addEventListener('click',cerrarYborrar)
+
+function cerrarYborrar(){
+  Swal.fire({
+    title: 'Su nota de pedido ha sido enviada',
+    showDenyButton: false,
+    showCancelButton: false,
+    confirmButtonText: 'OK',
+    timer:2000,
+     
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      btnVaciarClicked()
+    } else if (result.isDenied) {
+      btnVaciarClicked()
+    }
+  })
+  btnVaciarClicked()
+  
+}
+
+
+
+
+
 // OJO ACA
 // $("#exampleModal").on("hidden.bs.modal", function () {           //actualizador de cantidades cuando se cierra el modal
 //     // console.log("your hacking is funquing")
@@ -435,7 +531,7 @@ function acomodadorDePedido(item){
 };
 
 function modal(event){
-    console.log("first")
+    // console.log("first")
     let id=event.currentTarget.getAttribute("id")
     
     let descripcion=event.currentTarget.getAttribute("name")
@@ -457,7 +553,7 @@ function modal(event){
   function closeModal(){
      
     $('#modal2').modal('toggle')
-  }
+  };
 
 
 // boton de descargar lista de precios 
@@ -483,7 +579,29 @@ function downloadClicked() {
     
 }
 
+// boton de descargar el archivo de pedido por mail
+function downloadPedidoClicked() {
+    Toast.fire( {
+        title: 'Desea descargar el archivo de pedido a su dispositivo?',
+        showConfirmButton: true,
+        timer:false,
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Descargar',
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        
+        if (result.isConfirmed) {
+          Swal.fire('El archivo de Pedidos a sido enviado a su dispositivo', '', 'success'),
+          location.href ="/downloadPedidoPorMail";
+        } else if (result.isDenied) {
+        //   Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+    
+}
 
 
- 
+
+
 totalCarro();

@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from .forms import SearchForm, SearchServicioForm, SearchClienteForm
-from .models import ArchivoCSV, ListaDePrecios, FotosDeProductos
+from .models import ArchivoCSV, ListaDePrecios, FotosDeProductos, PedidoPorMail
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
@@ -162,7 +162,7 @@ from Ferreteria import settings
 import os
 def llenarBase(request):
         
-    path=os.path.join(settings.MEDIA_DIR, 'uploads/LISTPROVconPipecorregido.csv')
+    path=os.path.join(settings.MEDIA_DIR, 'uploads/BaseDeDatos.csv')
     
     file=open(path)
         
@@ -178,8 +178,8 @@ def llenarBase(request):
                 pass
                     
             else:      
-                precio=objeto[4].replace('.','')     
-                            
+                # precio=objeto[4].replace('.','')     
+                precio=objeto[4] 
                 armado=Producto(cod_producto=objeto[0],
                                 linea=objeto[1],
                                 rubro=objeto[2],
@@ -221,4 +221,11 @@ class FotoCreateView(SuccessMessageMixin, CreateView):
     template_name ='Administrador/fotoCreateView.html'
     fields=['archivo']
     success_message='Foto subida correctamente'
+    success_url=reverse_lazy('abm')
+    
+class PedidoPorMailCreateView(SuccessMessageMixin, CreateView):
+    model = PedidoPorMail
+    template_name ='Administrador/subirPedidoPorMail.html'
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
     success_url=reverse_lazy('abm')
