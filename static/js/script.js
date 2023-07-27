@@ -45,14 +45,17 @@ botonAñadirProducto.forEach(addTocartbutton => {
 const contenedorCarrito = document.getElementById('modalCarrito');
 
 const btnVaciarCarro = document.getElementById('vaciarCarrito');
-btnVaciarCarro.addEventListener('click', btnVaciarClicked);
+if(btnVaciarCarro !=null){
+   btnVaciarCarro.addEventListener('click', btnVaciarClicked);}
 
 
 const downloadListener = document.getElementById('downloadBtn');
-downloadListener.addEventListener('click', downloadClicked );
+if(downloadListener !=null){
+  downloadListener.addEventListener('click', downloadClicked );}
 
 const downloadPedidoListener = document.getElementById('downloadPedidoBtn');
-downloadPedidoListener.addEventListener('click', downloadPedidoClicked );
+if(downloadPedidoListener !=null){
+  downloadPedidoListener.addEventListener('click', downloadPedidoClicked );}
 
 const titulos=` <div class="row justify-content-center titulares">
 <div class="col-1 mw-100 text-center">
@@ -76,10 +79,10 @@ const titulos=` <div class="row justify-content-center titulares">
 </div>`;
 
 const btnPedido=document.getElementById('btnEnviarPedido');
-btnPedido.addEventListener('click', btnPedidoClicked);
+if(btnPedido){btnPedido.addEventListener('click', btnPedidoClicked);}
 
 const btnVolver=document.getElementById('btnVolver');
-btnVolver.addEventListener('click', btnVolverClicked);
+if(btnVolver){btnVolver.addEventListener('click', btnVolverClicked);}
 
 // const btnSeleccion=document.querySelectorAll('.seleccion');
 // btnSeleccion.forEach(seleccion =>{
@@ -366,12 +369,14 @@ function totalCarro(){
     productos =obtenerProductosLS();
     let total=0;
     let totalDiv = document.getElementById('totalCarro');
-    for (let i = 0; i < productos.length; i++) {
-        // console.log(productos[i].precio*productos[i].cantidad);
-        total=total+(parseFloat(productos[i].precio)*parseFloat(productos[i].cantidad));
-    };
-    let totalnumero =  `<p>Total Pedido: $ ${total.toFixed(2)} </p>`;
-    totalDiv.innerHTML=totalnumero;
+    if(totalDiv){
+      for (let i = 0; i < productos.length; i++) {
+          // console.log(productos[i].precio*productos[i].cantidad);
+          total=total+(parseFloat(productos[i].precio)*parseFloat(productos[i].cantidad));
+      };
+      let totalnumero =  `<p>Total Pedido: $ ${total.toFixed(2)} </p>`;
+      totalDiv.innerHTML=totalnumero;
+     }
   };
 
 function generarCookie(){   //genera una cookie con el pedido obtenido desde el localStorage
@@ -484,7 +489,7 @@ function btnVolverClicked(){
 
 
 const enviarFinal=document.getElementById('enviarFinal');
-enviarFinal.addEventListener('click',cerrarYborrar)
+if(enviarFinal){enviarFinal.addEventListener('click',cerrarYborrar)}
 
 function cerrarYborrar(){
   Swal.fire({
@@ -601,7 +606,29 @@ function downloadPedidoClicked() {
     
 }
 
+// Boton de sobreescribir la base de datos
+const btnSobreescribir=document.getElementById('sobreescribirBase')
+if(btnSobreescribir){
+  btnSobreescribir.addEventListener('click', btnSobreescribirClicked)}
 
+function btnSobreescribirClicked(){
+   
+  Swal.fire({
+    title: 'Desea sobreescribir la base de datos? ',
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'Sobreescribir',
+    denyButtonText: `Cancelar`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      Swal.fire('Este proceso puede tardar', 'no clickee nuevamente!', 'success'),
+      location.href ="/borrarLlenar";
+    } else if (result.isDenied) {
+      Swal.fire('Cancelado', '', 'info')
+    }
+  })
+};
 
 
 totalCarro();

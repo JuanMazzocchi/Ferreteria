@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from Portal.models import *
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -7,8 +7,9 @@ from .forms import SearchForm, SearchServicioForm, SearchClienteForm
 from .models import ArchivoCSV, ListaDePrecios, FotosDeProductos, PedidoPorMail
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from Ferreteria import settings
+import os
 
- 
 
  
 
@@ -152,20 +153,30 @@ class SubirCsvView(SuccessMessageMixin, CreateView):
     success_message='Archivo subido correctamente'
     template_name='Administrador/subirCSV.html'
     
+ 
+def BorrarLlenar(request):
+    BorrarBase(request)
+    llenarBase(request) 
+    return redirect('abm')
     
 def BorrarBase(request):
     
     Producto.objects.all().delete()
     messages.success(request, 'Se borro la Base de datos')
     return render(request,'Administrador/abm.html')
-from Ferreteria import settings
-import os
+
+
 def llenarBase(request):
         
     path=os.path.join(settings.MEDIA_DIR, 'uploads/BaseDeDatos.csv')
     
-    file=open(path)
+    try:
+        file=open(path)
         
+    except:
+        messages.error(request,"No se pudo abrir el archivo .csv")
+        return render(request,'Administrador/abm.html')
+    
     for line in file:
         objeto= line.split(sep='|')
         # print(objeto)
@@ -195,8 +206,11 @@ def llenarBase(request):
                     messages.error(request,"Algo salio mal")
                     return render(request,'Administrador/abm.html')
     
-    messages.success(request, 'Se persistio la Base de datos')
+    messages.success(request, 'Se persistio la Base de datos desde el archivo .csv')
     return render(request,'Administrador/abm.html')
+
+def baseDeDatos(request):
+    return render(request,'Administrador/baseDeDatos.html')
     
 class SubirListaDePreciosView(SuccessMessageMixin, CreateView):
         
