@@ -31,17 +31,25 @@
       {% endif %}
        
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="d-inline-flex flex-wrap p-2">
+        <div class="d-inline-flex flex-wrap p-2 btnsLineas">
         {% for linea in lineas  %}
         <a class='btn btn-success m-1 accesoRapido'  href='/seleccion/{{linea}}' >{{linea}}</a>
         {% endfor %}
         </div>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center align-items-center">
           <li class="nav-item px-1">
-            <button class='btn btn-info' onclick=downloadClicked id="downloadBtn" >Lista de Precios</button>
+            <button class="cssbuttons-io-button" onclick=downloadClicked id="downloadBtn"   >
+              <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor"></path></svg>
+              <span>Lista de Precios</span>
+            </button>
+            {% comment %} <button class='btn btn-info' onclick=downloadClicked id="downloadBtn" >Lista de Precios</button> {% endcomment %}
           </li>          
           <li class="nav-item">
-            <button class='btn btn-info' onclick=downloadPedidoClicked id="downloadPedidoBtn" >Pedido por Email</button>
+            <button class="cssbuttons-io-button" onclick=downloadPedidoClicked id="downloadPedidoBtn">
+              <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor"></path></svg>
+              <span>Pedido por Email</span>
+            </button>
+            {% comment %} <button class='btn btn-info' onclick=downloadPedidoClicked id="downloadPedidoBtn" >Pedido por Email</button> {% endcomment %}
           </li>  
           {% if user.is_staff %}
           <li class="nav-item ">
@@ -50,8 +58,24 @@
           {% endif %}
 
           {% if user.is_authenticated %}
+         
+          {% comment %} <li class="dropdown">
+            <button class="Btn">
+                <div class="sign  justify-content-center">
+                <svg viewBox="0 0 512 512">
+                  <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+                  </path>
+                </svg>
+                <p style="color:white;padding-left:0.2rem" ><b>{{user.username}}</b></p>
+                </div>
+                <div class="text">
+                  <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+            </button> {% endcomment %}
+            
+            
           <!--Dropmenu-->
-          <li class="dropdown ps-5">
+          <li class="dropdown ps-3">
             <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{user.username}}
             </button>
@@ -65,9 +89,9 @@
           <li class="nav-item">
             <a class="nav-link active" href="/contacto"> Contacto <span class="sr-only"></span></a>
           </li>
-          <li class="nav-item">
+          {% comment %} <li class="nav-item">
             <a class="btn btn-outline-success mx-3" href="/">Login</a>
-          </li>
+          </li> {% endcomment %}
           {% endif %}
           
         </ul>       
