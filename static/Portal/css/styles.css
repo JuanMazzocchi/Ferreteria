@@ -349,7 +349,7 @@ html::-webkit-scrollbar-track {
   .imagen{
     max-height:50px !important;
   }
-  .tituloSeleccionRubro>a , h1{
+  .tituloSeleccionRubro> h1{
     font-size: medium !important;
   }
 
@@ -365,7 +365,7 @@ html::-webkit-scrollbar-track {
     display: none;
   }
 
-  .container{
+  .container-fluid{
     font-size: x-small;
     width: 100% !important;
     margin: 0;
@@ -390,11 +390,12 @@ html::-webkit-scrollbar-track {
     z-index: 9999;
     background-color: #00000041;
   }
+
+  #btnVolverAlineas{
+    font-size: x-small; 
+  }
+
   
-
-   
-
-
 
 }
 

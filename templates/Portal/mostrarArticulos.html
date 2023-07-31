@@ -3,16 +3,16 @@
 {% block contenido %}
 
 <div style="background-image:url('/static/gunge-soft-wallpaper-texture.jpg');" >
-    <div class='py-1 d-flex justify-content-evenly'>
-    <a class="btn  btn-secondary "  href="/lineas">Volver a Lineas</a> 
+    <div class='py-1 d-flex justify-content-evenly tituloSeleccionRubro'>
+    <a class="btn  btn-secondary  btnVolverAlineas" id="btnVolverAlineas" href="/lineas">Volver a Lineas</a> 
      <h1 >Añadir al carro </h1>
      <a class="btn btn-danger goUp" href="#arriba">Subir</a>
   </div>   
  
  
 
-  <div class="container">
-    <div class="row g-0 gx-2 justify-content-between">
+  <div class="container-fluid">
+    <div class="row g-0 gx-2 justify-content-between text-center">
 
       <div class="colImg col-lg-1 col-1">
         <p><b>Imagen</b></p>
@@ -22,7 +22,7 @@
         <p><b>Codigo</b></p>
       </div>
 
-      <div class="colDes col-lg-5 col-5">
+      <div class="colDes col-lg-5 col-6">
         <p><b>Descripcion</b></p>
       </div>
 
@@ -34,7 +34,7 @@
         <p><b>Unidad</b></p>
       </div>
 
-      <div class="colAña col-lg-2 col-3">
+      <div class="colAña col-lg-2 col-2">
         <p><b>Añadir</b></p>
       </div>
 
@@ -45,8 +45,8 @@
       
     {% for articulo in articulos %}
 
-    <div class="container container-fluid ">
-      <div class="row g-0 justify-content-between align-items-center item mx-0">
+    <div class=" container-fluid ">
+      <div class="row g-0 justify-content-around align-items-center item mx-0 text-center">
     
         <div class="col-lg-1 col-1 contenedorDeImagenes colImg">
           <img class="item-image overflow-hidden" src="/media/img/{{articulo.imagen}}.jpg" alt="img/{{articulo.imagen}}.jpg"> 
@@ -59,7 +59,7 @@
           <p  class="item-codigo">{{articulo.cod_producto}}</p>
         </div>
     
-        <div class="col-lg-5 col-5 colDes">
+        <div class="col-lg-5 col-6 colDes">
           <p class="item-descripcionProducto ">{{articulo.descripcion}}</p>
         </div>
     
@@ -71,8 +71,8 @@
           <p class="item-unidadDeVenta">{{articulo.unidad}}</p>
         </div>
     
-        <div class="col-lg-2 col-3 colAña">
-          <input type="number" value="0" min='0' class='cantidadDefault w-25' id="{{articulo.id}}" size=20 > <button class="btn btn-success btnAñadirAlCarrito" title="Añadir Producto">OK</button> 
+        <div class="col-lg-2 col-2 colAña">
+          <input type="number" value="0" min='0' class='cantidadDefault w-50' id="{{articulo.id}}" size=20 > <button class="btn btn-success btnAñadirAlCarrito" title="Añadir Producto">OK</button> 
         </div>
     
       </div>
