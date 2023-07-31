@@ -269,18 +269,18 @@ html::-webkit-scrollbar-track {
 }
 .accesoRapido{
   font-size: x-small !important;
+  margin-right: 5px;
+  margin-bottom: 3px;
 }
  
-.btnsLineas{
-  width: 50%;
-}
+ 
 
 .cssbuttons-io-button {
   display: flex;
   align-items: center;
   font-family: inherit;
   font-weight: 500;
-  font-size: 17px;
+  font-size: 12px;
   padding: 0.3em 0.3em 0.3em 0.8em;
   color: white;
   background: #ad5389;
@@ -292,7 +292,7 @@ html::-webkit-scrollbar-track {
 }
 
 .cssbuttons-io-button svg {
-  margin-right: 8px;
+  margin-right: 5px;
 }
 
 .cssbuttons-io-button:hover {
@@ -301,4 +301,111 @@ html::-webkit-scrollbar-track {
 
 .cssbuttons-io-button:active {
   box-shadow: 0 0.3em 1em -0.5em #4d36d0be;
+}
+.btnsLineas{
+  width: 80%;
+}
+.goUp{
+  position: fixed;
+  bottom: 15px;
+  right: 5px;
+}
+
+#btnCarrito{
+  padding:0px 5px;
+}
+
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+   .loginContainer{
+    width: 95%;
+   }
+   .card_image{
+    height:auto;
+   }
+   .card_grid{
+    grid-template-rows: 5rem 3rem;
+   }
+  .btn_hover{
+    font-size:0.6rem;
+  }
+  .btn_hover:hover{
+    font-size:0.6rem;
+  }
+  .cards_conteiner{
+    margin: 0 0.5rem 0 0.5rem;
+  }
+  .card{
+    max-height: auto;
+    min-height: auto;
+    padding: 0.05rem !important;
+    margin: 0 !important;
+  }
+  .card_btn{
+    width: 100% !important;
+    padding: 0.1rem !important;
+    margin: 0.1rem !important;
+  }
+  .imagen{
+    max-height:50px !important;
+  }
+  .tituloSeleccionRubro>a , h1{
+    font-size: medium !important;
+  }
+
+  .btnsLineas{
+    width: 95%;
+  }
+
+  .colImg{
+    display: none;
+  }
+
+  .colUni{
+    display: none;
+  }
+
+  .container{
+    font-size: x-small;
+    width: 100% !important;
+    margin: 0;
+    padding: 0;
+  }
+  .btnAñadirAlCarrito{
+    font-size: xx-small !important;
+    width: 20px !important;
+    padding: 2px !important;
+  }
+
+  .accesoRapido{
+    padding: 2px !important;
+  }
+
+  #btnCarrito{
+    position: fixed;
+    color: #000;
+    top: 100px;
+    right: 5px;
+    padding:3px;
+    z-index: 9999;
+    background-color: #00000041;
+  }
+  
+
+   
+
+
+
+}
+
+/* Estilos para tabletas */
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+  .loginContainer{
+    width: 90%;
+   }
+}
+
+/* Estilos para pantallas de escritorio */
+@media only screen and (min-width: 769px) {
+  
 }
