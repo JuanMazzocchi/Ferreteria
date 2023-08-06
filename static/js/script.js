@@ -57,24 +57,24 @@ const downloadPedidoListener = document.getElementById('downloadPedidoBtn');
 if(downloadPedidoListener !=null){
   downloadPedidoListener.addEventListener('click', downloadPedidoClicked );}
 
-const titulos=` <div class="row justify-content-center titulares">
-<div class="col-1 mw-100 text-center">
-  <p>Codigo</p>
+const titulos=` <div class="row  titulares">
+<div class="col-1 p-0">
+  <p class="p-0 m-0">Codigo</p>
 </div>
-<div class="col-5 mw-100 text-center"  >
-  <p>Descripcion</p>
+<div class="col-5 p-0"  >
+  <p class="p-0 m-0 text-center">Descripcion</p>
 </div>
-<div class="col-1 mw-100 text-center">
-  <p>Precio</p>
+<div class="col-1 p-0">
+  <p class="p-0 m-0">Precio</p>
 </div>
-<div class="col-2 mw-100 text-center">
-  <p>Cantidad</p>
+<div class="col-3 p-0">
+  <p class="p-0 m-0 text-center">Cantidad</p>
 </div>
-<div class="col-1 mw-100 text-center">
-  <p>Quitar</p>
+<div class="col-1 p-0">
+  <p class="p-0 m-0">Quitar</p>
 </div>
-<div class="col-1 mw-100 text-center">
-  <p>SubTotal Producto</p>
+<div class="col-1 p-0">
+  <p class="p-0 m-0">SubTotal Producto</p>
 </div>
 </div>`;
 
@@ -90,10 +90,6 @@ if(btnVolver){btnVolver.addEventListener('click', btnVolverClicked);}
 //     )
 // });
 
- 
-
-
- 
 
 function carroBoot(){
     let productosEnElCarro;
@@ -108,15 +104,15 @@ function carroBoot(){
 
     }
     else{
-    let btnEnviar=document.getElementById('btnEnviarPedido')
-    btnEnviar.removeAttribute('disabled');
-    modalcontent.innerHTML="";
-    modalcontent.innerHTML=titulos;
-    productosEnElCarro.forEach(arregladora);
-    const borrarProductoCarro = document.querySelectorAll('.btnBorrarProducto');
-    borrarProductoCarro.forEach(borroProducto => {
-    borroProducto.addEventListener('click', borrarProductoCarroClicked);
-    });
+      let btnEnviar=document.getElementById('btnEnviarPedido')
+      btnEnviar.removeAttribute('disabled');
+      modalcontent.innerHTML="";
+      modalcontent.innerHTML=titulos;
+      productosEnElCarro.forEach(arregladora);
+      const borrarProductoCarro = document.querySelectorAll('.btnBorrarProducto');
+      borrarProductoCarro.forEach(borroProducto => {
+      borroProducto.addEventListener('click', borrarProductoCarroClicked);
+      });
 
     // const restarCantidadCarro = document.querySelectorAll('.restaCantidad');
     // restarCantidadCarro.forEach(restarProducto =>{
@@ -127,8 +123,7 @@ function carroBoot(){
     //     sumarProducto.addEventListener('click', btnSumarCantidadClicked);
     // });
     totalCarro();}
-
-}
+};
 
 function addToCartBtnClicked(event){
     const boton = event.target;
@@ -144,8 +139,7 @@ function addToCartBtnClicked(event){
     infoProducto ={id:itemCodigo,imagen:itemImage,descripcion:itemDescripcion,precio:itemPrecio,unidad:itemUnidad,cantidad:itemCantidad};
      
     addToCarrito(infoProducto);
-    
-}
+};
 
 function addToCarrito(infoProducto){
     let productosEnStorage;
@@ -191,33 +185,34 @@ function addToCarrito(infoProducto){
     cantidadDefault(); 
 };
 
+
 function arregladora(item){
     const filaCarrito= document.createElement('div');
     const contenidoCarrito= `<div class="row articulos justify-content-center listado contenedor" >
-    <div class="col-1 art mw-100 no-gutters text-center">
-      <p  class="item-codigo">${item.id}</p>
+    <div class="col-1 art mw-100   p-0 ">
+      <p  class="item-codigo  p-0 m-0">${item.id}</p>
     </div>
-    <div class="col-5 art no-gutters text-center "  >
-      <p class="item-descripcionProducto">${item.descripcion}</p>
+    <div class="col-5 art    p-0 "  >
+      <p class="item-descripcionProducto text-center">${item.descripcion}</p>
     </div>
-    <div class="col-1 art mw-100 no-gutters text-center">
-      <p class="item-precioProducto"> ${item.precio}</p>
+    <div class="col-1 art mw-100   p-0 ">
+      <p class="item-precioProducto p-0 m-0"> ${item.precio}</p>
     </div>
     
-    <div class="col-2 art mw-100 no-gutters text-center">
-    <input class="cantidadInput" type="number" value=${item.cantidad} min="0" style="width: 50px;" ><button class="btn btn-success OKbtn" onclick="btnmodificarCarrito(event)" title="Modificar">OK</button> 
+    <div class="col-3 art mw-100   p-0 text-center">
+    <input class="cantidadInput mw-50 p-0 m-0 " type="number" value=${item.cantidad} min="0" style="width: 50px;" ><button class="btn btn-success OKbtn" onclick="btnmodificarCarrito(event)" title="Modificar">OK</button> 
     </div>
-    <div class="col-1 art mw-100 no-gutters text-center">
-    <button class="btn btn-danger btnBorrarProducto" title="Quitar del Carro">X</button>
+    <div class="col-1 art mw-100   p-0 ">
+    <button class="btn btn-danger btnBorrarProducto m-0" title="Quitar del Carro">X</button>
     </div>
-    <div class="col-1 art mw-100 no-gutters text-center">
-      <p class="item-SubtotalProducto">$ ${(item.precio * item.cantidad).toFixed(2)}</p>
+    <div class="col-1 art mw-100    p-0">
+      <p class="item-SubtotalProducto p-0 m-0">$ ${(item.precio * item.cantidad).toFixed(2)}</p>
     </div>
     </div> `;
     filaCarrito.innerHTML=contenidoCarrito;
     modalcontent.append(filaCarrito);
-        
  };
+
 
 function guardarEnLS(productoAlStorage){
    
@@ -247,6 +242,7 @@ function guardarEnLS(productoAlStorage){
         localStorage.setItem('productos', JSON.stringify(productos));
     };
 };
+
 
 function obtenerProductosLS(){
     let productoLS;
@@ -305,22 +301,25 @@ function btnmodificarCarrito(event){
     let productoModificado;
     let productos;
     productos =obtenerProductosLS();
-    
-
+   
     for (let i = 0; i <productos.length; i++) {
        if(productos[i].id===itemCodigo){
        
         productoModificado=productos[i];
         productoModificado.cantidad=itemCantidad;
-        productos.splice([i],1,productoModificado);//quita el array viejo y en su lugar pone el nuevo
-        localStorage.setItem('productos', JSON.stringify(productos));
-        carroBoot();
-        totalCarro();
-
+        if(itemCantidad==0){
+          productos.splice([i],1) //si la cantidad es 0 quito el producto del carro automaticamente
+          localStorage.setItem('productos', JSON.stringify(productos));
+          carroBoot();
+          totalCarro();
+        }else{
+          productos.splice([i],1,productoModificado);//quita el array viejo y en su lugar pone el nuevo
+          localStorage.setItem('productos', JSON.stringify(productos));
+          carroBoot();
+          totalCarro();
+        };
        };
-        
     };
-
 };
 
 // function btnSumarCantidadClicked(event){
@@ -364,6 +363,8 @@ function borrarProductoCarroClicked(event){
         };
     };
 };
+
+
 function totalCarro(){
     let productos;
     productos =obtenerProductosLS();
@@ -379,6 +380,7 @@ function totalCarro(){
      }
   };
 
+
 function generarCookie(){   //genera una cookie con el pedido obtenido desde el localStorage
 
   let productos =obtenerProductosLS();
@@ -387,15 +389,10 @@ function generarCookie(){   //genera una cookie con el pedido obtenido desde el 
       listaCarro.push(element.id +" "+ element.descripcion +"  Cantidad:"+ element.cantidad)
     });
     document.cookie= `carrito= ${listaCarro}; path=/`  
-  };
-    
-
-    
-
-
+};
+ 
 
 function cantidadDefault(){
-      
     var myElement=document.querySelectorAll('.cantidadDefault');
     if(myElement.length!=0){
         let productos;
@@ -408,10 +405,16 @@ function cantidadDefault(){
         productos.forEach(element => {
             for (let i = 0; i < codigos.length; i++) {
                if(element.id===codigos[i].textContent){
-                // console.log("codigo en pantalla "+codigos[i].textContent+ " codigo producto "+ element.id)
-                if(document.getElementById(element.id)){
-                    document.getElementById(element.id).value=element.cantidad;
-                }
+                console.log(element)
+                console.log("codigo en pantalla "+codigos[i].textContent+ " codigo producto "+ element.id)
+                console.log(typeof(codigos[i].textContent))
+                console.log(typeof(element.id))
+              //  let cantidadEnPantalla=document.getElementById(element.id)
+              //  cantidadEnPantalla.value=element.cantidad
+                  if(document.getElementById(element.id)){
+                    console.log("first")
+                      document.getElementById(element.id).value=element.cantidad;
+                  }
 
                 }else{
                     continue    
@@ -419,7 +422,10 @@ function cantidadDefault(){
 
             }
         });
-};};  
+    };
+  };  
+
+document.addEventListener("DOMContentLoaded",cantidadDefault()) //ejecuta la funcion cuando la pagina se carga
 
 //  INDEX.HTML
 function volver(){
@@ -509,20 +515,7 @@ function cerrarYborrar(){
   })
   btnVaciarClicked()
   
-}
-
-
-
-
-
-// OJO ACA
-// $("#exampleModal").on("hidden.bs.modal", function () {           //actualizador de cantidades cuando se cierra el modal
-//     // console.log("your hacking is funquing")
-//     cantidadDefault();
-// });
-
-
- 
+};
 
 
 function acomodadorDePedido(item){
@@ -534,6 +527,7 @@ function acomodadorDePedido(item){
     divPedido.innerHTML=itemPedido
     pedidoTotal.append(divPedido)
 };
+
 
 function modal(event){
     // console.log("first")
@@ -555,7 +549,7 @@ function modal(event){
     
   };
 
-  function closeModal(){
+function closeModal(){
      
     $('#modal2').modal('toggle')
   };
