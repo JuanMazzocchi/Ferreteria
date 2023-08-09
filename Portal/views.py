@@ -213,7 +213,8 @@ def enviarPedidoDelCarrito(request):
     
     if request.method =='POST':
         textNombre = "Enviado por: " + request.POST['textNombre']
-        textMail ="Email: "+  request.POST['textMail']
+        textMail ="Nro de Cliente: "+  request.POST['textMail']
+        textMensaje = 'Mensaje: ' + request.POST['textMensaje']
         subject = 'Mail enviado desde el sitio de pedidos'
         
         key = request.COOKIES.get('carrito') #armo el mensaje desde las cookies del sitio 
@@ -224,7 +225,8 @@ def enviarPedidoDelCarrito(request):
             template =render_to_string('Portal/datos.html',{
                 'nombre':textNombre,
                 'email':textMail,
-                'message':message
+                'message':message,
+                'mensaje':textMensaje,
             })
             
             email=EmailMessage(

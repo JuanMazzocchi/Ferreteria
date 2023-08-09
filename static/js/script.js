@@ -387,7 +387,7 @@ function generarCookie(){   //genera una cookie con el pedido obtenido desde el 
   let productos =obtenerProductosLS();
   let listaCarro=[]
     productos.forEach(element => {
-      listaCarro.push(element.id +" "+ element.descripcion +"  Cantidad:"+ element.cantidad)
+      listaCarro.push("Cod: "+element.id +"---"+"Cantidad: "+ element.cantidad +"---"+ element.descripcion)
     });
     document.cookie= `carrito= ${listaCarro}; path=/`  
 };
@@ -495,7 +495,7 @@ function btnVolverClicked(){
 
 
 const enviarFinal=document.getElementById('enviarFinal');
-if(enviarFinal){enviarFinal.addEventListener('click',cerrarYborrar)}
+enviarFinal?.addEventListener('click',cerrarYborrar)
 
 function cerrarYborrar(){
   Swal.fire({

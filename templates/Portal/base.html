@@ -57,19 +57,27 @@
               {% if message %}
               <h2>{{message}}</h2>
               {% endif %}
-              <div class="container d-flex justify-content-center justify-content-evenly mb-2">   
-                <div class="form-group col-3">
-                  <label for="formGroupExampleInput" class="labelForm">Nombre</label>
-                  <input type="text" name='textNombre' class="form-control" id="formGroupExampleInput" placeholder="Nombre">
+              <div class="container d-inline justify-content-center justify-content-evenly mb-2">  
+                <div class='row justify-content-center'> 
+                  <div class="form-group col-3">
+                    <label for="formGroupExampleInput" class="labelForm">Nombre</label>
+                    <input type="text" name='textNombre' class="form-control" id="formGroupExampleInput" placeholder="Nombre" value={{user.first_name}}>
+                  </div>
+                  <div class="form-group col-3">
+                    <label for="formGroupExampleInput2" class="labelForm">Nro de cliente</label>
+                    <input type="textMail" name="textMail" class="form-control" id="formGroupExampleInput2" placeholder="ejemplo@email.com" value={{user.last_name}}>
+                  </div>
                 </div>
-                <div class="form-group col-3">
-                  <label for="formGroupExampleInput2" class="labelForm">Email</label>
-                  <input type="textMail" name="textMail" class="form-control" id="formGroupExampleInput2" placeholder="ejemplo@email.com">
+                <div class='row justify-content-center'>
+                  <div class="form-group col-6">
+                    <label for="formGroupExampleInput3" class="labelForm">Mensaje(opcional)</label>
+                    <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="textMensaje"></input>
+                  </div>
                 </div>
               </div>
               <div class="d-flex justify-content-center mt-2"><button type="input" class="btn btn-warning" id="enviarFinal">Confirmar Y Enviar</button></div>
             </form>
-            <div class="d-flex justify-content-center mt-2"><button class="btn btn-dark" id="btnVolver">Volver</button></div>
+            <div class="d-flex justify-content-center mt-2"><button class="btn btn-dark" id="btnVolver">Seguir comprando</button></div>
           </div>
   
           <div  class="justify-content-evenly my-2" id="botonesEnviar" style="display: flex;">
