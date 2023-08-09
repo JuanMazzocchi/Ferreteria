@@ -1,5 +1,6 @@
 <header id="arriba">
   {% load static %}
+  {% if user.is_authenticated  %}
   <nav class="navbar fixed-top container-fluid" style='background-color: #f8e89f;'>
     <div class="container-fluid d-flex flex-wrap justify-content-center" >
                 
@@ -12,11 +13,11 @@
         
        
        
-      {% if user.is_authenticated  %}
+      
      
       <form class="d-flex" role='search' action={% url 'portalSearch' %} method='get'>
         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="buscar" name="keyword">
-        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
       </form>
       
       
@@ -26,7 +27,7 @@
         <a class="btn  btn-secondary  btnVolverAlineas" id="btnVolverAlineas" href="/lineas">Volver a Lineas</a>
         <a href="javascript:window.history.back()" class="btn btn-secondary" id="volverAtras"> Volver Atrás</a>
          
-      {% endif %}
+    
             
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       
@@ -51,8 +52,7 @@
           </li>
           {% endif %}
 
-          {% if user.is_authenticated %}
-         
+                   
           {% comment %} <li class="dropdown">
             <button class="Btn">
                 <div class="sign  justify-content-center">
@@ -78,20 +78,11 @@
             </ul>
           </li>
           <!---->
-
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link active" href="/contacto"> Contacto <span class="sr-only"></span></a>
-          </li>
-          {% comment %} <li class="nav-item">
-            <a class="btn btn-outline-success mx-3" href="/">Login</a>
-          </li> {% endcomment %}
-          {% endif %}
-          
+        
         </ul>       
       </div>
       
     </div>
   </nav>
-
+  {% endif %}
 </header>
