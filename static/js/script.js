@@ -45,17 +45,14 @@ botonAñadirProducto.forEach(addTocartbutton => {
 const contenedorCarrito = document.getElementById('modalCarrito');
 
 const btnVaciarCarro = document.getElementById('vaciarCarrito');
-if(btnVaciarCarro !=null){
-   btnVaciarCarro.addEventListener('click', btnVaciarClicked);}
+btnVaciarCarro?.addEventListener('click', btnVaciarClicked)
 
 
 const downloadListener = document.getElementById('downloadBtn');
-if(downloadListener !=null){
-  downloadListener.addEventListener('click', downloadClicked );}
+downloadListener?.addEventListener('click', downloadClicked );
 
 const downloadPedidoListener = document.getElementById('downloadPedidoBtn');
-if(downloadPedidoListener !=null){
-  downloadPedidoListener.addEventListener('click', downloadPedidoClicked );}
+downloadPedidoListener?.addEventListener('click', downloadPedidoClicked );
 
 const titulos=` <div class="row  titulares">
 <div class="col-1 p-0">
@@ -92,6 +89,7 @@ if(btnVolver){btnVolver.addEventListener('click', btnVolverClicked);}
 
 
 function carroBoot(){
+
     let productosEnElCarro;
     productosEnElCarro =obtenerProductosLS();
     if(productosEnElCarro.length===0){
@@ -101,7 +99,6 @@ function carroBoot(){
         </div>`;
         let btnEnviar=document.getElementById('btnEnviarPedido')
         btnEnviar.setAttribute('disabled','')
-
     }
     else{
       let btnEnviar=document.getElementById('btnEnviarPedido')
@@ -122,7 +119,14 @@ function carroBoot(){
     // sumarCantidadCarro.forEach(sumarProducto=>{
     //     sumarProducto.addEventListener('click', btnSumarCantidadClicked);
     // });
+    $(".cantidadInput").on('keyup', function (e) {      //Enter sirve para lanzar la funcion, ademas del OK
+      if (e.key === 'Enter' || e.keyCode === 13) {
+        // console.log("first")                       
+        btnmodificarCarrito(e)
+      }
+    });
     totalCarro();}
+    cantidadDefault();
 };
 
 function addToCartBtnClicked(event){
@@ -137,6 +141,8 @@ function addToCartBtnClicked(event){
     let itemCantidad =item.querySelector('.cantidadDefault').value;
 
     infoProducto ={id:itemCodigo,imagen:itemImage,descripcion:itemDescripcion,precio:itemPrecio,unidad:itemUnidad,cantidad:itemCantidad};
+    // infoProducto ={id:itemCodigo,descripcion:itemDescripcion,precio:itemPrecio,unidad:itemUnidad,cantidad:itemCantidad};
+    // console.log(infoProducto)
      
     addToCarrito(infoProducto);
 };
@@ -145,7 +151,7 @@ function addToCarrito(infoProducto){
     let productosEnStorage;
     productosEnStorage=obtenerProductosLS();
     let indice=0; 
-    let productoModificado;
+    
     if (productosEnStorage.length!=0){
         for(let i=0;i<productosEnStorage.length;i++){
                         
@@ -158,17 +164,12 @@ function addToCarrito(infoProducto){
             }
         };
        if (indice!=0){
-        // console.log(typeof(indice.cantidad))
-        let cantidadvieja= Number(indice.cantidad);
-        cantidadvieja+=1;
-        let cantidadnueva=String(cantidadvieja)
+        
+        let cantidadnueva=String(infoProducto.cantidad)
         indice.cantidad=cantidadnueva;
         // console.log('envio a guardar producto con cantidad modificada');
-        
         guardarEnLS(indice);
-        
-
-       }else{
+        }else{
         // console.log('envio a guardar producto nuevo');
         guardarEnLS(infoProducto);
        }
@@ -405,15 +406,14 @@ function cantidadDefault(){
         productos.forEach(element => {
             for (let i = 0; i < codigos.length; i++) {
                if(element.id===codigos[i].textContent){
-                console.log(element)
-                console.log("codigo en pantalla "+codigos[i].textContent+ " codigo producto "+ element.id)
-                console.log(typeof(codigos[i].textContent))
-                console.log(typeof(element.id))
+                // console.log(element)
+                // console.log("codigo en pantalla "+codigos[i].textContent+ " codigo producto "+ element.id)
+                // console.log(typeof(codigos[i].textContent))
+                // console.log(typeof(element.id))
               //  let cantidadEnPantalla=document.getElementById(element.id)
               //  cantidadEnPantalla.value=element.cantidad
                   if(document.getElementById(element.id)){
-                    console.log("first")
-                      document.getElementById(element.id).value=element.cantidad;
+                    document.getElementById(element.id).value=element.cantidad;
                   }
 
                 }else{
@@ -546,12 +546,13 @@ function modal(event){
 
     
     $('#modal2').modal('toggle')
-    
+    cantidadDefault();
   };
 
 function closeModal(){
      
     $('#modal2').modal('toggle')
+    cantidadDefault();
   };
 
 
@@ -624,5 +625,12 @@ function btnSobreescribirClicked(){
   })
 };
 
+
+$(".cantidadDefault").on('keyup', function (e) {       // cuando se presiona ENTER en el input de cantidad ejecuta la funcion 
+  if (e.key === 'Enter' || e.keyCode === 13) {
+    // console.log("otro")
+    addToCartBtnClicked(e)
+  }
+});
 
 totalCarro();
