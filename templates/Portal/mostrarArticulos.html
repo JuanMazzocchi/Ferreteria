@@ -2,11 +2,11 @@
 {% block titulo %}Julcar | Articulos {% endblock titulo %}
 {% block contenido %}
 
-<div style="background-image:url('/static/gunge-soft-wallpaper-texture.jpg');" >
-    <div class='py-1 d-flex justify-content-evenly tituloSeleccionRubro'>
-    <a class="btn  btn-secondary  btnVolverAlineas" id="btnVolverAlineas" href="/lineas">Volver a Lineas</a>
-    <a href="javascript:history.back()" class="btn btn-secondary" id="volverAtras"> Volver Atrás</a> 
-     <h1 >Añadir al carro </h1>
+<div style="background-image:url('/static/gunge-soft-wallpaper-texture.jpg');" id="mostrarArticulosContainer" >
+    <div class='py-1 d-flex justify-content-evenly tituloSeleccionRubro' >
+    {% comment %} <a class="btn  btn-secondary  btnVolverAlineas" id="btnVolverAlineas" href="/lineas">Volver a Lineas</a>
+    <a href="javascript:window.history.back()" class="btn btn-secondary" id="volverAtras"> Volver Atrás</a>  {% endcomment %}
+     {% comment %} <h1 >Añadir al carro </h1> {% endcomment %}
      <a class="btn btn-danger goUp" href="#arriba">Subir</a>
   </div>   
  
@@ -112,7 +112,7 @@
     </div>
   </div>
 </div>
-</div>
+
 
 
 {% endblock contenido  %}

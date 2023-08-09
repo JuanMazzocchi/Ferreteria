@@ -70,6 +70,7 @@ html::-webkit-scrollbar-track {
 .imagen{
   overflow-y: hidden !important;
   max-height: 180px !important;
+  z-index: 0;
   
 }
 
@@ -127,6 +128,7 @@ html::-webkit-scrollbar-track {
 .card_btn {
   height: auto; 
   padding-bottom: 0.5rem;
+  z-index: 1;
 }
 .btn_hover{
   background-color:#ddd7bc;
@@ -282,6 +284,7 @@ html::-webkit-scrollbar-track {
 .accesoRapido{
   font-size: x-small !important;
   margin-right: 5px;
+  margin-left: 5px;
   margin-bottom: 3px;
 }
  
@@ -314,9 +317,9 @@ html::-webkit-scrollbar-track {
 .cssbuttons-io-button:active {
   box-shadow: 0 0.3em 1em -0.5em #4d36d0be;
 }
-.btnsLineas{
+/* .btnsLineas{
   width: 80%;
-}
+} */
 .goUp{
   position: fixed;
   bottom: 15px;
@@ -327,6 +330,20 @@ html::-webkit-scrollbar-track {
   padding:0px 5px;
 }
 
+#mostrarRubrosContainer{
+  margin-top: 6rem;
+}
+#mostrarLineasContainer{
+  margin-top: 8rem;
+}
+#mostrarArticulosContainer{
+  margin-top: 5rem;
+
+}
+#btnVolverAlineas, #volverAtras{
+  font-size: x-small; 
+  margin: 0 4px 3px 0;
+}
 /* Estilos para dispositivos móviles */
 @media only screen and (max-width: 600px) {
    .loginContainer{

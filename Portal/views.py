@@ -109,8 +109,8 @@ def portalSearch(request):
         query=Q()
         
         for palabra in lista:
-            query |=Q(descripcion__icontains=palabra) 
-                 
+            query &=Q(descripcion__icontains=palabra) 
+        # print(query)         
         cod=Producto.objects.all().filter(cod_producto__contains=keyword)
         # linea=Producto.objects.all().filter(linea__icontains=keyword)
         # rubro=Producto.objects.all().filter(rubro__icontains=keyword)
