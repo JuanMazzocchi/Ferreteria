@@ -29,10 +29,9 @@ const Toast = Swal.mixin({
   })
 
 const modBoot = document.getElementById('btnModalBoot');
-if (modBoot){
-    modBoot.addEventListener('click', carroBoot);
+modBoot?.addEventListener('click', carroBoot);
     
-}
+
 
 const modalcontent = document.getElementById('modalBootstrap');
 
@@ -426,6 +425,22 @@ function cantidadDefault(){
   };  
 
 document.addEventListener("DOMContentLoaded",cantidadDefault()) //ejecuta la funcion cuando la pagina se carga
+
+$(document).ready(function(){       //funcion del boton ir arriba
+  $(window).scroll(function(){ 
+      if ($(this).scrollTop() > 100) { 
+          $('#scroll').fadeIn(); 
+      } else { 
+          $('#scroll').fadeOut(); 
+      } 
+  }); 
+  $('#scroll').click(function(){ 
+      $("html, body").animate({ scrollTop: 0 }, 300); 
+      return false; 
+  }); 
+});
+
+
 
 //  INDEX.HTML
 function volver(){

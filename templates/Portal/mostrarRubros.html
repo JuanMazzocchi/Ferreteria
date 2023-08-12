@@ -16,13 +16,13 @@
     {% for key , value  in diccionarios.items %}
      {% load static %}
     
-      <div class='col-2 card justify-content-between'>
+      <div class='col-6 col-sm-4 col-md-3 col-lg-2 card justify-content-between'>
          
         {% if value|existeLaImg %}  {% comment %} REVISA SI LA IMAGEN EXISTE, SINO DA FALSE {% endcomment %}
 
         {% with value|add:'.jpg' as valor  %}
         <a href='../gondola/{{key}}'>
-          <img id="{{value}}" src="/media/img/{{valor}}" alt="Card image cap" class="imagen overflow-hidden" width='90%' >
+          <img id="{{value}}" src="/media/img/{{valor}}" alt="Card image cap " class="imagen overflow-hidden img-fluid " width='90%' >
         </a>
         {% endwith %}
 
