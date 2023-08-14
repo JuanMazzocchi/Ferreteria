@@ -7,9 +7,10 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="mx-3 btn btn-outline-dark" id="btnCarrito" href="#">
+      {% comment %} <a class="mx-3 btn btn-outline-dark" id="btnCarrito" href="#">
         <i class="bi bi-cart-fill " style="font-size: 23px;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnModalBoot" data-backdrop="static" data-keyboard="false"></i>
-      </a>
+      </a> {% endcomment %}
+      <a href="#" id="btn-toggle" class="btn-toggle"><i class="bi bi-cart-fill " style="font-size: 23px;"></i></a>
            
       <form class="d-flex" role='search' action={% url 'portalSearch' %} method='get'>
         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="buscar" name="keyword">
@@ -83,10 +84,10 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-     <a class="mx-3 btn btn-outline-dark" id="btnCarrito" href="#">
+     {% comment %} <a class="mx-3 btn btn-outline-dark" id="btnCarrito" href="#">
       <i class="bi bi-cart-fill " style="font-size: 23px;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnModalBoot" data-backdrop="static" data-keyboard="false"></i>
-    </a>  
-     
+    </a>   {% endcomment %}
+    <a href="#" id="btn-toggle2" class="btn-toggle"><i class="bi bi-cart-fill " style="font-size: 23px;"></i></a>
          
     <form class="d-flex w-50" role='search' action={% url 'portalSearch' %} method='get'>
       <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="buscar" name="keyword">

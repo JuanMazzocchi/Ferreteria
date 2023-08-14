@@ -20,7 +20,7 @@ const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 3000,
+    timer: 1000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -28,8 +28,10 @@ const Toast = Swal.mixin({
     }
   })
 
-const modBoot = document.getElementById('btnModalBoot');
+const modBoot = document.getElementById('btn-toggle');
+const modBoot2 = document.getElementById('btn-toggle2');
 modBoot?.addEventListener('click', carroBoot);
+modBoot2?.addEventListener('click', carroBoot);
     
 
 
@@ -54,22 +56,22 @@ const downloadPedidoListener = document.getElementById('downloadPedidoBtn');
 downloadPedidoListener?.addEventListener('click', downloadPedidoClicked );
 
 const titulos=` <div class="row  titulares">
-<div class="col-1 p-0">
-  <p class="p-0 m-0">Codigo</p>
+<div class="col-2 p-0">
+  <p class="p-0 m-0 text-center">Codigo</p>
 </div>
 <div class="col-5 p-0"  >
   <p class="p-0 m-0 text-center">Descripcion</p>
 </div>
-<div class="col-1 p-0">
-  <p class="p-0 m-0">Precio</p>
+<div class="col-1 m-0 p-0">
+  <p class="p-0">Precio</p>
 </div>
-<div class="col-3 p-0">
-  <p class="p-0 m-0 text-center">Cantidad</p>
+<div class="col-2 p-0">
+  <p class="p-0 m-0 text-center">Cant.</p>
 </div>
 <div class="col-1 p-0">
   <p class="p-0 m-0">Quitar</p>
 </div>
-<div class="col-1 p-0">
+<div class="col-1   ">
   <p class="p-0 m-0">SubTotal Producto</p>
 </div>
 </div>`;
@@ -97,11 +99,11 @@ function carroBoot(){
         <h1>El Carro Esta Vacio</h1>
         </div>`;
         let btnEnviar=document.getElementById('btnEnviarPedido')
-        btnEnviar.setAttribute('disabled','')
+        btnEnviar?.setAttribute('disabled','')
     }
     else{
       let btnEnviar=document.getElementById('btnEnviarPedido')
-      btnEnviar.removeAttribute('disabled');
+      btnEnviar?.removeAttribute('disabled');
       modalcontent.innerHTML="";
       modalcontent.innerHTML=titulos;
       productosEnElCarro.forEach(arregladora);
@@ -188,27 +190,29 @@ function addToCarrito(infoProducto){
 
 function arregladora(item){
     const filaCarrito= document.createElement('div');
-    const contenidoCarrito= `<div class="row articulos justify-content-center listado contenedor" >
-    <div class="col-1 art mw-100   p-0 ">
-      <p  class="item-codigo  p-0 m-0">${item.id}</p>
+    filaCarrito.classList.add('contenedorArticulos')
+    const contenidoCarrito= `<div class="row articulos p-0 listado contenedor m-0" >
+    <div class="col-2 art ">
+      <p  class="item-codigo text-center ">${item.id}</p>
     </div>
-    <div class="col-5 art    p-0 "  >
-      <p class="item-descripcionProducto text-center">${item.descripcion}</p>
+    <div class="col-5 art px-1   p-0 "  >
+      <p class="item-descripcionProducto  ">${item.descripcion}</p>
     </div>
     <div class="col-1 art mw-100   p-0 ">
       <p class="item-precioProducto p-0 m-0"> ${item.precio}</p>
     </div>
     
-    <div class="col-3 art mw-100   p-0 text-center">
-    <input class="cantidadInput mw-50 p-0 m-0 " type="number" value=${item.cantidad} min="0" style="width: 50px;" ><button class="btn btn-success OKbtn" onclick="btnmodificarCarrito(event)" title="Modificar">OK</button> 
+    <div class="col-2 art mw-100   p-0 text-center">
+    <input class="cantidadInput mw-50 p-0 m-0 " type="number" value=${item.cantidad} min="0" style="width: 50px;" ><button class="btn btn-success OKbtn" onclick="btnmodificarCarrito(event)" title="Modificar"><i class="bi bi-check"></i></button> 
     </div>
-    <div class="col-1 art mw-100   p-0 ">
+    <div class="col-1 art mw-100 m-0  p-0 ">
     <button class="btn btn-danger btnBorrarProducto m-0" title="Quitar del Carro">X</button>
     </div>
-    <div class="col-1 art mw-100    p-0">
-      <p class="item-SubtotalProducto p-0 m-0">$ ${(item.precio * item.cantidad).toFixed(2)}</p>
+    <div class="col-1 art mw-100  m-0  ">
+      <p class="item-SubtotalProducto  subTotalCol ">$ ${(item.precio * item.cantidad).toFixed(2)}</p>
     </div>
     </div> `;
+     
     filaCarrito.innerHTML=contenidoCarrito;
     modalcontent.append(filaCarrito);
  };
@@ -647,5 +651,63 @@ $(".cantidadDefault").on('keyup', function (e) {       // cuando se presiona ENT
     addToCartBtnClicked(e)
   }
 });
+
+$(document).ready(function(){
+	var estado = false;
+
+	$('#btn-toggle').on('click',function(){
+		$('.seccionToggle').slideToggle();
+
+		if (estado == true) {
+			// $(this).text("Abrir");
+			$('body').css({
+				"overflow": "auto"
+			});
+			estado = false;
+		} else {
+			// $(this).text("Cerrar");
+			$('body').css({
+				"overflow": "hidden"
+			});
+			estado = true;
+		}
+	});
+  $('#btn-toggle2').on('click',function(){
+		$('.seccionToggle').slideToggle();
+
+		if (estado == true) {
+			// $(this).text("Abrir");
+			$('body').css({
+				"overflow": "auto"
+			});
+			estado = false;
+		} else {
+			// $(this).text("Cerrar");
+			$('body').css({
+				"overflow": "hidden"
+			});
+			estado = true;
+		}
+	});
+  $('#btn-toggle3').on('click',function(){
+		$('.seccionToggle').slideToggle();
+
+		if (estado == true) {
+			// $(this).text("Abrir");
+			$('body').css({
+				"overflow": "auto"
+			});
+			estado = false;
+		} else {
+			// $(this).text("Cerrar");
+			$('body').css({
+				"overflow": "hidden"
+			});
+			estado = true;
+		}
+	});
+});
+
+
 
 totalCarro();
