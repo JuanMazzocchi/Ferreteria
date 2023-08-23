@@ -77,20 +77,14 @@ downloadPedidoListener?.addEventListener('click', downloadPedidoClicked );
 // </div>`;
 
 const titulos=` <div class="row  titulares">
-<div class="col-6 p-0"  >
-  <p class="p-0 m-0 text-center">Codigo y Descripcion</p>
-</div>
-<div class="col-1 m-0 p-0">
-  <p class="p-0">Precio</p>
+<div class="col-2 p-0">
+  <p class="p-0 m-0 text-center"><b>Codigo.</b></p>
 </div>
 <div class="col-2 p-0">
-  <p class="p-0 m-0 text-center">Cant.</p>
+  <p class="p-0 m-0 text-center"><b>Cant.</b></p>
 </div>
-<div class="col-1 p-0">
-  <p class="p-0 m-0">Quitar</p>
-</div>
-<div class="col-2   ">
-  <p class="p-0 m-0">SubTotal Producto</p>
+<div class="col-6 p-0"  >
+  <p class="p-0 m-0 text-center"><b>Descripcion</b></p>
 </div>
 </div>`;
 
@@ -123,7 +117,7 @@ function carroBoot(){
       let btnEnviar=document.getElementById('btnEnviarPedido')
       btnEnviar?.removeAttribute('disabled');
       modalcontent.innerHTML="";
-      // modalcontent.innerHTML=titulos;
+      modalcontent.innerHTML=titulos;
       productosEnElCarro.forEach(arregladora);
       const borrarProductoCarro = document.querySelectorAll('.btnBorrarProducto');
       borrarProductoCarro.forEach(borroProducto => {
@@ -236,28 +230,26 @@ function arregladora(item){
     // </div> `;
 
     const contenidoCarrito= `<div class="row articulos p-0 listado contenedor m-0 border border-dark" > 
-    <div class='row ' >
-      <div class="col-2 art  d-none">
+    <div class='row gx-1' >
+      <div class="col-2 art  ">
         <p  class="item-codigo text-center ">${item.id}</p>
       </div>
-      <div class="col-10 art px-1   p-0  text-center"  >
-        <p class="item-descripcionProducto  "><b>Cod.</b>${item.id}--${item.descripcion}</p>
+      <div class="col-2 art mw-100   p-0 text-center ">
+      <p>
+        <input class="cantidadInput mw-50 p-0 m-0  " type="number" value=${item.cantidad} min="0" style="width: 50px;" >
+          <button class="btn btn-success OKbtn" onclick="btnmodificarCarrito(event)" title="Modificar">
+            <i class="bi bi-check"></i>
+          </button> 
+      </p>
       </div>
-      <div class="col-2 art mw-100   p-0 ">
-      <p class="item-precioProducto p-0 m-0">$${item.precio} c/u</p> 
+      <div class="col-7 art px-1   p-0  text-center "  >
+        <p class="item-descripcionProducto  ">${item.descripcion}</p>
       </div>
-    </div>
-    <div class='row d-flex align-items-center'>
-      <div class="col-5 art mw-100   p-0 text-center"><p><b>Cant.</b>
-      <input class="cantidadInput mw-50 p-0 m-0 " type="number" value=${item.cantidad} min="0" style="width: 50px;" ><button class="btn btn-success OKbtn" onclick="btnmodificarCarrito(event)" title="Modificar"><i class="bi bi-check"></i></button> </p>
-      </div>
-      <div class="col-1 art mw-100 m-0  p-0 text-center">
+       <div class="col-1 art mw-100 m-0  p-0 text-center">
       <button class="btn btn-danger btnBorrarProducto m-0" title="Quitar del Carro">X</button>
-      </div>
-      <div class="col-6 art mw-100  m-0 text-center ">
-        <p class="item-SubtotalProducto  subTotalCol "><b>SubTotal</b> $ ${(item.precio * item.cantidad).toFixed(2)}</p>
-      </div>
+      </div> 
     </div>
+    
     </div> `;
      
     filaCarrito.innerHTML=contenidoCarrito;
@@ -770,6 +762,7 @@ $(document).ready(function(){
 			});
 			estado = true;
 		}
+    btnVolverClicked();
 	});
 });
 

@@ -28,8 +28,8 @@
 
         {% else %}
 
-        <a href='../gondola/{{key}}'>
-           <img id='tomate {{value}}' src={% static '/img/sinFoto.jpg' %} alt='No hay imagen para este articulo' width="95%"   >
+        <a href='../gondola/{{key}}' class='overflow-hidden'>
+           <img id='tomate {{value}}' src={% static '/img/sinFoto.jpg' %} alt='No hay imagen para este articulo' width="95%"  class='sinFoto img-fluid ' >
         </a>
        
         {% endif %}
