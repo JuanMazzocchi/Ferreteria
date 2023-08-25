@@ -20,12 +20,14 @@
     {% for linea in lineas %}
     <div class="card_grid">
       {% load static %}
-      <div class="card_image img">
-       <a href='seleccion/{{linea}}'> <img id="{{linea}}" src='{% static linea %}.jpg' alt="Card image cap" width='100%' class='imagen'></a>
-      </div>
-      <div class="card_btn">
-        <a href='seleccion/{{linea}}' class='btn_hover text-dark text-decoration-none d-flex align-items-center justify-content-center'>{{linea}}</a>
-      </div>
+      
+        <div class="card_image img">
+        <a href='seleccion/{{linea}}'> <img id="{{linea}}" src='{% static linea %}.jpg' alt="Card image cap" width='100%' class='imagen'></a>
+        </div>
+        <div class="card_btn">
+          <a href='seleccion/{{linea}}' class='btn_hover text-dark text-decoration-none d-flex align-items-center justify-content-center'>{{linea}}</a>
+        </div>
+       
     </div>
     {%endfor%}
   </div>

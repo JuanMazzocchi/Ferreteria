@@ -80,7 +80,7 @@ html::-webkit-scrollbar-track {
 .cards_conteiner {
   grid-gap: 1rem;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 1fr);
   max-width: 1100px;
   margin: 0 auto 0;
@@ -394,10 +394,16 @@ overflow: scroll; }
 font-size: x-small;
 }
 .container-fluid{
-  font-size: small;
+  font-size: medium;
   width: 100% !important;
   margin: 0;
   padding: 0;
+}
+.headerArticulos>div>p{
+  font-size: large;
+}
+.Articulos>div>p{
+  font-size: medium;
 }
 .listado , .btnBorrarProducto ,.OKbtn{
   font-size: xx-small !important;
@@ -463,6 +469,7 @@ font-size: x-small;
   width: 100vw;
 
 }
+ 
 .seccionToggle p {
   font-size:medium;
   margin-bottom: 5px; }

@@ -14,7 +14,7 @@
  
 
   <div class="container-fluid px-md-0">
-    <div class="row g-0 gx-2 gx-md-0 justify-content-between text-center">
+    <div class="row g-0 gx-2 gx-md-0 justify-content-between text-center headerArticulos">
 
       <div class="colImg col-lg-1 col-1 col-md-2">
         <p><b>Imagen</b></p>
@@ -24,7 +24,7 @@
         <p><b>Codigo</b></p>
       </div>
 
-      <div class="colDes col-lg-5 col-6 col-md-5">
+      <div class="colDes col-lg-5 col-6 col-md-5 ps-5">
         <p><b>Descripcion</b></p>
       </div>
 
@@ -48,7 +48,7 @@
     {% for articulo in articulos %}
 
     <div class=" container-fluid px-md-0 m-0 p-0">
-      <div class="row g-0 justify-content-around align-content-center item m-0 text-center">
+      <div class="row g-0 justify-content-around align-content-center item m-0 text-center Articulos">
     
         <div class="col-lg-1 col-1 col-md-2 contenedorDeImagenes row colImg justify-content-center align-items-start pt-1">
           
@@ -69,7 +69,7 @@
           <p  class="item-codigo">{{articulo.cod_producto}}</p>
         </div>
     
-        <div class="col-lg-5 col-6 col-md-5 colDes" type="button"   data-toggle="modal" data-target="#modal2" id="{{articulo.imagen}}" name="{{articulo.descripcion}}" onclick=modal(event)>
+        <div class="col-lg-5 col-6 col-md-5 colDes ps-3" type="button"   data-toggle="modal" data-target="#modal2" id="{{articulo.imagen}}" name="{{articulo.descripcion}}" onclick=modal(event)>
           <p class="item-descripcionProducto ">{{articulo.descripcion}}</p>
         </div>
     
