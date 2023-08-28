@@ -13,19 +13,19 @@
     </div>
      {% endfor %}
     {% endif %}
-    <h1>Seleccione una linea</h1>
+    <h1>SELECCIONE UNA LINEA</h1>
   </div>
 
   <div class='cards_conteiner my-2'>
     {% for linea in lineas %}
     <div class="card_grid">
-      {% load static %}
+      {% load static %}           
       
         <div class="card_image img">
-        <a href='seleccion/{{linea}}'> <img id="{{linea}}" src='{% static linea %}.jpg' alt="Card image cap" width='100%' class='imagen'></a>
+        <a href='seleccion/{{linea}}'> <img id="{{linea}}" src= '/media/img/{{linea}}.jpg' alt="Card image cap" width='100%' class='imagen'></a>
         </div>
         <div class="card_btn">
-          <a href='seleccion/{{linea}}' class='btn_hover text-dark text-decoration-none d-flex align-items-center justify-content-center'>{{linea}}</a>
+          <a href='seleccion/{{linea}}' class='btn_hover  text-decoration-none d-flex align-items-center justify-content-center'>{{linea}}</a>
         </div>
        
     </div>

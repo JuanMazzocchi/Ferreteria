@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
-# from .forms import FormularioContacto
+from .forms import FormularioContacto
 from Portal.models import *
 # from django.views.generic.list import ListView
 from Portal.forms import LoginForm
@@ -24,22 +24,22 @@ from Ferreteria import settings
                        
 #     return render(request, 'Portal/home.html')
 
-# def contacto(request):
+def contacto(request):
      
-#     if request.method == 'POST':
-#         formulario_contacto = FormularioContacto(request.POST)
+    if request.method == 'POST':
+        formulario_contacto = FormularioContacto(request.POST)
         
-#         return redirect('loginView')
+        return redirect('loginView')
                         
-#     else:
+    else:
         
-#         formulario_contacto = FormularioContacto()
+        formulario_contacto = FormularioContacto()
 
-#     context = {
-#         'formulario_contacto': formulario_contacto,
-#     }
+    context = {
+        'formulario_contacto': formulario_contacto,
+    }
 
-#     return render(request, 'Portal/contacto.html', context)
+    return render(request, 'Portal/contacto.html', context)
 
 @login_required
 def lineas(request):

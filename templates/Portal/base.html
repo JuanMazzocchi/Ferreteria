@@ -115,11 +115,11 @@
             <div class='row justify-content-center'> 
               <div class="form-group col-3">
                 <label for="formGroupExampleInput" class="labelForm">Nombre</label>
-                <input type="text" name='textNombre' class="form-control" id="formGroupExampleInput" placeholder="Nombre" value={{user.first_name}}>
+                <input type="text" name='textNombre' class="form-control" id="formGroupExampleInput" placeholder="Nombre" value={{user.first_name}} readonly>
               </div>
               <div class="form-group col-3">
                 <label for="formGroupExampleInput2" class="labelForm">Nro de cliente</label>
-                <input type="textMail" name="textMail" class="form-control" id="formGroupExampleInput2" placeholder="ejemplo@email.com" value={{user.last_name}}>
+                <input type="textMail" name="textMail" class="form-control" id="formGroupExampleInput2" placeholder="ejemplo@email.com" value={{user.last_name}} readonly>
               </div>
             </div>
             <div class='row justify-content-center'>
@@ -131,7 +131,7 @@
           </div>
           <div class="d-flex justify-content-center mt-2"><button type="input" class="btn btn-warning" id="enviarFinal">Confirmar Y Enviar</button></div>
         </form>
-        <div class="d-flex justify-content-center mt-2"><button class="btn btn-dark" id="btnVolver">Seguir comprando</button></div>
+        <div class="d-flex justify-content-center mt-2"><a class="btn btn-dark" href='/lineas' id="btnVolver">Seguir comprando</a></div>
       </div>
 
       <div  class="justify-content-evenly my-2" id="botonesEnviar" style="display: flex;">

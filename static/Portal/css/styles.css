@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&display=swap');
 
 header{
-  background-color: rgb(34 116 71);
+  background-color: rgb(53, 152, 101);
 }
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background-color: rgb(25 135 84);
+  background-color: rgb(53, 152, 101);
   color: #000;
 }
 
@@ -39,13 +39,13 @@ html::-webkit-scrollbar {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: #bdb075;
+  background:black;
   border-radius: 4px;
 }
 
 
 html::-webkit-scrollbar-thumb:hover { /*? sombredo cuando se pase el cursor por encima */
-  background: #e2ce75;
+  background: black;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -80,7 +80,7 @@ html::-webkit-scrollbar-track {
 .cards_conteiner {
   grid-gap: 1rem;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(1, 1fr);
   max-width: 1100px;
   margin: 0 auto 0;
@@ -134,13 +134,13 @@ html::-webkit-scrollbar-track {
   z-index: 1;
 }
 .btn_hover{
-  background-color:#ddd7bc;
+  background-color:rgb(53, 152, 101);
   width: 100%;
   height: 100%;
   border-radius: 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #fff;
+  color: #fff !important;
   cursor: pointer;
   text-align: center;
   border: none;
@@ -150,7 +150,7 @@ html::-webkit-scrollbar-track {
   width: 100%;
   height: 100%;
   border-radius: 0;
-  background-color:#e2ce75;
+  background-color:rgb(70, 198, 132);
   box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
   font-size: 1.1rem;
   font-weight: 600;
@@ -202,7 +202,7 @@ html::-webkit-scrollbar-track {
   }
 
 .accesoRapido{
-  font-size: x-small !important;
+  font-size: small !important;
   margin-right: 5px;
   margin-left: 5px;
   margin-bottom: 3px;
@@ -246,10 +246,10 @@ html::-webkit-scrollbar-track {
 }
 
 #mostrarRubrosContainer{
-  margin-top: 6rem;
+  margin-top: 8rem;
 }
 #mostrarLineasContainer{
-  margin-top: 8rem;
+  margin-top: 9rem;
 }
 #mostrarArticulosContainer{
   margin-top: 6rem;
@@ -324,7 +324,8 @@ overflow: scroll; }
     margin-top: 50px; }
   .seccionToggle p {
     font-size:medium;
-    margin-bottom: 5px; }
+    margin-bottom: 0px; 
+  }
    
 
 .btn-toggle {
@@ -335,10 +336,16 @@ overflow: scroll; }
   font-weight: bold;
   color: #000;
   display: block;
-  background: rgb(34 116 71);
-  text-align: center; }
-  .btn-toggle:hover {
-    text-decoration: none; }
+  background: rgb(53, 152, 101);
+  text-align: center;
+}
+#btn-toggle{
+  padding: 0px 5px !important;
+  height: 38px;
+}
+.btn-toggle:hover {
+    text-decoration: none; 
+}
 .wrap{
   margin-top: 3rem;
   overflow: scroll !important;
@@ -346,6 +353,21 @@ overflow: scroll; }
   min-height: 200vh; */
 }
 
+#imagenModal2{
+  max-width: 40%;
+  max-height: 60%;
+}
+.OKbtn{
+  padding: 1px 5px !important;
+  margin: 2px 0 ;
+} 
+
+.btnBorrarProducto{
+  padding: 1px 7px !important;
+   
+}
+ 
+ 
 
 
 
@@ -388,10 +410,10 @@ overflow: scroll; }
 
 }
 .card_btn >a{
-  font-size:x-small;
+  font-size:small;
 }
 .btn_hover:hover{
-font-size: x-small;
+font-size: small;
 }
 .container-fluid{
   font-size: medium;
@@ -410,9 +432,11 @@ font-size: x-small;
 }
 .OKbtn{
   margin-left: 1px;
-  padding: 2px !important;
+ 
+ 
 }
-
+ 
+  
 .btnBorrarProducto{
   padding: 3px 5px !important;
 }
@@ -477,6 +501,21 @@ font-size: x-small;
 
 
 }
+
+
+.accesoRapido {
+  font-size: medium!important;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 3px;
+}
+
+#btn-toggle2{
+  padding: 1px !important;
+  height: 38px;
+}
+
+
 @media only screen and (min-width: 600px) and (max-width: 700px) {
    .loginContainer{
     width: 95%;

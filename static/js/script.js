@@ -237,7 +237,7 @@ function arregladora(item){
       <div class="col-2 art mw-100   p-0 text-center ">
       <p>
         <input class="cantidadInput mw-50 p-0 m-0  " type="number" value=${item.cantidad} min="0" style="width: 50px;" >
-          <button class="btn btn-success OKbtn" onclick="btnmodificarCarrito(event)" title="Modificar">
+          <button class="btn btn-success OKbtn my-1" onclick="btnmodificarCarrito(event)" title="Modificar">
             <i class="bi bi-check"></i>
           </button> 
       </p>
@@ -246,7 +246,7 @@ function arregladora(item){
         <p class="item-descripcionProducto  ">${item.descripcion}</p>
       </div>
        <div class="col-1 art mw-100 m-0  p-0 text-center">
-      <button class="btn btn-danger btnBorrarProducto m-0" title="Quitar del Carro">X</button>
+      <button class="btn btn-danger btnBorrarProducto my-1" title="Quitar del Carro">X</button>
       </div> 
     </div>
     
