@@ -62,13 +62,13 @@ WSGI_APPLICATION = 'Ferreteria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME':'gustavo1',
-        'USER': 'root',
+        'USER': 'postgres',
        'PASSWORD': env('DB_PASS'), #En el archivo .env agregar la variable DB_PASS=su contraseña
         
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '5432',
         
     }
 }
