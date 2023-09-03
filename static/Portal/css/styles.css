@@ -68,6 +68,7 @@ html::-webkit-scrollbar-track {
 .imagen{
   overflow-y: hidden !important;
   max-height: 180px !important;
+ 
   z-index: 0;
   
 }
@@ -84,6 +85,10 @@ html::-webkit-scrollbar-track {
   grid-template-rows: repeat(1, 1fr);
   max-width: 1100px;
   margin: 0 auto 0;
+}
+
+.contenedorLineas{
+  width: 60vw;
 }
 
 .card_grid {
@@ -116,10 +121,11 @@ html::-webkit-scrollbar-track {
   object-position: center center;
 }
 
-.card_image:hover{
+/* .card_image:hover{
   transform: scale(1.1) !important;
-  transition: all 1s ease-out; 
-}
+  transition: all 1s ease-out;
+  overflow: hidden !important; 
+} */
 
 .card_text {
   text-align: center;
@@ -160,6 +166,7 @@ html::-webkit-scrollbar-track {
   border: none;
   background-size: 300% 100%;
   transition: all 0.7s ease-in-out;
+  
 }
 
 .loginContainer{
@@ -385,6 +392,10 @@ overflow: scroll; }
 #paraCelus{
   display: flex;
 }
+
+.contenedorLineas{
+  width: 90vw;
+}
 .cards_conteiner {
   grid-gap: 1rem;
   display: grid;
@@ -521,6 +532,10 @@ font-size: small;
     width: 95%;
     padding-top: 2rem;
    }
+   .contenedorLineas{
+    width: 80vw;
+  }
+
    .card_image{
     height:80px;
    }
@@ -643,6 +658,10 @@ font-size: small;
   #mostrarLineasContainer{
     margin-top: 11rem;
   }
+
+  .contenedorLineas{
+    width: 80vw;
+  }
   #mostrarRubrosContainer{
     margin-top: 4rem;
   }
@@ -687,6 +706,9 @@ font-size: small;
     padding: 0.05rem !important;
     margin: 0 !important;
   }
+
+
+  
   .card_grid{
     grid-template-rows: 6rem 3rem;
    }
@@ -700,6 +722,9 @@ font-size: small;
 @media only screen and (min-width: 768px) and (max-width: 1100px) {
   #mostrarLineasContainer{
     margin-top: 10rem;
+  }
+  .contenedorLineas{
+    width: 80vw;
   }
   #mostrarRubrosContainer{
     margin-top: 10rem;

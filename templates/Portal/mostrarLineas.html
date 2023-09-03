@@ -16,20 +16,33 @@
     <h1>SELECCIONE UNA LINEA</h1>
   </div>
 
-  <div class='cards_conteiner my-2'>
-    {% for linea in lineas %}
-    <div class="card_grid">
-      {% load static %}           
+  <div class=' my-2'>
+   
+    <div class="d-flex flex-wrap mx-auto justify-content-around contenedorLineas ">
+      {% for linea in lineas %}
+      {% load static %}            
       
-        <div class="card_image img">
+        {% comment %} <div class="card_image img">
         <a href='seleccion/{{linea}}'> <img id="{{linea}}" src= '/media/img/{{linea}}.jpg' alt="Card image cap" width='100%' class='imagen'></a>
-        </div>
+        
         <div class="card_btn">
           <a href='seleccion/{{linea}}' class='btn_hover  text-decoration-none d-flex align-items-center justify-content-center'>{{linea}}</a>
+        </div>  {% endcomment %}
+
+        <div class="card mt-2"  >
+          <div class="card_image img">
+            <a href='seleccion/{{linea}}'>
+               <img id="{{linea}}" src= '/media/img/{{linea}}.jpg' alt="Card image cap" width='100%' class='imagen card-img-top'>
+            </a>
+          </div>
+          <div class="card-body card_btn">
+            <a href='seleccion/{{linea}}' class='btn_hover  text-decoration-none d-flex align-items-center justify-content-center'>{{linea}}</a>
+          </div>
         </div>
        
-    </div>
+   
     {%endfor%}
+     </div>
   </div>
 </section>
 
