@@ -62,8 +62,8 @@ html::-webkit-scrollbar-track {
 /* card styles  */
 
 .card{
-  max-height: 15rem;
-  min-height: 15rem;
+  max-height: 12.5rem;
+  min-height: 12.5rem;
 }
 .imagen{
   overflow-y: hidden !important;
@@ -88,7 +88,7 @@ html::-webkit-scrollbar-track {
 }
 
 .contenedorLineas{
-  width: 60vw;
+  width: 55vw;
 }
 
 .card_grid {
@@ -119,6 +119,9 @@ html::-webkit-scrollbar-track {
   height: 100%;
   object-fit: cover;
   object-position: center center;
+}
+.card-body{
+  padding: 0 !important;
 }
 
 /* .card_image:hover{
@@ -151,10 +154,15 @@ html::-webkit-scrollbar-track {
   text-align: center;
   border: none;
 }
+.contenedorCard{
+  width: 20%;
 
+}
+
+ 
 .btn_hover:hover {
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
   border-radius: 0;
   background-color:rgb(70, 198, 132);
   box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
@@ -166,8 +174,8 @@ html::-webkit-scrollbar-track {
   border: none;
   background-size: 300% 100%;
   transition: all 0.7s ease-in-out;
-  
 }
+ 
 
 .loginContainer{
   background-color: rgba(107, 109, 110, 0.7);
@@ -256,10 +264,10 @@ html::-webkit-scrollbar-track {
   margin-top: 8rem;
 }
 #mostrarLineasContainer{
-  margin-top: 9rem;
+  margin-top: 14vh;
 }
 #mostrarArticulosContainer{
-  margin-top: 6rem;
+  margin-top: 14vh;
 
 }
 #btnVolverAlineas, #volverAtras{
@@ -310,7 +318,11 @@ html::-webkit-scrollbar-track {
   -ms-filter:"alpha(opacity=100)";
 } 
 .cantidadDefault{
-  width: 40%;
+  width: 30% !important;
+}
+
+.precio{
+  height: 25px !important;
 }
 .main {
   width: 100%;
@@ -354,7 +366,7 @@ overflow: scroll; }
     text-decoration: none; 
 }
 .wrap{
-  margin-top: 3rem;
+  margin-top: 7vh;
   overflow: scroll !important;
   /* max-height:200vh;
   min-height: 200vh; */
@@ -373,10 +385,13 @@ overflow: scroll; }
   padding: 1px 7px !important;
    
 }
+
  
  
 
-
+/* .colCantidadYPrecio{
+  display: none;
+} */
 
 
 /* Estilos para dispositivos móviles ****************************************/
@@ -392,6 +407,17 @@ overflow: scroll; }
 #paraCelus{
   display: flex;
 }
+.colCantidadYPrecio{
+  display:block
+}
+.colCant , .colPre{
+  display: none;
+}
+.precio{
+  height: 25px !important;
+  margin-right: 5px !important;
+}
+
 
 .contenedorLineas{
   width: 90vw;
@@ -404,9 +430,13 @@ overflow: scroll; }
   max-width: 1100px;
   margin: 0 auto 0;
 }
-.card_image{
+/* .card_image{
   height:80px;
- }
+  
+ }  */
+
+ 
+
  .card_grid{
   grid-template-rows: 5.5rem 3rem;
  }
@@ -421,10 +451,10 @@ overflow: scroll; }
 
 }
 .card_btn >a{
-  font-size:small;
+  font-size:smaller;
 }
 .btn_hover:hover{
-font-size: small;
+font-size:smaller;
 }
 .container-fluid{
   font-size: medium;
@@ -455,12 +485,16 @@ font-size: small;
     margin-top: 5rem;
 }
 .card{
-  max-height: 8rem;
-  min-height: 8rem;
+  width: 40%;
+  min-height:fit-content;
+   
 }
- .imagen{
-  max-height:7rem !important;
- }
+.card-body{
+  padding:0 !important;
+}
+ /* .imagen{
+  max-height:8rem !important;
+ } */
 
 .colImg , .lupa , .colUni{
   display: none !important;
@@ -472,7 +506,7 @@ font-size: small;
   padding: 1px !important;       
 }
 .cantidadDefault{
-  width: 40%;
+  width: 60px !important;
 }
 .titulares div p{
   font-size:large;
@@ -525,7 +559,15 @@ font-size: small;
   padding: 1px !important;
   height: 38px;
 }
-
+#whatsIcon{
+width: 7%;
+}
+#telIcon{
+  width:6%;
+}
+#mailIcon{
+  width: 6%;
+}
 
 @media only screen and (min-width: 600px) and (max-width: 700px) {
    .loginContainer{
@@ -721,7 +763,7 @@ font-size: small;
 /* Estilos para pantallas de escritorio */
 @media only screen and (min-width: 768px) and (max-width: 1100px) {
   #mostrarLineasContainer{
-    margin-top: 10rem;
+    margin-top: 11rem;
   }
   .contenedorLineas{
     width: 80vw;
@@ -748,6 +790,15 @@ font-size: small;
   .titulares{
     margin-top: 6rem !important;
   }
+  .card-body{
+    padding: 0 !important;
+  }
+  #telIcon{
+    width:3.5%;
+  }
+  #mailIcon{
+    width: 3.5%;
+  }
 }
 @media only screen and (min-width: 1101px)and (max-width: 1280px){
   #mostrarRubrosContainer{
@@ -765,6 +816,24 @@ font-size: small;
     font-size: small;
   }
 
+  .card-body{
+    padding: 0 !important;
+  }
+  #telIcon{
+    width:2%;
+  }
+  #mailIcon{
+    width: 2.5%;
+  }
+}
+
+@media only screen and (min-width: 1281px){
+  #telIcon{
+    width:1.5%;
+  }
+  #mailIcon{
+    width: 2.5%;
+  }
 }
 
 @media screen and (max-width: 500px) {

@@ -44,9 +44,9 @@ def contacto(request):
 @login_required
 def lineas(request):
  
-    lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()
+    lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('linea')
     context={'lineas':lineas}
-    # print(context)
+    print(context)
     
     return render(request, 'Portal/mostrarLineas.html', context  )
 
@@ -57,7 +57,7 @@ def about(request):
 def seleccion(request,linea):   
          
         lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
-        rubro=Producto.objects.order_by().values_list('rubro', flat=True).distinct().filter(linea=linea)
+        rubro=Producto.objects.order_by('rubro').values_list('rubro', flat=True).distinct().filter(linea=linea)
         # print(rubro)
         imagenes=[]
         listaDeRubros=[]
@@ -87,7 +87,7 @@ def seleccion(request,linea):
 def gondola(request,rubro):
     
     lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
-    articulos=Producto.objects.all().filter(rubro=rubro)
+    articulos=Producto.objects.all().filter(rubro=rubro).order_by('id')
     context={
         'articulos':articulos,
         'lineas':lineas
@@ -123,7 +123,7 @@ def portalSearch(request):
             'lineas':lineas
             }
         # print(articulos)
-        return render(request,'Portal\mostrarArticulos.html', context)
+        return render(request,'Portal/mostrarArticulos.html', context)
     pass
 
 

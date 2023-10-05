@@ -28,9 +28,9 @@
         <p><b>Descripcion</b></p>
       </div>
 
-      <div class="colPre col-lg-1 col-2 col-md-1">
+      {% comment %} <div class="colPre col-lg-1 col-2 col-md-1">
         <p><b>Precio</b></p>
-      </div>
+      </div> {% endcomment %}
 
       <div class="colUni col-lg-1 col-1 col-md-1">
         <p><b>Unidad</b></p>
@@ -73,17 +73,28 @@
           <p class="item-descripcionProducto ">{{articulo.descripcion}}</p>
         </div>
     
-        <div class="col-lg-1 col-1  col-md-1 colPre">
+        {% comment %} <div class="col-lg-1 col-1  col-md-1 colPre">
           <p class="item-precioProducto">{{articulo.pcio_lista}}</p> 
-        </div>
+        </div>   {% endcomment %}
     
         <div class="col-lg-1 col-2 col-md-1 colUni">
-          <p class="item-unidadDeVenta">{{articulo.unidad}}</p>
-        </div>
-    
-        <div class="col-lg-2 col-3 col-md-2 colCant">
+         <p class="item-unidadDeVenta">{{articulo.unidad}}</p>
+        </div>  
+        
+        {% comment %} <div class="col-lg-2 col-3 col-md-2 colCant">
+               
           <input type="number" min='0' class='cantidadDefault input-sm ' id="{{articulo.cod_producto}}">
-           <button class="btn btn-success btnAñadirAlCarrito" title="Añadir Producto"><i class="bi bi-check"></i></button> 
+          <button class="btn btn-success btnAñadirAlCarrito m-1 " title="Añadir Producto"><i class="bi bi-check"></i></button> 
+           
+        </div> {% endcomment %}
+
+        <div class="col-lg-2 col-3 col-md-2  colCantidadYPrecio">
+          <div class='row d-flex precio  justify-content-center '><p class='col-1'>$</p><p class="item-precioProducto col-1">{{articulo.pcio_lista}}</p></div>
+           
+          <div class='row d-flex justify-content-center '>
+          <input type="number" min='0' class='cantidadDefault input-sm ' id="{{articulo.cod_producto}}">
+           <button class="btn btn-success btnAñadirAlCarrito m-1 " title="Añadir Producto"><i class="bi bi-check"></i></button> 
+          </div>
         </div>
     
       </div>

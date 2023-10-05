@@ -1,12 +1,11 @@
 <footer class="page-footer font-small blue" style='background-color: rgb(53, 152, 101);'>
-
+{% load static %}
   <div class="footer-copyright text-center py-1 text-body">
-    <p class='mb-1'>© 2023 Copyright:<a class="navbar-brand mr-4 logo fs-3" href="/">Julcar Sanitarios</a> </p>
-    <p class='mb-1'>M. Baliña 1380 (1828) Banfield Bs. As. </p>
-    <p class='mb-1'>Telefono:011-4242-4942        <a  href="https://wa.me/5491157685812/?text=%C2%A1Hola!" target="_blank"class='text-decoration-none btn'>Whatsapp:(+549) 1157685812   </a>        </p>
-     
-    <a href="mailto:julcarsanitarios@gmail.com" class=' text-decoration-none btn'>Email: julcarsanitarios@gmail.com</a>
- 
+    <p class='mb-0'>© 2023 Copyright:<a class="navbar-brand mr-4 logo fs-3" href="/">Julcar Sanitarios</a> </p>
+    <p class='m-0 p-0'><img src={% static 'img/telefono.png'%}  id='telIcon' > 011-4242-4942 </p>
+    <p class='m-0 p-0'><a  href="https://wa.me/5491157685812/?text=%C2%A1Hola!" target="_blank"class='text-decoration-none btn m-0 p-0' width='50px'><img src={% static 'img/WhatsApp_icon.png'%}  id='whatsIcon' >(+549) 1157685812   </a> </p>
+    <p class='m-0 p-0'><a  href="mailto:julcarsanitarios@gmail.com" class=' text-decoration-none btn m-0 p-0'><img src={% static "/img/mail.png" %} id='mailIcon'> julcarsanitarios@gmail.com</a></p>
+    <p class='mb-0'>M. Baliña 1380 (1828) Banfield Bs. As. </p>
 
 </footer>
 

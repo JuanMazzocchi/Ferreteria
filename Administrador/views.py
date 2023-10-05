@@ -59,6 +59,9 @@ def search(request):
             rubro=Producto.objects.all().filter(rubro__icontains=keyword)
             desc=Producto.objects.all().filter(descripcion__icontains=keyword)
             articulos=cod.union(linea,rubro,desc)
+            for e in articulos:
+                # print(e.imagen[:-1])
+                e.imagen=e.imagen[:-1] # le quito el salto de linea invisible
             context ={'articulos':articulos }
             return render(request,'Administrador/ResultadosSearch.html', context)
     else:
@@ -152,11 +155,71 @@ class SubirCsvView(SuccessMessageMixin, CreateView):
     success_url='abm'
     success_message='Archivo subido correctamente'
     template_name='Administrador/subirCSV.html'
+
+def upload_csv(request):
+    
+    if request.method =="GET":
+        return render (request,'Administrador/upload_csv.html')          #SIN USO, LO USE COMO PRUEBA PERO EN PRODUCCION NO FUNCIONA BIEN
+    
+    try:
+       csv_file = request.FILES["csv_file"]
+       if not csv_file.name.endswith('.csv'):
+           messages.error(request, 'El archivo no es .csv')
+           return (request,'Administrador/abm.html') 
+       
+       file_data= csv_file.read().decode('ISO-8859-1')
+       #BorrarBase(request)
+       lines = file_data.split('\n')
+    #    print(lines[0])
+       for line in lines:
+           objeto=line.split("|")
+           if len(objeto)>=6:
+                
+            if objeto[0]=='cod producto':
+                # print(objeto[0])
+                # print(type(objeto[0]))
+                pass
+                    
+            else:      
+                # precio=objeto[4].replace('.','')     
+                precio=objeto[4] 
+                armado=Producto(cod_producto=objeto[0],
+                                linea=objeto[1],
+                                rubro=objeto[2],
+                                descripcion=objeto[3],
+                                pcio_lista=float(precio),
+                                unidad=objeto[5],
+                                imagen=objeto[6] )
+                    
+                try:
+                    armado.save()
+                    
+                except Exception as e :
+                    messages.error(request,"Algo saio mal  "+repr(e))
+                    return render(request,'Administrador/abm.html')
+    
+    except Exception as e :
+        messages.error(request,"Unable to upload file. "+repr(e))
+
+    
+           
+           
+    messages.success(request, 'Se persistio la Base de datos desde el archivo .csv')
+    return render(request,'Administrador/abm.html')       
+                
+     
+    
     
  
+
+
+
+
 def BorrarLlenar(request):
+    
     BorrarBase(request)
-    llenarBase(request) 
+    # llenarBase(request) 
+    worker().start()            #asi llena la base sin parar el sitio
     return redirect('abm')
     
 def BorrarBase(request):
@@ -166,20 +229,39 @@ def BorrarBase(request):
     return render(request,'Administrador/abm.html')
 
 
+ 
+from chardet import detect
+
+# get file encoding type
+def get_encoding_type(file):
+    print("@@@@")
+    with open(file, 'rb') as f:
+        rawdata = f.read()
+    print(detect(rawdata)['encoding'])
+    return detect(rawdata)['encoding']
+
+
+import time
+
+
 def llenarBase(request):
-        
-    path=os.path.join(settings.MEDIA_DIR, 'uploads/BaseDeDatos.csv')
+            
+    path=os.path.join(settings.MEDIA_DIR, 'uploads/BaseDeDatos.csv')      # SIN USO, EN PRODUCCION NO FUNCIONA BIEN
     
     try:
-        file=open(path)
+        file=open(path, 'r', encoding=get_encoding_type(path) , errors='ignore')
         
     except:
         messages.error(request,"No se pudo abrir el archivo .csv")
         return render(request,'Administrador/abm.html')
-    
+    # contador=0
     for line in file:
         objeto= line.split(sep='|')
         # print(objeto)
+        
+        # if contador %2000 ==0:
+        #     print(f"esperando  {time.time()}")
+        #     time.sleep(10)
                  
         if len(objeto)>=6:
             
@@ -201,13 +283,46 @@ def llenarBase(request):
                     
                 try:
                     armado.save()
+                    # contador+=1
                     
                 except armado.save():
                     messages.error(request,"Algo salio mal")
                     return render(request,'Administrador/abm.html')
+                
     
     messages.success(request, 'Se persistio la Base de datos desde el archivo .csv')
     return render(request,'Administrador/abm.html')
+
+from threading import Thread
+
+class worker(Thread):
+    def run(self):
+                  
+         path=os.path.join(settings.MEDIA_DIR, 'uploads/BaseDeDatos.csv')
+         file=open(path, 'r', encoding=('ISO-8859-1') , errors='ignore')
+         for line in file:
+             objeto= line.split(sep='|')
+            #  print(objeto)
+             if len(objeto)>=6:
+                if objeto[0]=='cod producto':
+                     pass
+                    
+                else:
+                    precio=objeto[4] 
+                    armado=Producto(cod_producto=objeto[0],
+                                    linea=objeto[1],
+                                    rubro=objeto[2],
+                                    descripcion=objeto[3],
+                                    pcio_lista=float(precio),
+                                    unidad=objeto[5],
+                                    imagen=objeto[6] )
+                        
+                    try:
+                        armado.save()
+                                            
+                    except armado.save():
+                        print('error salvando fila en la db')
+
 
 def baseDeDatos(request):
     return render(request,'Administrador/baseDeDatos.html')

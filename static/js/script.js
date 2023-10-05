@@ -51,10 +51,13 @@ btnVaciarCarro?.addEventListener('click', btnVaciarClicked)
 
 const downloadListener = document.getElementById('downloadBtn');
 downloadListener?.addEventListener('click', downloadClicked );
+const downloadListenerCel = document.getElementById('downloadBtnCel');
+downloadListenerCel?.addEventListener('click', downloadClicked );
 
 const downloadPedidoListener = document.getElementById('downloadPedidoBtn');
 downloadPedidoListener?.addEventListener('click', downloadPedidoClicked );
-
+const downloadPedidoListenerCel = document.getElementById('downloadPedidoBtnCel');
+downloadPedidoListenerCel?.addEventListener('click', downloadPedidoClicked );
 // const titulos=` <div class="row  titulares">
 // <div class="col-2 p-0">
 //   <p class="p-0 m-0 text-center">Codigo</p>
@@ -78,13 +81,13 @@ downloadPedidoListener?.addEventListener('click', downloadPedidoClicked );
 
 const titulos=` <div class="row  titulares">
 <div class="col-2 p-0">
-  <p class="p-0 m-0 text-center"><b>Codigo.</b></p>
+  <p class="p-0 m-0 text-center"><b>Código</b></p>
 </div>
 <div class="col-2 p-0">
-  <p class="p-0 m-0 text-center"><b>Cant.</b></p>
+  <p class="p-0 m-0 text-center"><b>Cantidad</b></p>
 </div>
 <div class="col-6 p-0"  >
-  <p class="p-0 m-0 text-center"><b>Descripcion</b></p>
+  <p class="p-0 m-0 text-center"><b>Descripción</b></p>
 </div>
 </div>`;
 
@@ -161,6 +164,7 @@ function addToCartBtnClicked(event){
       // console.log(infoProducto)
       
       addToCarrito(infoProducto);
+      boton.blur();
     }
 };
 
@@ -617,6 +621,7 @@ function closeModal(){
 // boton de descargar lista de precios 
 
 function downloadClicked() {
+  console.log("first")
     Toast.fire( {
         title: 'Desea descargar la lista de precios a su dispositivo?',
         showConfirmButton: true,
