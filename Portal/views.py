@@ -7,7 +7,7 @@ from Portal.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # from django.urls import reverse
-from Administrador.models import ListaDePrecios, PedidoPorMail
+from Administrador.models import ListaDePrecios, PedidoPorMail,ListaPrioritariaDeLineas
 from django.http import FileResponse
 import os
 from pathlib import Path
@@ -45,8 +45,11 @@ def contacto(request):
 def lineas(request):
  
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('linea')
-    context={'lineas':lineas}
-    print(context)
+    prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+    context={
+            'lineas':lineas,
+             'prioridad':prioridad}
+    # print(context)
     
     return render(request, 'Portal/mostrarLineas.html', context  )
 

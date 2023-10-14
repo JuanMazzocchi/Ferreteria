@@ -61,16 +61,13 @@ html::-webkit-scrollbar-track {
 
 /* card styles  */
 
-.card{
+/* .card{
   max-height: 12.5rem;
   min-height: 12.5rem;
-}
+} */
 .imagen{
-  overflow-y: hidden !important;
   max-height: 180px !important;
- 
   z-index: 0;
-  
 }
 .contenedorRubros{
   display: flex;
@@ -155,8 +152,12 @@ html::-webkit-scrollbar-track {
   border: none;
 }
 .contenedorCard{
-  width: 20%;
+  width: 24%;
+  max-width: 200px !important;
 
+}
+.contenedorCard:hover{
+  border:solid black 1px;
 }
 
  
@@ -386,7 +387,14 @@ overflow: scroll; }
    
 }
 
- 
+/* Prioridad Lineas */
+
+.casillas{
+  width: 250px;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}
  
 
 /* .colCantidadYPrecio{
@@ -698,11 +706,11 @@ width: 7%;
   } */
   
   #mostrarLineasContainer{
-    margin-top: 11rem;
+    margin-top: 8rem;
   }
 
   .contenedorLineas{
-    width: 80vw;
+    width: 85vw;
   }
   #mostrarRubrosContainer{
     margin-top: 4rem;
@@ -745,7 +753,7 @@ width: 7%;
   .card{
     max-height: auto;
     min-height: auto;
-    padding: 0.05rem !important;
+    /* padding: 0.05rem !important; */
     margin: 0 !important;
   }
 
@@ -778,7 +786,7 @@ width: 7%;
   .card{
     max-height: auto;
     min-height: auto;
-    padding: 0.05rem !important;
+    /* padding: 0.05rem !important; */
     margin: 0 !important;
   }
   .cantidadDefault{
@@ -808,6 +816,12 @@ width: 7%;
     margin-top: 8rem;
   
   }
+  #mostrarLineasContainer{
+    margin-top: 12rem;
+  }
+  .contenedorLineas{
+    width: 70vw;
+  }
 
  /* .btn_hover{
     font-size: small;
@@ -833,6 +847,9 @@ width: 7%;
   }
   #mailIcon{
     width: 2.5%;
+  }
+  .contenedorLineas{
+    width: 60vw;
   }
 }
 

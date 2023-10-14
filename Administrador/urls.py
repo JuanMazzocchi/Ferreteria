@@ -30,6 +30,9 @@ path('listasDePrecio',views.ListasDePrecio, name='listasDePrecio'),
 path('subirFoto',views.FotoCreateView.as_view(), name='subirFoto'),
 path('subirPedidoPorMail', views.PedidoPorMailCreateView.as_view(), name='subirPedidoPorMail'),
 path('upload', views.upload_csv , name="upload") ,
+path('prioridad',views.prioridad, name='prioridad'),
+path('confirmaPrioridad',views.confirmaPrioridad, name='confirmarPrioridad'),
+
 
  
 ]

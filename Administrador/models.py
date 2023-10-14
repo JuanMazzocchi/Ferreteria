@@ -45,3 +45,6 @@ class FotosDeProductos(models.Model):
 
 class PedidoPorMail(models.Model):
     archivo=models.FileField(verbose_name='Archivo', upload_to=user_directory_path_PedidoPorMail, storage=OverwriteStorage(), help_text="Archivo .xlsx para enviar pedidos por mail por parte de los clientes")
+
+class ListaPrioritariaDeLineas(models.Model):
+    archivo=models.CharField(max_length=500, verbose_name='Lista')

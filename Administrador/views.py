@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from .forms import SearchForm, SearchServicioForm, SearchClienteForm
-from .models import ArchivoCSV, ListaDePrecios, FotosDeProductos, PedidoPorMail
+from .models import ArchivoCSV, ListaDePrecios, FotosDeProductos, PedidoPorMail, ListaPrioritariaDeLineas
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from Ferreteria import settings
@@ -358,3 +358,36 @@ class PedidoPorMailCreateView(SuccessMessageMixin, CreateView):
     fields=['archivo']
     success_message='Archivo subido correctamente'
     success_url=reverse_lazy('abm')
+    
+def prioridad(request):
+    lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('linea')
+    context={'lineas':lineas}
+    # print(context)
+    return render(request,'Administrador/prioridadLineas.html',context)
+
+def confirmaPrioridad(request):
+    if request.method == "POST":
+        primer=request.POST.get('casilla1') 
+        segunda=request.POST.get('casilla2')
+        tercera=request.POST.get('casilla3')
+        cuarta=request.POST.get('casilla4')
+        quinta=request.POST.get('casilla5')
+        sexta=request.POST.get('casilla6')
+        septima=request.POST.get('casilla7')
+        octava=request.POST.get('casilla8')
+        # print('*****')
+        # print(primer,segunda,tercera,cuarta,quinta,sexta,septima,octava)
+        lista=[primer,segunda,tercera,cuarta,quinta,sexta,septima,octava] 
+        ListaPrioritariaDeLineas.objects.all().delete()
+        # nuevalista=ListaPrioritariaDeLineas(1,lista)
+        # nuevalista.save()
+        index=1
+        for item in lista:
+             
+            ListaPrioritariaDeLineas(index,item).save()
+            index+=1
+            
+        messages.success(request,'Se actualizo correctamente la lista de prioridades')
+        return render(request,'Administrador/abm.html')
+    else:
+        return render(request,'Administrador/prioridadLineas.html')

@@ -19,20 +19,20 @@
   <div class=' my-2 mb-5'>
    
     <div class="d-flex flex-wrap mx-auto justify-content-around contenedorLineas ">
-      {% for linea in lineas %}
+      {% for linea in prioridad %}
       {% load static %}            
-      
+        
         {% comment %} <div class="card_image img">
         <a href='seleccion/{{linea}}'> <img id="{{linea}}" src= '/media/img/{{linea}}.jpg' alt="Card image cap" width='100%' class='imagen'></a>
         
         <div class="card_btn">
           <a href='seleccion/{{linea}}' class='btn_hover  text-decoration-none d-flex align-items-center justify-content-center'>{{linea}}</a>
         </div>  {% endcomment %}
-
+        {% comment %} <h1>{{prioridad}}</h1> {% endcomment %}
         <div class="card mt-2 me-1 contenedorCard overflow-hidden"  >
           <div class="card_image img overflow-hidden">
             <a href='seleccion/{{linea}}'>
-               <img id="{{linea}}" src= '/media/img/{{linea}}.jpg' alt="Card image cap" width='100%' class='imagen card-img-top '>
+               <img id="{{linea}}" src= '/media/img/{{linea}}.jpg' alt="Card image cap" max-width="100%" class='imagen card-img-top '>
             </a>
           </div>
           <div class="card-body card_btn">
