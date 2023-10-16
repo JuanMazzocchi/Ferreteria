@@ -1,7 +1,7 @@
 
 <header>
     {% load static %}
-    <nav class="navbar navbar-expand-lg" style='background-color: #f8e89f;'>
+    <nav class="navbar navbar-expand-lg" style='background-color: rgb(53, 152, 101);'>
       <div class="container-fluid">
   
         {% comment %} <a class="navbar-brand mr-4 logo fs-3" href="/inicio"><img src="{% static  'img/logoAmarilloChico.png' %}" width=50%></a>
@@ -22,36 +22,36 @@
               <i class="bi bi-cart-fill" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnModalBoot"></i>
             </a> {% endcomment %}
             <li class="nav-item mx-2 ">
-              <a class="nav-link active  border border-primary border-2 rounded  " href="/productoCreateView"> Alta Productos </a>
+              <a class="nav-link active  btn btn-primary      " href="/productoCreateView"> Alta Productos </a>
             </li>
             <li class="nav-item mx-2  ">
-              <a class="nav-link active border border-primary border-2 rounded" href="/search">Editar/Borrar Producto <span class="sr-only"></span></a>
+              <a class="nav-link active btn btn-primary  " href="/search">Editar/Borrar Producto  </a>
             </li>  
             <li class="nav-item mx-2 " >
-              <a class="nav-link active border border-success border-2 rounded" href="/subirPedidoPorMail"> Subir Catalogo </a>
+              <a class="nav-link active btn btn-success  " href="/subirPedidoPorMail"> Subir Catalogo </a>
             </li> 
             <li class="nav-item mx-2 ">
-              <a class="nav-link active border border-success border-2  rounded" href="/subirFoto">Subir Foto <span class="sr-only"></span></a>
+              <a class="nav-link active btn btn-success  " href="/subirFoto">Subir Foto </a>
             </li>
             
             <li class="nav-item mx-2  ">
-              <a class="nav-link active border border-secondary border-2  rounded" href="/subirLista">Subir lista de Precios <span class="sr-only"></span></a>
+              <a class="nav-link active btn btn-success" href="/subirLista">Subir lista de Precios  </a>
             </li>
             <li class="nav-item mx-2  ">
-              <a class="nav-link active border border-secondary border-2  rounded" href="/prioridad">Priorizar Lineas<span class="sr-only"></span></a>
+              <a class="nav-link active btn btn-secondary" href="/prioridad">Priorizar Lineas</a>
             </li>
             <li class="nav-item mx-2  ">
-              <a class="nav-link active border border-secondary border-2  rounded" href="/borrarBase">Vaciar Base(OJO) <span class="sr-only"></span></a>
+              <a class="nav-link active  btn btn-danger" href="#" id='btnVaciarBase'>Vaciar Base(OJO)  </a>
             </li> 
                
              <li class="nav-item mx-2  ">
-              <a class="nav-link active border border-secondary border-2  rounded" href="/subirCsv">Subir CSV <span class="sr-only"></span></a>
+              <a class="nav-link active   btn btn-secondary  " href="/subirCsv" >Subir CSV  </a>
             </li>  
             <li class="nav-item mx-2  ">
-              <a class="nav-link active border border-danger border-2  rounded" href="/admin">Ir a Admin <span class="sr-only"></span></a>
+              <a class="nav-link active btn btn-link border border-2 " href="/admin">Ir a Admin  </a>
             </li>  
             <li class="nav-item mx-2  ">
-              <a class="nav-link active border border-danger border-2  rounded" href="/baseDeDatos">Actualizar Base de Datos<span class="sr-only"></span></a>
+              <a class="nav-link active  btn btn-danger" href="/baseDeDatos">Actualizar Base de Datos</a>
             </li>  
                
           </ul>       

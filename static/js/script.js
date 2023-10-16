@@ -33,7 +33,8 @@ const modBoot2 = document.getElementById('btn-toggle2');
 modBoot?.addEventListener('click', carroBoot);
 modBoot2?.addEventListener('click', carroBoot);
     
-
+const vaciarBase =document.getElementById('btnVaciarBase');
+vaciarBase?.addEventListener('click', confirmaVaciado);
 
 const modalcontent = document.getElementById('modalBootstrap');
 
@@ -621,7 +622,7 @@ function closeModal(){
 // boton de descargar lista de precios 
 
 function downloadClicked() {
-  console.log("first")
+  // console.log("first")
     Toast.fire( {
         title: 'Desea descargar la lista de precios a su dispositivo?',
         showConfirmButton: true,
@@ -641,6 +642,28 @@ function downloadClicked() {
       })
     
 }
+
+//boton de confirmacion de Vaciar la Base de datos
+function confirmaVaciado(){
+Toast.fire( {
+  title: 'Esta seguro de vaciar la Base de Datos?',
+  showConfirmButton: true,
+  timer:false,
+  showDenyButton: true,
+  showCancelButton: false,
+  confirmButtonText: 'Si',
+  denyButtonText: `Cancelar`,
+}).then((result) => {
+  
+  if (result.isConfirmed) {
+    Swal.fire('La Base de datos ha sido borrada', '', 'success'),
+    location.href ="/borrarBase";
+  } else if (result.isDenied) {
+  //   Swal.fire('Changes are not saved', '', 'info')
+  }
+})
+}
+
 
 // boton de descargar el archivo de pedido por mail
 function downloadPedidoClicked() {
