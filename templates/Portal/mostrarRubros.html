@@ -16,29 +16,29 @@
     {% for key , value  in diccionarios.items %}
      {% load static %}
     
-      <div class='col-6 col-sm-4 col-md-3 col-lg-2 card justify-content-between'>
+      <div class='col-6 col-sm-4 col-md-3 col-lg-2 card  p-0'>
          
         {% if value|existeLaImg %}  {% comment %} REVISA SI LA IMAGEN EXISTE, SINO DA FALSE {% endcomment %}
 
         {% with value|add:'.jpg' as valor  %}
-        <a href='../gondola/{{key}}' class=" overflow-hidden">
-          <img id="{{value}}" src="/media/img/{{valor}}" alt="Card image cap " class="imagen img-fluid " width='90%' >
+        <a href='../gondola/{{key}}' class=" overflow-hidden d-flex align-items-center align-self-center flex-grow-1">
+          <img id="{{value}}" src="/media/img/{{valor}}" alt="Card image cap " class="imagen  img-fluid align-self-center "  >
         </a>
         {% endwith %}
 
         {% else %}
 
-        <a href='../gondola/{{key}}' class='overflow-hidden'>
-           <img id='tomate {{value}}' src={% static '/img/sinFoto.jpg' %} alt='No hay imagen para este articulo' width="95%"  class='sinFoto img-fluid ' >
+        <a href='../gondola/{{key}}' class='overflow-hidden' >
+           <img id='tomate {{value}}' src={% static '/img/sinFoto.jpg' %} alt='No hay imagen para este articulo' width="95%"  class='sinFoto   ' >
         </a>
        
         {% endif %}
-
-        <div class="card_btn pb-1 ">
-          <a href='../gondola/{{key}}' class='btn_hover  text-decoration-none d-flex align-items-center justify-content-center btn-block '>
-            {{key}}
-          </a>
-        </div>
+      
+         <div class="card_btn pb-1 ">
+            <a href='../gondola/{{key}}' class='btn_hover text-decoration-none d-flex align-items-center justify-content-center  '>
+          {{key}}
+        </a>
+        </div> 
       </div>
     
     {%endfor%}

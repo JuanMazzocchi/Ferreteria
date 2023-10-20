@@ -69,8 +69,8 @@ def seleccion(request,linea):
             # print(item)
             listaDeRubros.append(item)
             
-            imagen=Producto.objects.distinct().filter(rubro=item)[0]
-            # print(f'({imagen.imagen[:-1]})') 
+            imagen=Producto.objects.all().filter(rubro=item)[0]
+            print(f'({imagen.imagen[:-1]})') 
             imagenes.append(imagen.imagen[:-1])   #le quito el salto de linea invisible al final ([:-1])
         
         # print(imagenes)
