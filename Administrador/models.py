@@ -25,7 +25,7 @@ def user_directory_path_CSV(instance, filename):
     return 'uploads/{0}'.format('BaseDeDatos.csv')
 
 def user_directory_path_PedidoPorMail(instance, filename):
-    return 'uploads/{0}'.format('PedidoPorMail.xlsx')
+    return 'uploads/{0}'.format('Catalogo.pdf')
 
 def validate_csv(value):
      
@@ -44,7 +44,7 @@ class FotosDeProductos(models.Model):
 
 
 class PedidoPorMail(models.Model):
-    archivo=models.FileField(verbose_name='Archivo', upload_to=user_directory_path_PedidoPorMail, storage=OverwriteStorage(), help_text="Archivo .xlsx para enviar pedidos por mail por parte de los clientes")
+    archivo=models.FileField(verbose_name='Archivo', upload_to=user_directory_path_PedidoPorMail, storage=OverwriteStorage(), help_text="Archivo .pdf del catalogo")
 
 class ListaPrioritariaDeLineas(models.Model):
     archivo=models.CharField(max_length=500, verbose_name='Lista')

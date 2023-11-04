@@ -15,6 +15,7 @@ from django.db.models import Q
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib import messages
+from django.http import HttpResponse
 from Ferreteria import settings
 
 
@@ -203,17 +204,26 @@ def downloadLista(request):
     id=1
     obj=ListaDePrecios.objects.get(id=id)
     filename=obj.archivo.path
-    print(filename)
+    # print(filename)
     response= FileResponse(open(filename,'rb'))
     return response
 
+# def downloadPedidoPorMail(request):
+#     id=1
+#     obj=PedidoPorMail.objects.get(id=id)
+#     filename=obj.archivo.path
+#     response= FileResponse(open(filename,'rb'))
+#     return response
 def downloadPedidoPorMail(request):
     id=1
     obj=PedidoPorMail.objects.get(id=id)
     filename=obj.archivo.path
-    response= FileResponse(open(filename,'rb'))
+    res=open(filename,'rb') 
+    response = HttpResponse(res, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Catalogo.pdf"'
     return response
-
+    
+    
 
 def enviarPedidoDelCarrito(request):
     
