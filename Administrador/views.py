@@ -257,7 +257,7 @@ def llenarBase(request):
     # contador=0
     for line in file:
         objeto= line.split(sep='|')
-        # print(objeto)
+        print(objeto)
         
         # if contador %2000 ==0:
         #     print(f"esperando  {time.time()}")
@@ -270,22 +270,26 @@ def llenarBase(request):
                 # print(type(objeto[0]))
                 pass
                     
-            else:      
+            else:      #orden en el archivo CSV : cod_producto, linea, ordenLinea, rubro , ordenRubro, descripcion, pcio_lista, unidad, imagen 
                 # precio=objeto[4].replace('.','')     
-                precio=objeto[4] 
+                 
+                precio=objeto[6] 
                 armado=Producto(cod_producto=objeto[0],
                                 linea=objeto[1],
-                                rubro=objeto[2],
-                                descripcion=objeto[3],
+                                ordenLinea=objeto[2],
+                                rubro=objeto[3],
+                                ordenRubro=objeto[4],
+                                descripcion=objeto[5],
                                 pcio_lista=float(precio),
-                                unidad=objeto[5],
-                                imagen=objeto[6] )
+                                unidad=objeto[7],
+                                imagen=objeto[8] )
                     
                 try:
                     armado.save()
                     # contador+=1
                     
                 except armado.save():
+                    print(objeto)
                     messages.error(request,"Algo salio mal")
                     return render(request,'Administrador/abm.html')
                 
@@ -308,14 +312,16 @@ class worker(Thread):
                      pass
                     
                 else:
-                    precio=objeto[4] 
+                    precio=objeto[6] 
                     armado=Producto(cod_producto=objeto[0],
-                                    linea=objeto[1],
-                                    rubro=objeto[2],
-                                    descripcion=objeto[3],
-                                    pcio_lista=float(precio),
-                                    unidad=objeto[5],
-                                    imagen=objeto[6] )
+                                linea=objeto[1],
+                                ordenLinea=objeto[2],
+                                rubro=objeto[3],
+                                ordenRubro=objeto[4],
+                                descripcion=objeto[5],
+                                pcio_lista=float(precio),
+                                unidad=objeto[7],
+                                imagen=objeto[8] )
                         
                     try:
                         armado.save()
@@ -358,6 +364,7 @@ class PedidoPorMailCreateView(SuccessMessageMixin, CreateView):
     fields=['archivo']
     success_message='Archivo subido correctamente'
     success_url=reverse_lazy('abm')
+ 
     
 def prioridad(request):
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('linea')
@@ -365,7 +372,7 @@ def prioridad(request):
     # print(context)
     return render(request,'Administrador/prioridadLineas.html',context)
 
-def confirmaPrioridad(request):
+def confirmaPrioridad(request):   #ya no esta en uso
     if request.method == "POST":
         primer=request.POST.get('casilla1') 
         segunda=request.POST.get('casilla2')

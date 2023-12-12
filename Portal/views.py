@@ -45,11 +45,12 @@ def contacto(request):
 @login_required
 def lineas(request):
  
-    lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('linea')
-    prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+    lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
+    # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
     context={
             'lineas':lineas,
-             'prioridad':prioridad}
+            #  'prioridad':prioridad
+             }
     # print(context)
     
     return render(request, 'Portal/mostrarLineas.html', context  )
@@ -61,8 +62,9 @@ def about(request):
 def seleccion(request,linea):   
          
         # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
-        rubro=Producto.objects.order_by('rubro').values_list('rubro', flat=True).distinct().filter(linea=linea)
-        prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+        rubro=Producto.objects.order_by('ordenRubro').values_list('rubro', flat=True).distinct().filter(linea=linea)
+        # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+        lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
         # print(rubro)
         imagenes=[]
         listaDeRubros=[]
@@ -84,7 +86,7 @@ def seleccion(request,linea):
             'rubros':rubro,
             'diccionarios':diccionario,
             'listadoDeImagenes': listadoDeImagenes,
-            'prioridad':prioridad
+            'lineas':lineas
             }
         return render(request,'Portal/mostrarRubros.html', context)
     
@@ -93,10 +95,11 @@ def gondola(request,rubro):
     
     # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
     articulos=Producto.objects.all().filter(rubro=rubro).order_by('id')
-    prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+    # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+    lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
     context={
         'articulos':articulos,
-        'prioridad':prioridad
+        'lineas':lineas
         }
     # print(articulos)
     return render(request,'Portal/mostrarArticulos.html' ,context )
@@ -107,7 +110,7 @@ def portalSearch(request):
     if request.method =='GET':
         
         # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct() 
-        prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+        # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
         keyword=request.GET.get('keyword')
         # print(keyword)
         
@@ -127,7 +130,7 @@ def portalSearch(request):
 
         context ={
             'articulos':articulos,
-            'prioridad':prioridad
+            # 'prioridad':prioridad
             }
         # print(articulos)
         return render(request,'Portal/mostrarArticulos.html', context)

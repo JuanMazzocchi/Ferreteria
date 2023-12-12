@@ -15,6 +15,9 @@ class Producto(models.Model):
     imagen=models.CharField(max_length=10, verbose_name='Imagen',null=True)
     linea=models.CharField(max_length=100, verbose_name='Linea')
     rubro=models.CharField(max_length=50, verbose_name='Rubro')
+    ordenLinea=models.CharField(max_length=10, verbose_name='Orden de Linea')
+    ordenRubro=models.CharField(max_length=10, verbose_name='Orden de Rubros')
+    
     
     def __str__(self):
         return f' {self.cod_producto} - {self.rubro} - {self.linea} - {self.descripcion} - {self.pcio_lista} - {self.unidad} - {self.imagen}'
