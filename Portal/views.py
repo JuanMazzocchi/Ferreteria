@@ -62,7 +62,7 @@ def about(request):
 def seleccion(request,linea):   
          
         # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
-        rubro=Producto.objects.order_by('ordenRubro').values_list('rubro', flat=True).distinct().filter(linea=linea)
+        rubro=Producto.objects.order_by('ordenRubro').values_list('rubro', flat=True).filter(linea=linea).distinct()
         # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
         lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
         # print(rubro)
@@ -73,7 +73,7 @@ def seleccion(request,linea):
             # print(item)
             listaDeRubros.append(item)
             
-            imagen=Producto.objects.all().filter(rubro=item)[0]
+            imagen=Producto.objects.all().filter(rubro=item,linea=linea).first()
             # print(f'({imagen.imagen[:-1]})') 
             imagenes.append(imagen.imagen[:-1])   #le quito el salto de linea invisible al final ([:-1])
         
@@ -86,15 +86,16 @@ def seleccion(request,linea):
             'rubros':rubro,
             'diccionarios':diccionario,
             'listadoDeImagenes': listadoDeImagenes,
-            'lineas':lineas
+            'lineas':lineas,
+            'linea':linea
             }
         return render(request,'Portal/mostrarRubros.html', context)
     
 @login_required    
-def gondola(request,rubro):
+def gondola(request,rubro,linea):
     
     # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
-    articulos=Producto.objects.all().filter(rubro=rubro).order_by('id')
+    articulos=Producto.objects.all().filter(rubro=rubro, linea=linea).order_by('id')
     # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
     context={
@@ -111,6 +112,7 @@ def portalSearch(request):
         
         # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct() 
         # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+        lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
         keyword=request.GET.get('keyword')
         # print(keyword)
         
@@ -130,7 +132,7 @@ def portalSearch(request):
 
         context ={
             'articulos':articulos,
-            # 'prioridad':prioridad
+            'lineas':lineas
             }
         # print(articulos)
         return render(request,'Portal/mostrarArticulos.html', context)
