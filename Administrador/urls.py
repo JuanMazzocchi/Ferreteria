@@ -21,7 +21,7 @@ path('productosEliminar/<int:pk>', views.ProductoEliminarView.as_view(),name='pr
 
 path('subirCsv',views.SubirCsvView.as_view(), name='subirCsv'),
 path('borrarBase',views.BorrarBase, name='borrarBase'),
-path('llenarBase', views.llenarBase, name='llenarBase'),
+# path('llenarBase', views.llenarBase, name='llenarBase'),
 path('borrarLlenar',views.BorrarLlenar, name='borrarLlenar'),
 path('baseDeDatos',views.baseDeDatos, name='baseDeDatos'),
 
@@ -29,7 +29,7 @@ path('subirLista',views.SubirListaDePreciosView.as_view(), name='subirLista'),
 path('listasDePrecio',views.ListasDePrecio, name='listasDePrecio'),
 path('subirFoto',views.FotoCreateView.as_view(), name='subirFoto'),
 path('subirPedidoPorMail', views.PedidoPorMailCreateView.as_view(), name='subirPedidoPorMail'),
-path('upload', views.upload_csv , name="upload") ,
+# path('upload', views.upload_csv , name="upload") ,
 path('prioridad',views.prioridad, name='prioridad'),
 path('confirmaPrioridad',views.confirmaPrioridad, name='confirmarPrioridad'),
 

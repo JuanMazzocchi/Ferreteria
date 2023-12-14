@@ -156,56 +156,56 @@ class SubirCsvView(SuccessMessageMixin, CreateView):
     success_message='Archivo subido correctamente'
     template_name='Administrador/subirCSV.html'
 
-def upload_csv(request):
+# def upload_csv(request):
     
-    if request.method =="GET":
-        return render (request,'Administrador/upload_csv.html')          #SIN USO, LO USE COMO PRUEBA PERO EN PRODUCCION NO FUNCIONA BIEN
+#     if request.method =="GET":
+#         return render (request,'Administrador/upload_csv.html')          #SIN USO, LO USE COMO PRUEBA PERO EN PRODUCCION NO FUNCIONA BIEN
     
-    try:
-       csv_file = request.FILES["csv_file"]
-       if not csv_file.name.endswith('.csv'):
-           messages.error(request, 'El archivo no es .csv')
-           return (request,'Administrador/abm.html') 
+#     try:
+#        csv_file = request.FILES["csv_file"]
+#        if not csv_file.name.endswith('.csv'):
+#            messages.error(request, 'El archivo no es .csv')
+#            return (request,'Administrador/abm.html') 
        
-       file_data= csv_file.read().decode('ISO-8859-1')
-       #BorrarBase(request)
-       lines = file_data.split('\n')
-    #    print(lines[0])
-       for line in lines:
-           objeto=line.split("|")
-           if len(objeto)>=6:
+#        file_data= csv_file.read().decode('ISO-8859-1')
+#        #BorrarBase(request)
+#        lines = file_data.split('\n')
+#     #    print(lines[0])
+#        for line in lines:
+#            objeto=line.split("|")
+#            if len(objeto)>=6:
                 
-            if objeto[0]=='cod producto':
-                # print(objeto[0])
-                # print(type(objeto[0]))
-                pass
+#             if objeto[0]=='cod producto':
+#                 # print(objeto[0])
+#                 # print(type(objeto[0]))
+#                 pass
                     
-            else:      
-                # precio=objeto[4].replace('.','')     
-                precio=objeto[4] 
-                armado=Producto(cod_producto=objeto[0],
-                                linea=objeto[1],
-                                rubro=objeto[2],
-                                descripcion=objeto[3],
-                                pcio_lista=float(precio),
-                                unidad=objeto[5],
-                                imagen=objeto[6] )
+#             else:      
+#                 # precio=objeto[4].replace('.','')     
+#                 precio=objeto[4] 
+#                 armado=Producto(cod_producto=objeto[0],
+#                                 linea=objeto[1],
+#                                 rubro=objeto[2],
+#                                 descripcion=objeto[3],
+#                                 pcio_lista=float(precio),
+#                                 unidad=objeto[5],
+#                                 imagen=objeto[6] )
                     
-                try:
-                    armado.save()
+#                 try:
+#                     armado.save()
                     
-                except Exception as e :
-                    messages.error(request,"Algo saio mal  "+repr(e))
-                    return render(request,'Administrador/abm.html')
+#                 except Exception as e :
+#                     messages.error(request,"Algo saio mal  "+repr(e))
+#                     return render(request,'Administrador/abm.html')
     
-    except Exception as e :
-        messages.error(request,"Unable to upload file. "+repr(e))
+#     except Exception as e :
+#         messages.error(request,"Unable to upload file. "+repr(e))
 
     
            
            
-    messages.success(request, 'Se persistio la Base de datos desde el archivo .csv')
-    return render(request,'Administrador/abm.html')       
+#     messages.success(request, 'Se persistio la Base de datos desde el archivo .csv')
+#     return render(request,'Administrador/abm.html')       
                 
      
     
@@ -244,58 +244,58 @@ def get_encoding_type(file):
 import time
 
 
-def llenarBase(request):
+# def llenarBase(request):
             
-    path=os.path.join(settings.MEDIA_DIR, 'uploads/BaseDeDatos.csv')      # SIN USO, EN PRODUCCION NO FUNCIONA BIEN
+#     path=os.path.join(settings.MEDIA_DIR, 'uploads/BaseDeDatos.csv')      # SIN USO, EN PRODUCCION NO FUNCIONA BIEN
     
-    try:
-        file=open(path, 'r', encoding=get_encoding_type(path) , errors='ignore')
+#     try:
+#         file=open(path, 'r', encoding=get_encoding_type(path) , errors='ignore')
         
-    except:
-        messages.error(request,"No se pudo abrir el archivo .csv")
-        return render(request,'Administrador/abm.html')
-    # contador=0
-    for line in file:
-        objeto= line.split(sep='|')
-        print(objeto)
+#     except:
+#         messages.error(request,"No se pudo abrir el archivo .csv")
+#         return render(request,'Administrador/abm.html')
+#     # contador=0
+#     for line in file:
+#         objeto= line.split(sep='|')
+#         print(objeto)
         
-        # if contador %2000 ==0:
-        #     print(f"esperando  {time.time()}")
-        #     time.sleep(10)
+#         # if contador %2000 ==0:
+#         #     print(f"esperando  {time.time()}")
+#         #     time.sleep(10)
                  
-        if len(objeto)>=6:
+#         if len(objeto)>=6:
             
-            if objeto[0]=='cod producto':
-                # print(objeto[0])
-                # print(type(objeto[0]))
-                pass
+#             if objeto[0]=='cod producto':
+#                 # print(objeto[0])
+#                 # print(type(objeto[0]))
+#                 pass
                     
-            else:      #orden en el archivo CSV : cod_producto, linea, ordenLinea, rubro , ordenRubro, descripcion, pcio_lista, unidad, imagen 
-                # precio=objeto[4].replace('.','')     
+#             else:      #orden en el archivo CSV : cod_producto, linea, ordenLinea, rubro , ordenRubro, descripcion, pcio_lista, unidad, imagen 
+#                 # precio=objeto[4].replace('.','')     
                  
-                precio=objeto[6] 
-                armado=Producto(cod_producto=objeto[0],
-                                linea=objeto[1],
-                                ordenLinea=objeto[2],
-                                rubro=objeto[3],
-                                ordenRubro=objeto[4],
-                                descripcion=objeto[5],
-                                pcio_lista=float(precio),
-                                unidad=objeto[7],
-                                imagen=objeto[8] )
+#                 precio=objeto[6] 
+#                 armado=Producto(cod_producto=objeto[0],
+#                                 linea=objeto[1],
+#                                 ordenLinea=objeto[2],
+#                                 rubro=objeto[3],
+#                                 ordenRubro=objeto[4],
+#                                 descripcion=objeto[5],
+#                                 pcio_lista=float(precio),
+#                                 unidad=objeto[7],
+#                                 imagen=objeto[8] )
                     
-                try:
-                    armado.save()
-                    # contador+=1
+#                 try:
+#                     armado.save()
+#                     # contador+=1
                     
-                except armado.save():
-                    print(objeto)
-                    messages.error(request,"Algo salio mal")
-                    return render(request,'Administrador/abm.html')
+#                 except armado.save():
+#                     print(objeto)
+#                     messages.error(request,"Algo salio mal")
+#                     return render(request,'Administrador/abm.html')
                 
     
-    messages.success(request, 'Se persistio la Base de datos desde el archivo .csv')
-    return render(request,'Administrador/abm.html')
+#     messages.success(request, 'Se persistio la Base de datos desde el archivo .csv')
+#     return render(request,'Administrador/abm.html')
 
 from threading import Thread
 
@@ -313,15 +313,15 @@ class worker(Thread):
                     
                 else:
                     precio=objeto[6] 
-                    armado=Producto(cod_producto=objeto[0],
-                                linea=objeto[1],
-                                ordenLinea=objeto[2],
-                                rubro=objeto[3],
-                                ordenRubro=objeto[4],
-                                descripcion=objeto[5],
+                    armado=Producto(cod_producto=objeto[0].strip(),
+                                linea=objeto[1].strip(),
+                                ordenLinea=objeto[2].strip(),
+                                rubro=objeto[3].strip(),
+                                ordenRubro=objeto[4].strip(),
+                                descripcion=objeto[5].strip(),
                                 pcio_lista=float(precio),
-                                unidad=objeto[7],
-                                imagen=objeto[8] )
+                                unidad=objeto[7].strip(),
+                                imagen=objeto[8].strip() )
                         
                     try:
                         armado.save()
