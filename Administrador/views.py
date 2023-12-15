@@ -321,7 +321,7 @@ class worker(Thread):
                                 descripcion=objeto[5].strip(),
                                 pcio_lista=float(precio),
                                 unidad=objeto[7].strip(),
-                                imagen=objeto[8].strip() )
+                                imagen=objeto[8])
                         
                     try:
                         armado.save()
