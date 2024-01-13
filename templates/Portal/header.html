@@ -15,38 +15,34 @@
       </div>
       <div class='row'>
        
-        <span class="dropdown ps-3 col mt-1" >
+         {% comment %} <span class="dropdown ps-3 col mt-1" >
           <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{user.username}}
-          </button>
+          </button>  
           <ul class="dropdown-menu dropdown-menu-start">
             <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
-        </span>
+        </span> {% endcomment %}
+        
         {% comment %} <span class="dropdown-menu dropdown-menu-end text-center col">
           <button class="cssbuttons-io-button" onclick=downloadClicked id="downloadBtn"   >
             <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor"></path></svg>
             <span>Lista de Precios/Pedidos</span>
           </button>
         </span> {% endcomment %}
-        <span class="dropdown mt-1 col">
-            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Descargas
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end text-center"> 
-              <li>
-                <button class="cssbuttons-io-button" onclick=downloadClicked id="downloadBtn"   >
+        <span class=" mt-1 col d-flex">
+             
+            
+                <button class="btn btn-outline-dark  py-0" onclick=downloadClicked id="downloadBtn"   >
                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor"></path></svg>
                 <span>Lista de Precios/Pedidos</span>
               </button>
-              </li>
-              <li class='text-center mx-auto'>
-                <button class="cssbuttons-io-button" onclick=downloadPedidoClicked id="downloadPedidoBtn">
+              
+                <button class="btn btn-outline-dark py-0 mx-1" onclick=downloadPedidoClicked id="downloadPedidoBtn">
                   <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor"></path></svg>
                   <span>Catálogo</span>
                 </button>
-              </li>
-            </ul>
+             
         </span>
         <span class='col'>
           <a href="#" id="btn-toggle" class="btn-toggle btn btn-outline-dark mt-1"><i class="bi bi-cart-fill " style="font-size: 23px;"></i></a>
@@ -102,19 +98,17 @@
         </li>
         {% endif %}
 
-        <li class="dropdown ps-3  nav-item">
-          <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Descargas
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end text-center "> 
+        <li class="  ps-3  nav-item">
+          
+          <ul class=" list-unstyled text-center "> 
             <li>
-              <button class="cssbuttons-io-button" onclick=downloadClicked id="downloadBtnCel"   >
+              <button class="btn btn-outline-dark" onclick=downloadClicked id="downloadBtnCel"   >
               <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor"></path></svg>
               <span>Lista de Precios/Pedidos</span>
             </button>
             </li>
             <li class='text-center mx-auto'>
-              <button class="cssbuttons-io-button" onclick=downloadPedidoClicked id="downloadPedidoBtnCel">
+              <button class="btn btn-outline-dark" onclick=downloadPedidoClicked id="downloadPedidoBtnCel">
                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor"></path></svg>
                 <span>Catálogo</span>
               </button>
@@ -123,13 +117,13 @@
         </li>
       </ul>
       
-        <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {% comment %} <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{user.username}}
         </button>
 
         <ul class="dropdown-menu dropdown-menu-start">
           <li><a class="dropdown-item" href="/logout">Logout</a></li>
-        </ul>
+        </ul> {% endcomment %}
        
 
     </div>
