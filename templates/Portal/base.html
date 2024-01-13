@@ -122,18 +122,29 @@
           {% endif %}
           <div class="container d-inline justify-content-center justify-content-evenly mb-2">  
             <div class='row justify-content-center'> 
+              {% if user.username %}
               <div class="form-group col-3">
-                <label for="formGroupExampleInput" class="labelForm">Nombre</label>
-                <input type="text" name='textNombre' class="form-control" id="formGroupExampleInput" placeholder="Nombre" value={{user.first_name}} readonly>
+                <label for="formGroupExampleInput" class="labelForm"><b>Nombre</b></label>
+                <input type="text" name='username' class="form-control" id="formGroupExampleInput" placeholder="Nombre" value={{user.username}} readonly >
               </div>
-              <div class="form-group col-3">
-                <label for="formGroupExampleInput2" class="labelForm">Nro de cliente</label>
-                <input type="textMail" name="textMail" class="form-control" id="formGroupExampleInput2" placeholder="ejemplo@email.com" value={{user.last_name}} readonly>
-              </div>
+              {% endif %}
+              {% if not user.username %}
+            <div class="form-group col-3">   
+              <label for="formGroupExampleInput" class="labelForm"><b>Nombre</b></label>
+              <input type="text" name='username' class="form-control" id="formGroupExampleInput" placeholder="Nombre"  >
+            </div>
+            <div class="form-group col-3">
+              <label for="formGroupExampleInput2" class="labelForm"><b>Contraseña</b></label>
+              <input type="password" name="password" class="form-control" id="formGroupExampleInput2"  >
+            </div>
+            {% endif %}
+             
+
+             
             </div>
             <div class='row justify-content-center'>
               <div class="form-group col-6">
-                <label for="formGroupExampleInput3" class="labelForm">Mensaje(opcional)</label>
+                <label for="formGroupExampleInput3" class="labelForm"><b>Mensaje</b>(opcional)</label>
                 <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="textMensaje"></input>
               </div>
             </div>

@@ -106,7 +106,7 @@ if(btnVolver){btnVolver.addEventListener('click', btnVolverClicked);}
 
 
 function carroBoot(){
-
+                                            // GENERA EL CONTENIDO DEL CARRITO
     let productosEnElCarro;
     productosEnElCarro =obtenerProductosLS();
     if(productosEnElCarro.length===0){
@@ -146,7 +146,7 @@ function carroBoot(){
     cantidadDefault();
 };
 
-function addToCartBtnClicked(event){
+function addToCartBtnClicked(event){        //AGREGAR EL ITEM AL CARRO CAPTURANDO LOS DATOS EN PANTALLA
     const boton = event.target;
     const item = boton.closest('.item');
 
@@ -169,7 +169,7 @@ function addToCartBtnClicked(event){
     }
 };
 
-function addToCarrito(infoProducto){
+function addToCarrito(infoProducto){      // CON LOS DATOS EN infoProducto GUARDO EN EL LOCAL STORAGE
     let productosEnStorage;
     productosEnStorage=obtenerProductosLS();
     let indice=0; 
@@ -566,7 +566,7 @@ function cerrarYborrar(){
     showDenyButton: false,
     showCancelButton: false,
     confirmButtonText: 'OK',
-    timer:2000,
+    timer:1000,
      
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
@@ -579,18 +579,6 @@ function cerrarYborrar(){
   btnVaciarClicked()
   
 };
-
-
-function acomodadorDePedido(item){
-    
-    const divPedido=document.createElement('div');              //NO ESTA EN USO
-    let itemPedido;
-      
-    itemPedido=`<div> Codigo: ${item.id} Producto: ${item.descripcion} Cantidad: ${item.cantidad} SubTotal: ${(item.precio * item.cantidad).toFixed(2)}</div> `;
-    divPedido.innerHTML=itemPedido
-    pedidoTotal.append(divPedido)
-};
-
 
 function modal(event){
     // console.log("first")

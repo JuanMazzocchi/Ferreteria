@@ -7,7 +7,7 @@ from Portal.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # from django.urls import reverse
-from Administrador.models import ListaDePrecios, PedidoPorMail,ListaPrioritariaDeLineas
+from Administrador.models import ListaDePrecios, PedidoPorMail
 from django.http import FileResponse
 import os
 from pathlib import Path
@@ -42,7 +42,7 @@ def contacto(request):
 
     return render(request, 'Portal/contacto.html', context)
 
-@login_required
+# @login_required
 def lineas(request):
  
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
@@ -58,7 +58,7 @@ def lineas(request):
 def about(request):
     return render(request, 'Portal/about.html')
 
-@login_required
+# @login_required
 def seleccion(request,linea):   
          
         # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
@@ -91,7 +91,7 @@ def seleccion(request,linea):
             }
         return render(request,'Portal/mostrarRubros.html', context)
     
-@login_required    
+# @login_required    
 def gondola(request,rubro,linea):
     
     # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
@@ -105,7 +105,7 @@ def gondola(request,rubro,linea):
     # print(articulos)
     return render(request,'Portal/mostrarArticulos.html' ,context )
 
-@login_required
+# @login_required
 def portalSearch(request):
     
     if request.method =='GET':
@@ -141,10 +141,46 @@ def portalSearch(request):
 
 def loginView(request):
     
-    if request.user.is_authenticated:
-        # print('logueado')
-        return redirect('lineas')
+    # if request.user.is_authenticated:
+    #     # print('logueado')
+    #     return redirect('lineas')
     
+    # if request.method == 'POST':
+            
+    #     username=request.POST['username']
+    #     password=request.POST['password']
+    #     # print(username)
+    #     user=authenticate(request, username=username, password=password)
+        
+    #     if user is not None:
+    #         login(request,user)
+    #         # print('autorizado')
+    #         return redirect('lineas')
+    #     else:
+    #         formulario_login = LoginForm()
+
+    #         context = {
+    #             'formulario_login': formulario_login,
+    #             'messages':"Nombre o contraseña incorrectos"
+    #         }
+    #         return render(request, 'Portal/login.html',context)
+    # else:
+        
+    #     formulario_login = LoginForm()
+
+    # context = {
+    #     'formulario_login': formulario_login,
+    # }
+
+    return redirect('lineas')
+    
+    
+def logoutView(request):
+    
+    logout(request)  
+    return redirect('loginView')
+
+def loginRedirect(request):
     if request.method == 'POST':
             
         username=request.POST['username']
@@ -157,30 +193,11 @@ def loginView(request):
             # print('autorizado')
             return redirect('lineas')
         else:
-            formulario_login = LoginForm()
-
-            context = {
-                'formulario_login': formulario_login,
-                'messages':"Nombre o contraseña incorrectos"
-            }
-            return render(request, 'Portal/login.html',context)
-    else:
-        
-        formulario_login = LoginForm()
-
-    context = {
-        'formulario_login': formulario_login,
-    }
-
-    return render(request, 'Portal/login.html', context)
+            
+            messages.error(request,"Usuario o contraseña invalidos")
+            return redirect('lineas')
     
     
-def logoutView(request):
-    
-    logout(request)  
-    return redirect('loginView')
-
-
 # @login_required    
 # def servicios(request):
     
@@ -228,48 +245,54 @@ def downloadPedidoPorMail(request):
     response['Content-Disposition'] = 'attachment; filename="Catalogo.pdf"'
     return response
     
-    
-
-def enviarPedidoDelCarrito(request):
-    
-    if request.method =='POST':
-        textNombre = "Enviado por: " + request.POST['textNombre']
-        textMail ="Nro de Cliente: "+  request.POST['textMail']
-        textMensaje = 'Mensaje: ' + request.POST['textMensaje']
-        subject = 'Mail enviado desde el sitio de pedidos'
+def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y manda el pedido sino vuelve a lineas
+    if request.method == "POST":
         
-        key = request.COOKIES.get('carrito') #armo el mensaje desde las cookies del sitio 
-        if len(key)>0:
-            listaCarro=key.replace(",", "\n")
-            message =listaCarro
+        username=request.POST['username']
+        password=request.POST['password']
+        print(username)
+        user=authenticate(request, username=username, password=password)
+        print(user)
         
-            template =render_to_string('Portal/datos.html',{
-                'nombre':textNombre,
-                'email':textMail,
-                'message':message,
-                'mensaje':textMensaje,
-            })
+        if user is not None:  #si esta autenticado envia el pedido
             
-            email=EmailMessage(
-                subject,
-                template,
-                settings.EMAIL_HOST_USER,
-                ['juanmazzocchi@gmail.com']
-            )
-        
-        try:
+            textNombre = "Enviado por: " + user.get_username()
+            textMail ="Nro de Cliente: "+  user.get_email_field_name()
+            textMensaje = 'Mensaje: ' + request.POST['textMensaje']
+            subject = 'Mail enviado desde el sitio de pedidos'
             
-            email.fail_silently = False
-            email.send()        
-            messages.success(request, 'Email enviado correctamente.')
-            return redirect('lineas')
-        
-        except:
+            key = request.COOKIES.get('carrito') #armo el mensaje desde las cookies del sitio 
+            if len(key)>0:
+                listaCarro=key.replace(",", "\n")
+                message =listaCarro
             
-            messages.error(request,'Algo salio mal')
+                template =render_to_string('Portal/datos.html',{
+                    'nombre':textNombre,
+                    'email':textMail,
+                    'message':message,
+                    'mensaje':textMensaje,
+                })
+                
+                email=EmailMessage(
+                    subject,
+                    template,
+                    settings.EMAIL_HOST_USER,
+                    ['juanmazzocchi@gmail.com']
+                )
+            
+            try:
+                
+                email.fail_silently = False
+                email.send()        
+                messages.success(request, 'Email enviado correctamente.')
+                return redirect('lineas')
+            
+            except:
+                
+                messages.error(request,'Algo salio mal')
+                return redirect('lineas')
+        else:
+            messages.error(request,"Usuario o contraseña invalidos")
             return redirect('lineas')
              
-            
-        
-        
         

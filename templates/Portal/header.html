@@ -1,6 +1,6 @@
 <header id="arriba">
   {% load static %}
-  {% if user.is_authenticated  %}
+  
 
   <nav class="navbar fixed-top container-fluid d-xs-none d-sm-none d-md-flex d-lg-flex  justify-content-start py-0 border-bottom border-dark border-3" id="paraPC" style='background-color: rgb(53, 152, 101);'>
     <div id="contenedorLogo" class='mt-0 col-sm-3 col-md-2 col-lg-1'>
@@ -15,14 +15,7 @@
       </div>
       <div class='row'>
        
-         {% comment %} <span class="dropdown ps-3 col mt-1" >
-          <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {{user.username}}
-          </button>  
-          <ul class="dropdown-menu dropdown-menu-start">
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
-          </ul>
-        </span> {% endcomment %}
+         
         
         {% comment %} <span class="dropdown-menu dropdown-menu-end text-center col">
           <button class="cssbuttons-io-button" onclick=downloadClicked id="downloadBtn"   >
@@ -55,6 +48,26 @@
        {% for linea in lineas  %}
          <a class='btn btn-dark accesoRapido'  href='/seleccion/{{linea}}' >{{linea}}</a>
         {% endfor %}
+        <span class="dropdown ps-3 col mt-1" >
+          <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{user.username}}
+          </button> 
+          
+                    <ul class="dropdown-menu dropdown-menu-start">
+            {% if user.username %}
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            {% else %}
+            
+            <li><form action='{% url 'loginRedirect' %}' method='POST'>
+              {% csrf_token %}
+              <input type='text' name='username' placeholder="Nombre de usuario">
+              <input type='password' name='password' placeholder="Contraseña">
+              <input type="submit" value="Login"> 
+            </form></li>
+            {% endif %}
+
+          </ul>
+        </span> 
     </div>
     <span>
       {% if user.is_staff %}
@@ -63,6 +76,7 @@
      
       {% endif %}
       </span>
+    
     </div>
     
 
@@ -88,10 +102,28 @@
       {% for linea in lineas  %}
       <a class='btn btn-dark accesoRapido'  href='/seleccion/{{linea}}' >{{linea}}</a>
       {% endfor %}
-      {% comment %} <a class="btn  btn-secondary  btnVolverAlineas" id="btnVolverAlineas" href="/lineas">Volver a Lineas</a>
-      <a href="javascript:window.history.back()" class="btn btn-secondary" id="volverAtras"> Volver Atrás</a> {% endcomment %}
+     
       <ul class=' list-unstyled list-group-horizontal list-group'>
+        <span class="dropdown ps-3 col mt-1" >
+          <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{user.username}}
+          </button> 
+          
+                    <ul class="dropdown-menu dropdown-menu-start">
+            {% if user.username %}
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            {% else %}
+            
+            <li><form action='{% url 'loginRedirect' %}' method='POST'>
+              {% csrf_token %}
+              <input type='text' name='username' placeholder="Nombre de usuario">
+              <input type='password' name='password' placeholder="Contraseña">
+              <input type="submit" value="Login"> 
+            </form></li>
+            {% endif %}
 
+          </ul>
+        </span> 
         {% if user.is_staff %}
         <li class="nav-item ">
           <a class='btn btn-outline-dark' href='/abm'>Panel de Administrador</a>
@@ -117,16 +149,16 @@
         </li>
       </ul>
       
-        {% comment %} <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         {% comment %} <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{user.username}}
         </button>
 
         <ul class="dropdown-menu dropdown-menu-start">
           <li><a class="dropdown-item" href="/logout">Logout</a></li>
-        </ul> {% endcomment %}
+        </ul>   {% endcomment %}
        
 
     </div>
   </nav>
-  {% endif %}
+  
 </header>
