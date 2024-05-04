@@ -587,24 +587,32 @@ function modal(event){
     let descripcion=event.currentTarget.getAttribute("name")
      
     let modal=document.getElementById("imagenModal2")
+    let modalFullscr=document.getElementById("imagenModal2Fullscr")
      
     modal.setAttribute("src", "/media/img/"+id+".jpg")
+    modalFullscr.setAttribute("src", "/media/img/"+id+".jpg")
     
     let titulo=document.getElementById('exampleModalLongTitle')
+    let tituloFullscr=document.getElementById('exampleModalLongTitleFullscr')
     
     titulo.innerHTML=descripcion
-    let modalTodo=document.getElementById("modal2")
-
+    tituloFullscr.innerHTML=descripcion
+  
+    // let modalTodo=document.getElementById("modal2")
     
     $('#modal2').modal('toggle')
     cantidadDefault();
   };
 
 function closeModal(){
-     
     $('#modal2').modal('toggle')
     cantidadDefault();
   };
+
+function closeModalFullscr(){
+  $('#modal2Fullscr').modal('toggle')
+    cantidadDefault();
+}
 
 
 // boton de descargar lista de precios 
