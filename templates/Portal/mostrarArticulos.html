@@ -70,7 +70,7 @@
         </div>
     
         <div class="col-lg-5 col-6 col-md-5 colDes ps-3" type="button"   data-toggle="modal" data-target="#modal2" id="{{articulo.imagen}}" name="{{articulo.descripcion}}" onclick=modal(event)>
-          <p class="item-descripcionProducto ">{{articulo.descripcion}}</p>
+          <p class="item-descripcionProducto text-start">{{articulo.descripcion}}</p>
         </div>
     
         {% comment %} <div class="col-lg-1 col-1  col-md-1 colPre">
@@ -135,8 +135,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <img src="" alt="" id="imagenModal2Fullscr" width="80%" class="mx-auto d-block" >
+      <div class="modal-body"> 
+        <img src="" alt="" id="imagenModal2Fullscr"  class="mx-auto d-block imagenModal2Fullscr" >
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" data-bs-target="#modal2" data-bs-toggle="modal" data-bs-dismiss="modal">Volver</button>

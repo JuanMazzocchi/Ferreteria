@@ -580,6 +580,7 @@ width: 7%;
   width: 6%;
 }
 
+
 @media only screen and (min-width: 600px) and (max-width: 700px) {
    .loginContainer{
     width: 95%;
@@ -698,6 +699,9 @@ width: 7%;
   .cantidadDefault{
     width: 40%;
   }
+  #imagenModal2Fullscr{
+    max-width: 580px;
+  }
 
 
 }
@@ -810,6 +814,9 @@ width: 7%;
   #mailIcon{
     width: 3.5%;
   }
+  .imagenModal2Fullscr{
+    width: 400px !important ;
+  }
 }
 @media only screen and (min-width: 1101px)and (max-width: 1280px){
   #mostrarRubrosContainer{
@@ -842,6 +849,10 @@ width: 7%;
   #mailIcon{
     width: 2.5%;
   }
+  .imagenModal2Fullscr{
+    width: 400px !important ;
+  }
+ 
 }
 
 @media only screen and (min-width: 1281px){
@@ -853,6 +864,9 @@ width: 7%;
   }
   .contenedorLineas{
     width: 60vw;
+  }
+  .imagenModal2Fullscr{
+    width: 500px !important ;
   }
 }
 
