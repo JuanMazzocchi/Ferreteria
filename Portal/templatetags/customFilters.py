@@ -23,3 +23,12 @@ def existeLaImg(value):
 def prueba(value):
     print('funciona')
     return value
+
+@register.filter()
+def minifoto(value):
+    if value.endswith('*'):
+        print(value + "tiene *")
+        return True
+    
+    else:
+        return False
