@@ -7,7 +7,7 @@ from Portal.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # from django.urls import reverse
-from Administrador.models import ListaDePrecios, PedidoPorMail
+from Administrador.models import ListaDePrecios, PedidoPorMail, CatalogoSanitarios,CatalogoGas, CatalogoFerreteria, CatalogoBronce,CatalogoPPN, CatalogoThermofusion, CatalogoEpoxi, CatalogoSigas
 from django.http import FileResponse
 import os
 from pathlib import Path
@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from django.http import HttpResponse
 from Ferreteria import settings
+
 
 
 
@@ -49,7 +50,7 @@ def lineas(request):
     # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
     context={
             'lineas':lineas,
-            #  'prioridad':prioridad
+            'catalogos':listaDeCatalogos()
              }
     # print(context)
     
@@ -87,7 +88,8 @@ def seleccion(request,linea):
             'diccionarios':diccionario,
             'listadoDeImagenes': listadoDeImagenes,
             'lineas':lineas,
-            'linea':linea
+            'linea':linea,
+            'catalogos':listaDeCatalogos
             }
         return render(request,'Portal/mostrarRubros.html', context)
     
@@ -100,7 +102,8 @@ def gondola(request,rubro,linea):
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
     context={
         'articulos':articulos,
-        'lineas':lineas
+        'lineas':lineas,
+        'catalogos':listaDeCatalogos
         }
     # print(articulos)
     return render(request,'Portal/mostrarArticulos.html' ,context )
@@ -132,7 +135,8 @@ def portalSearch(request):
 
         context ={
             'articulos':articulos,
-            'lineas':lineas
+            'lineas':lineas,
+            'catalogos':listaDeCatalogos
             }
         # print(articulos)
         return render(request,'Portal/mostrarArticulos.html', context)
@@ -220,7 +224,17 @@ def listaDeImagenes():
         modificado=modificado.replace('.JPG', '')
         listaImagenes.append(modificado)
      
-    return listaImagenes    
+    return listaImagenes   
+
+def listaDeCatalogos():
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    listadoDeArchivos=os.listdir(os.path.join(BASE_DIR,'media/uploads'))
+    
+    listaDeCatalogos=[]
+    for archivo in listadoDeArchivos:
+        if archivo.startswith("Catalogo"):
+            listaDeCatalogos.append(archivo)
+    return listaDeCatalogos 
 
 def downloadLista(request):
     id=1
@@ -244,7 +258,74 @@ def downloadPedidoPorMail(request):
     response = HttpResponse(res, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="Catalogo.pdf"'
     return response
-    
+
+def downloadCatalogo(request,nombre):
+    if nombre.endswith('Sanitarios.pdf'):    
+        id=1
+        obj=CatalogoSanitarios.objects.get(id=id)
+        filename=obj.archivo.path
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="Sanitarios.pdf"'
+        return response
+    if nombre.endswith('Gas.pdf'):    
+        id=1
+        obj=CatalogoGas.objects.get(id=id)
+        filename=obj.archivo.path
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="Gas.pdf"'
+        return response
+    if nombre.endswith('Ferreteria.pdf'):    
+        id=1
+        obj=CatalogoFerreteria.objects.get(id=id)
+        filename=obj.archivo.path
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="Ferreteria.pdf"'
+        return response
+    if nombre.endswith('Bronce.pdf'):    
+        id=1
+        obj=CatalogoBronce.objects.get(id=id)
+        filename=obj.archivo.path
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="Bronce.pdf"'
+        return response
+    if nombre.endswith('PPN.pdf'):    
+        id=1
+        obj=CatalogoPPN.objects.get(id=id)
+        filename=obj.archivo.path
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="PPN-Espiga.pdf"'
+        return response 
+    if nombre.endswith('Thermofusion.pdf'):    
+        id=1
+        obj=CatalogoThermofusion.objects.get(id=id)
+        filename=obj.archivo.path
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="Thermofusion.pdf"'
+        return response 
+    if nombre.endswith('Epoxi.pdf'):    
+        id=1
+        obj=CatalogoEpoxi.objects.get(id=id)
+        filename=obj.archivo.path
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="Epoxi.pdf"'
+        return response
+    if nombre.endswith('Sigas.pdf'):    
+        id=1
+        obj=CatalogoSigas.objects.get(id=id)
+        filename=obj.archivo.path
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="Sigas.pdf"'
+        return response
+    else:
+        print ("Catalogo inexistente")    
 def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y manda el pedido sino vuelve a lineas
     if request.method == "POST":
         

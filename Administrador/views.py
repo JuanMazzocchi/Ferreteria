@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from .forms import SearchForm, SearchServicioForm, SearchClienteForm
-from .models import ArchivoCSV, ListaDePrecios, FotosDeProductos, PedidoPorMail, ListaPrioritariaDeLineas
+from .models import ArchivoCSV, ListaDePrecios, FotosDeProductos, PedidoPorMail, ListaPrioritariaDeLineas, CatalogoSanitarios, CatalogoGas, CatalogoFerreteria, CatalogoBronce ,CatalogoPPN, CatalogoThermofusion, CatalogoEpoxi, CatalogoSigas
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from Ferreteria import settings
@@ -360,11 +360,69 @@ class FotoCreateView(SuccessMessageMixin, CreateView):
     
 class PedidoPorMailCreateView(SuccessMessageMixin, CreateView):
     model = PedidoPorMail
+    template_name ='Administrador/subirPedidoPorMail.html'  #esta html carga todos los catalogos
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
+    success_url=reverse_lazy('abm')
+ 
+class CatalogoSanitariosCreateView(SuccessMessageMixin,CreateView):
+    model=CatalogoSanitarios
+    template_name ='Administrador/subirPedidoPorMail.html'
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
+    success_url=reverse_lazy('abm')
+    
+class CatalogoGasCreateView(SuccessMessageMixin,CreateView):
+    model=CatalogoGas
+    template_name ='Administrador/subirPedidoPorMail.html'
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
+    success_url=reverse_lazy('abm')
+    
+class CatalogoFerreteriaCreateView(SuccessMessageMixin,CreateView):
+    model=CatalogoFerreteria
     template_name ='Administrador/subirPedidoPorMail.html'
     fields=['archivo']
     success_message='Archivo subido correctamente'
     success_url=reverse_lazy('abm')
  
+class CatalogoBronceCreateView(SuccessMessageMixin,CreateView):
+    model=CatalogoBronce
+    template_name ='Administrador/subirPedidoPorMail.html'
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
+    success_url=reverse_lazy('abm')  
+    
+class CatalogoPPNCreateView(SuccessMessageMixin,CreateView):
+    model=CatalogoPPN
+    template_name ='Administrador/subirPedidoPorMail.html'
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
+    success_url=reverse_lazy('abm')  
+    
+class CatalogoThermofusionCreateView(SuccessMessageMixin,CreateView):
+    model=CatalogoThermofusion
+    template_name ='Administrador/subirPedidoPorMail.html'
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
+    success_url=reverse_lazy('abm') 
+    
+class CatalogoEpoxiCreateView(SuccessMessageMixin,CreateView):
+    model=CatalogoEpoxi
+    template_name ='Administrador/subirPedidoPorMail.html'
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
+    success_url=reverse_lazy('abm') 
+    
+   
+class CatalogoSigasCreateView(SuccessMessageMixin,CreateView):
+    model=CatalogoSigas
+    template_name ='Administrador/subirPedidoPorMail.html'
+    fields=['archivo']
+    success_message='Archivo subido correctamente'
+    success_url=reverse_lazy('abm') 
+    
+    
     
 def prioridad(request):
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('linea')

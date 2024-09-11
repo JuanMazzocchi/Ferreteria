@@ -16,7 +16,8 @@ path('loginRedirect',views.loginRedirect, name='loginRedirect'),
 path('listaDeImagenes',views.listaDeImagenes, name='listaDeImagenes'),
 path('downloadLista', views.downloadLista, name='downloadLista'),
 path('downloadPedidoPorMail', views.downloadPedidoPorMail, name='downloadPedidoPorMail'),
-path('enviarPedidoDelCarrito', views.enviarPedidoDelCarrito ,name='enviarPedidoDelCarrito')
+path('enviarPedidoDelCarrito', views.enviarPedidoDelCarrito ,name='enviarPedidoDelCarrito'),
+path('downloadCatalogo/<str:nombre>',views.downloadCatalogo, name="downloadCatalogo")
 
  
  

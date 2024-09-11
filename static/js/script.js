@@ -57,6 +57,11 @@ downloadListenerCel?.addEventListener('click', downloadClicked );
 
 const downloadPedidoListener = document.getElementById('downloadPedidoBtn');
 downloadPedidoListener?.addEventListener('click', downloadPedidoClicked );
+
+const downloadCatalogoListener= document.getElementById('downloadCatalogoBtn');
+downloadCatalogoListener?.addEventListener('click', function() {downloadCatalogoClicked();
+});
+
 const downloadPedidoListenerCel = document.getElementById('downloadPedidoBtnCel');
 downloadPedidoListenerCel?.addEventListener('click', downloadPedidoClicked );
 // const titulos=` <div class="row  titulares">
@@ -683,6 +688,34 @@ function downloadPedidoClicked() {
     
 }
 
+function downloadCatalogoClicked(param, event) {
+  event.preventDefault()
+
+console.log("String:",param);
+// console.log("Event:",event);
+ 
+  
+  
+  Toast.fire( {
+      title: 'Desea descargar el catalogo a su dispositivo?'+param,
+      showConfirmButton: true,
+      timer:false,
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Descargar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      
+      if (result.isConfirmed) {
+        Swal.fire('El Catalogo a sido enviado a su dispositivo', '', 'success'),
+        hrefCompleto='/downloadCatalogo/'+param
+        location.href =hrefCompleto
+      } else if (result.isDenied) {
+      //   Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+  
+}
 // Boton de sobreescribir la base de datos
 const btnSobreescribir=document.getElementById('sobreescribirBase')
 if(btnSobreescribir){
