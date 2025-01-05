@@ -132,13 +132,13 @@ def portalSearch(request):
         desc=Producto.objects.all().filter(query) 
         # articulos=cod.union(linea,rubro,desc)
         articulos=cod.union(desc)
-
+        articulosOrdenados=articulos.order_by('cod_producto')
         context ={
-            'articulos':articulos,
+            'articulos':articulosOrdenados,
             'lineas':lineas,
             'catalogos':listaDeCatalogos
             }
-        # print(articulos)
+        print(articulos)
         return render(request,'Portal/mostrarArticulos.html', context)
     pass
 
