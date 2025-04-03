@@ -55,7 +55,7 @@
         {% if articulo.descripcion|minifoto %}   {% comment %}  revisa si tiene * a final  {% endcomment %}
           
           
-          <img  src="/media/img/{{articulo.imagen}}.jpg" height="180%"  type="button"   data-toggle="modal" data-target="#modal2" id="{{articulo.imagen}}" name="{{articulo.descripcion}}" onclick=modal(event) >
+          <img  src="/media/img/{{articulo.imagen}}.jpg" height="180%"  type="button"   data-toggle="modal" data-target="#modal2" id="{{articulo.imagen}}" name="{{articulo.descripcion}}" onclick=modal(event) class="item-image">
         {% else %}
         {% comment %} <img class="item-image overflow-hidden lupa" src="/media/img/{{articulo.imagen}}.jpg" alt="img/{{articulo.imagen}}.jpg">  {% endcomment %}
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-zoom-in item-image lupa colImg " viewBox="0 0 16 16" type="button"   data-toggle="modal" data-target="#modal2" id="{{articulo.imagen}}" name="{{articulo.descripcion}}" onclick=modal(event)>
