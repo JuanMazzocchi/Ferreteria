@@ -464,14 +464,17 @@ overflow: scroll; }
 .card_btn >a{
   font-size:smaller;
 }
-.btn_hover:hover{
+/* .btn_hover:hover{
 font-size:smaller;
-}
+} */
 .container-fluid{
   font-size: medium;
   width: 100% !important;
   margin: 0;
   padding: 0;
+}
+.textoArticulo{
+  font-size: medium;
 }
 .headerArticulos>div>p{
   font-size: large;
@@ -497,7 +500,7 @@ font-size:smaller;
 }
 .card{
   width: 40%;
-  min-height:fit-content;
+  /* min-height:fit-content; */
    
 }
 .card-body{
@@ -785,6 +788,9 @@ width: 7%;
   }
   #mostrarRubrosContainer{
     margin-top: 10rem;
+  }
+  .textoArticulo{
+    font-size: small;
   }
   #mostrarArticulosContainer{
     margin-top: 10rem;

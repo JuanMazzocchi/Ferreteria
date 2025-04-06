@@ -22,7 +22,7 @@
 
         {% with value|add:'.jpg' as valor  %}
         <a href='../gondola/{{linea}}/{{key}}' class=" overflow-hidden d-flex align-items-center align-self-center flex-grow-1">
-          <img id="{{value}}" src="/media/img/{{valor}}" alt="Card image cap " class="imagen img-fluid align-self-center  " width="95%"  >
+          <img id="{{value}}" src="/media/img/{{valor}}" alt="Card image cap " class="imagen img-fluid align-self-center  " width="95%" height="100%" >
         </a>
         {% endwith %}
 
@@ -34,8 +34,8 @@
        
         {% endif %}
         
-         <div class="pb-1 ">
-       <a  href='../gondola/{{linea}}/{{key}}' class='btn_hover text-decoration-none d-flex align-items-center justify-content-center  '>
+         <div style=' height:55px ; max-height:55px; min-height:55px' class="m-0 p-0">
+       <a  href='../gondola/{{linea}}/{{key}}' class='btn_hover text-decoration-none d-flex align-items-center justify-content-center p-0 m-0 textoArticulo'>
           {{key}}
         </a>
         </div>  
