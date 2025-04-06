@@ -136,11 +136,11 @@
               {% if not user.username %}
             <div class="form-group col-3">   
               <label for="formGroupExampleInput" class="labelForm"><b>Nombre</b></label>
-              <input type="text" name='username' class="form-control" id="formGroupExampleInput" placeholder="Nombre"  >
+              <input type="text" name='username' class="form-control" id="formGroupExampleInput" placeholder="Nombre" autocomplete="username" >
             </div>
             <div class="form-group col-3">
               <label for="formGroupExampleInput2" class="labelForm"><b>Contraseña</b></label>
-              <input type="password" name="password" class="form-control" id="formGroupExampleInput2"  >
+              <input type="password" name="password" class="form-control" id="formGroupExampleInput2" autocomplete="current-password"  >
             </div>
             {% endif %}
              

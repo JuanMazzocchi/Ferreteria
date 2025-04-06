@@ -80,8 +80,8 @@
             
             <li><form action='{% url 'loginRedirect' %}' method='POST'>
               {% csrf_token %}
-              <input type='text' name='username' placeholder="Nombre de usuario">
-              <input type='password' name='password' placeholder="Contraseña">
+              <input type='text' name='username' placeholder="Nombre de usuario" autocomplete="username">
+              <input type='password' name='password' placeholder="Contraseña" autocomplete="current-password">
               <input type="submit" value="Login"> 
             </form></li>
             {% endif %}
@@ -156,8 +156,8 @@
             
             <li><form action='{% url 'loginRedirect' %}' method='POST'>
               {% csrf_token %}
-              <input type='text' name='username' placeholder="Nombre de usuario">
-              <input type='password' name='password' placeholder="Contraseña">
+              <input type='text' name='username' placeholder="Nombre de usuario" autocomplete="username">
+              <input type='password' name='password' placeholder="Contraseña" autocomplete="current-password">
               <input type="submit" value="Login"> 
             </form></li>
             {% endif %}

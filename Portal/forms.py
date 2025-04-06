@@ -81,7 +81,8 @@ class LoginForm(forms.Form):
     required= True,
     widget=forms.TextInput(
       attrs={'class': 'form-control my-2 text-center',
-             'placeholder': 'Ingrese su nombre'}
+             'placeholder': 'Ingrese su nombre',
+             'autocomplete': 'username'}
     )
   )
 
@@ -92,6 +93,6 @@ class LoginForm(forms.Form):
     widget=forms.PasswordInput(
       attrs={'class': 'form-control my-2 text-center',
              'placeholder': 'Ingrese su contraseña',
-             'autocomplete':''}
+             'autocomplete': 'current-password'}
     )
   )
