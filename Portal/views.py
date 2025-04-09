@@ -331,15 +331,16 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
         
         username=request.POST['username']
         password=request.POST['password']
-        print(username)
+        # print(username)
         user=authenticate(request, username=username, password=password)
-        print(user)
+        # print(user)
         
         if user is not None:  #si esta autenticado envia el pedido
             
-            textNombre = "Enviado por: " + user.get_username()
+            textNombre = "Usuario: " + user.get_username()
             textMail ="Nro de Cliente: "+  user.get_email_field_name()
-            textMensaje = 'Mensaje: ' + request.POST['textMensaje']
+            textMensaje = 'Nombre y Dirección: ' + request.POST['textMensaje']
+            telefono='Teléfono: ' + request.POST['telefono']
             subject = 'Mail enviado desde el sitio de pedidos'
             
             key = request.COOKIES.get('carrito') #armo el mensaje desde las cookies del sitio 
@@ -351,6 +352,7 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
                     'nombre':textNombre,
                     'email':textMail,
                     'message':message,
+                    'telefono':telefono,
                     'mensaje':textMensaje,
                 })
                 
