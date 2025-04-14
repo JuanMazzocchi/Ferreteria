@@ -339,8 +339,10 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
             
             textNombre = "Usuario: " + user.get_username()
             textMail ="Nro de Cliente: "+  user.get_email_field_name()
-            textMensaje = 'Nombre y Dirección: ' + request.POST['textMensaje']
+            textMensaje = 'Nombre: ' + request.POST['textMensaje']
             telefono='Teléfono: ' + request.POST['telefono']
+            direccion='Dirección: ' + request.POST['direccion']
+            correo='Correo Electrónico: ' + request.POST['correo']
             subject = 'Mail enviado desde el sitio de pedidos'
             
             key = request.COOKIES.get('carrito') #armo el mensaje desde las cookies del sitio 
@@ -353,6 +355,8 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
                     'email':textMail,
                     'message':message,
                     'telefono':telefono,
+                    'direccion':direccion,
+                    'correo':correo,  #este es el correo que ingresa el cliente
                     'mensaje':textMensaje,
                 })
                 
