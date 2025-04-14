@@ -332,10 +332,10 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
         username=request.POST['username']
         password=request.POST['password']
         # print(username)
-        # print(username)
+       
         user=authenticate(request, username=username, password=password)
         # print(user)
-        # print(user)
+       
         
         if user is not None:  #si esta autenticado envia el pedido
             
