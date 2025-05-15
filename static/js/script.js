@@ -439,7 +439,7 @@ function generarCookie(){   //genera una cookie con el pedido obtenido desde el 
   let productos =obtenerProductosLS();
   let listaCarro=[]
     productos.forEach(element => {
-      listaCarro.push("Cod: "+element.id +"---"+"Cantidad: "+ element.cantidad +"---"+ element.descripcion)
+      listaCarro.push(" "+element.id +" --- "+ element.cantidad +" --- "+ element.descripcion)
     });
     document.cookie= `carrito= ${listaCarro}; path=/`  
 };

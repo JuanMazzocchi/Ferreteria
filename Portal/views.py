@@ -340,34 +340,38 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
         if user is not None:  #si esta autenticado envia el pedido
             
             textNombre = "Usuario: " + user.get_username()
-            textNombre = "Usuario: " + user.get_username()
             textMail ="Nro de Cliente: "+  user.get_email_field_name()
             textMensaje = 'Nombre: ' + request.POST['textMensaje']
             telefono='Teléfono: ' + request.POST['telefono']
             direccion='Dirección: ' + request.POST['direccion']
             correo='Correo Electrónico: ' + request.POST['correo']
+            expreso='Expreso: ' + request.POST['expreso']
+            nota='Nota: ' + request.POST['nota']
             subject = 'Mail enviado desde el sitio de pedidos'
             
             key = request.COOKIES.get('carrito') #armo el mensaje desde las cookies del sitio 
             if len(key)>0:
                 listaCarro=key.replace(",", "\n")
                 message =listaCarro
+                print(message)
             
                 template =render_to_string('Portal/datos.html',{
                     'nombre':textNombre,
-                    'email':textMail,
+                    'email':textMail, #este es el correo de como estaba planeado el sistema de login antes
                     'message':message,
                     'telefono':telefono,
                     'direccion':direccion,
                     'correo':correo,  #este es el correo que ingresa el cliente
                     'mensaje':textMensaje,
+                    'expreso':expreso,
+                    'nota':nota
                 })
                 
                 email=EmailMessage(
                     subject,
                     template,
                     settings.EMAIL_HOST_USER,
-                    ['juanmazzocchi@gmail.com']
+                    ['juanmazzocchi@gmail.com']    #OJO ESTO ES EL CORREO DE PRUEBA
                 )
             
             try:
