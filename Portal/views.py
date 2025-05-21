@@ -342,6 +342,7 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
             textNombre = "Usuario: " + user.get_username()
             textMail ="Nro de Cliente: "+  user.get_email_field_name()
             textMensaje = 'Nombre: ' + request.POST['textMensaje']
+            cuit='CUIT: ' + request.POST['cuit']
             telefono='Teléfono: ' + request.POST['telefono']
             direccion='Dirección: ' + request.POST['direccion']
             correo='Correo Electrónico: ' + request.POST['correo']
@@ -364,7 +365,8 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
                     'correo':correo,  #este es el correo que ingresa el cliente
                     'mensaje':textMensaje,
                     'expreso':expreso,
-                    'nota':nota
+                    'nota':nota,
+                    'cuit':cuit
                 })
                 
                 email=EmailMessage(
