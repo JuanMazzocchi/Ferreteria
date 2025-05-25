@@ -234,6 +234,8 @@ def listaDeCatalogos():
     for archivo in listadoDeArchivos:
         if archivo.startswith("Catalogo"):
             listaDeCatalogos.append(archivo)
+        if archivo.startswith("ListaDePrecios"):
+            listaDeCatalogos.append(archivo)
     return listaDeCatalogos 
 
 def downloadLista(request):
@@ -324,6 +326,17 @@ def downloadCatalogo(request,nombre):
         response = HttpResponse(res, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="Sigas.pdf"'
         return response
+    if nombre.endswith('ListaDePrecios.xlsx'):
+        print("descargando lista de precios")
+        id=1
+        obj=ListaDePrecios.objects.get(id=id)
+        filename=obj.archivo.path
+        print("nombre del archivo" + filename)
+        res=open(filename,'rb') 
+        response = HttpResponse(res, content_type='text/xlsx')
+        response['Content-Disposition'] = 'attachment; filename="ListaDePrecios.xlsx"'
+        return response
+        # return redirect('lineas')
     else:
         print ("Catalogo inexistente")    
 def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y manda el pedido sino vuelve a lineas

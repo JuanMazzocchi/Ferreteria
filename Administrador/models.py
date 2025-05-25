@@ -18,7 +18,7 @@ class OverwriteStorage(FileSystemStorage):
     
 def user_directory_path(instance, filename):
     # le doy siempre el mismo nombre al archivo de la lista de precios
-    return 'uploads/{0}'.format('lista.xlsx')
+    return 'uploads/{0}'.format('ListaDePrecios.xlsx')
 
 def user_directory_path_CSV(instance, filename):
     # le doy siempre el mismo nombre al archivo de la Base de datos .CSV

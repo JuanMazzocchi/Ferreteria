@@ -694,9 +694,29 @@ function downloadCatalogoClicked(param, event) {
 console.log("String:",param);
 // console.log("Event:",event);
  
-  
-  
-  Toast.fire( {
+  if  (param=='ListaDePrecios.xlsx'){
+    console.log("Lista de precios")
+     Toast.fire( {
+      title: 'Desea descargar la Lista de Precios a su dispositivo?',
+      showConfirmButton: true,
+      timer:false,
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Descargar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      
+      if (result.isConfirmed) {
+        Swal.fire('La Lista de Precios a sido enviada a su dispositivo', '', 'success'),
+        hrefCompleto='/downloadCatalogo/'+param
+        location.href =hrefCompleto
+      } else if (result.isDenied) {
+      //   Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+
+  }else {
+    Toast.fire( {
       title: 'Desea descargar el catalogo a su dispositivo?'+param,
       showConfirmButton: true,
       timer:false,
@@ -713,7 +733,9 @@ console.log("String:",param);
       } else if (result.isDenied) {
       //   Swal.fire('Changes are not saved', '', 'info')
       }
-    })
+    })}
+  
+  
   
 }
 // Boton de sobreescribir la base de datos
