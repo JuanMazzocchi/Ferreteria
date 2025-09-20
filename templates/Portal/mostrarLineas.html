@@ -19,7 +19,8 @@
   <div class=' my-2 mb-5'>
    
     <div class="d-flex flex-wrap mx-auto justify-content-around contenedorLineas ">
-      {% for linea in lineas %}
+      {% for linea in lineasConVersion %}    
+       {% comment %} AHORA LAS LINEAS VIENEN EN DICCIONARIO (item, version) {% endcomment %}
       {% load static %}            
         
         {% comment %} <div class="card_image img">
@@ -31,12 +32,14 @@
         {% comment %} <h1>{{prioridad}}</h1> {% endcomment %}
         <div class="card mt-2 me-1 contenedorCard overflow-hidden"  >
           <div class="card_image img overflow-hidden">
-            <a href='seleccion/{{linea}}'>
-               <img id="{{linea}}" src= '/media/img/{{linea}}.jpg' alt="Card image cap" max-width="100%" class='imagen card-img-top '>
+            <a href='seleccion/{{linea.0}}'>
+               {% comment %} <img id="{{linea}}" src= '/media/img/{{linea}}.jpg' alt="Card image cap" max-width="100%" class='imagen card-img-top '> {% endcomment %}
+               <img id="{{linea}}" src="{{MEDIA_URL}}img/{{linea.0}}.jpg?v={{ version }}" alt="Card image cap" max-width="100%" class='imagen card-img-top '>
+
             </a>
           </div>
           <div class="card-body card_btn">
-            <a href='seleccion/{{linea}}' class='btn_hover  text-decoration-none d-flex align-items-center justify-content-center  '>{{linea}}</a>
+            <a href='seleccion/{{linea.0}}' class='btn_hover  text-decoration-none d-flex align-items-center justify-content-center  '>{{linea.0}}</a>
           </div>
         </div>
        

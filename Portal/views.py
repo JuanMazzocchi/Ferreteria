@@ -48,9 +48,21 @@ def lineas(request):
  
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
     # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
+    # print (lineas)  
+    lineasConVersion=[]  
+    for item in lineas:
+        file_path = os.path.join(settings.MEDIA_ROOT,"img" , item+'.jpg')
+        # print(file_path)
+        version = int(os.path.getmtime(file_path)) if os.path.exists(file_path) else 0
+        
+        lineasConVersion.append((item, version))
+        
+         
     context={
             'lineas':lineas,
-            'catalogos':listaDeCatalogos()
+            'catalogos':listaDeCatalogos(),
+            'MEDIA_URL': settings.MEDIA_URL,
+            'lineasConVersion': lineasConVersion
              }
     # print(context)
     
@@ -73,13 +85,21 @@ def seleccion(request,linea):
         for item in rubro:
             # print(item)
             listaDeRubros.append(item)
-            
+            combo=[]
             imagen=Producto.objects.all().filter(rubro=item,linea=linea).first()
             # print(f'({imagen.imagen[:-1]})') 
-            imagenes.append(imagen.imagen[:-1])   #le quito el salto de linea invisible al final ([:-1])
-        
-        # print(imagenes)
-        diccionario=dict(zip(listaDeRubros,imagenes))
+            combo.append(imagen.imagen[:-1])   #le quito el salto de linea invisible al final ([:-1])
+             
+   
+            file_path = os.path.join(settings.MEDIA_ROOT,"img" ,(imagen.imagen[:-1])+'.jpg')
+            # print(file_path)
+            version = int(os.path.getmtime(file_path)) if os.path.exists(file_path) else 0
+            # print(version)
+            combo.append(version)
+            # print(combo)
+            imagenes.append(combo)
+                    
+        diccionario=dict(zip(listaDeRubros,imagenes))   #la idea es pasar una lista dentro del archivo imagenes [imagen , version] EJ de diccionario:{'LLAVE DE GAS CAMPANAS': ['891100', 1693764694]}
         # print(diccionario)
         listadoDeImagenes=listaDeImagenes()
          
@@ -89,7 +109,8 @@ def seleccion(request,linea):
             'listadoDeImagenes': listadoDeImagenes,
             'lineas':lineas,
             'linea':linea,
-            'catalogos':listaDeCatalogos
+            'catalogos':listaDeCatalogos,
+            'MEDIA_URL': settings.MEDIA_URL
             }
         return render(request,'Portal/mostrarRubros.html', context)
     
@@ -100,10 +121,19 @@ def gondola(request,rubro,linea):
     articulos=Producto.objects.all().filter(rubro=rubro, linea=linea).order_by('id')
     # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
+    
+    for item in articulos:
+        file_path = os.path.join(settings.MEDIA_ROOT,"img" ,(item.imagen[:-1])+'.jpg')
+        version = int(os.path.getmtime(file_path)) if os.path.exists(file_path) else 0
+        # print(f'archivo: {file_path} version: {version}')
+        item.version=version
+    
+    
     context={
         'articulos':articulos,
         'lineas':lineas,
-        'catalogos':listaDeCatalogos
+        'catalogos':listaDeCatalogos,
+        'MEDIA_URL': settings.MEDIA_URL
         }
     # print(articulos)
     return render(request,'Portal/mostrarArticulos.html' ,context )
@@ -216,7 +246,7 @@ def listaDeImagenes():
     
     BASE_DIR = Path(__file__).resolve().parent.parent
     listadoDeArchivos=os.listdir(os.path.join(BASE_DIR,'media/img'))
-    listaImagenes=[]
+    listaImagenes=[] 
     
     for archivo in listadoDeArchivos:
         
@@ -226,7 +256,7 @@ def listaDeImagenes():
      
     return listaImagenes   
 
-def listaDeCatalogos():
+def listaDeCatalogos():  #listas de precio y catálogos disponibles en el sistema
     BASE_DIR = Path(__file__).resolve().parent.parent
     listadoDeArchivos=os.listdir(os.path.join(BASE_DIR,'media/uploads'))
     
