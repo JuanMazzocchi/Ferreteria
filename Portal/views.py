@@ -122,20 +122,28 @@ def gondola(request,rubro,linea):
     # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
     
+    imagenes=[] 
+    listaDeArticulos=[]
+     
     for item in articulos:
+        listaDeArticulos.append(item)
+        combo=[]
         file_path = os.path.join(settings.MEDIA_ROOT,"img" ,(item.imagen[:-1])+'.jpg')
         version = int(os.path.getmtime(file_path)) if os.path.exists(file_path) else 0
         # print(f'archivo: {file_path} version: {version}')
-        item.version=version
-    
-    
+        combo.append(item.imagen[:-1])   #le quito el salto de linea invisible al final ([:-1])
+        combo.append(version)
+        imagenes.append(combo)
+        # print(imagenes)    
+    diccionario=dict(zip(listaDeArticulos,imagenes))   #la idea es pasar una lista dentro del archivo imagenes [imagen , version] EJ de diccionario:{<Producto:  402.100 - CODOS EPOXI H - H - EPOXI - CODO EPOXI H-H  1/2' - 2322.9 - (C/U) - 402100>: ['402100', 1695838238] }
+    # print(diccionario)
     context={
-        'articulos':articulos,
+        'articulos':diccionario,
         'lineas':lineas,
         'catalogos':listaDeCatalogos,
         'MEDIA_URL': settings.MEDIA_URL
         }
-    # print(articulos)
+    # print(context)
     return render(request,'Portal/mostrarArticulos.html' ,context )
 
 # @login_required
@@ -162,13 +170,28 @@ def portalSearch(request):
         desc=Producto.objects.all().filter(query) 
         # articulos=cod.union(linea,rubro,desc)
         articulos=cod.union(desc)
+        # print(articulos)
+       
         articulosOrdenados=articulos.order_by('cod_producto')
+        imagenes=[] 
+        listaDeArticulos=[]
+        
+        for item in articulosOrdenados:
+            listaDeArticulos.append(item)
+            combo=[]
+            file_path = os.path.join(settings.MEDIA_ROOT,"img" ,(item.imagen[:-1])+'.jpg')
+            version = int(os.path.getmtime(file_path)) if os.path.exists(file_path) else 0
+            combo.append(item.imagen[:-1])   #le quito el salto de linea invisible al final ([:-1])
+            combo.append(version)
+            imagenes.append(combo) 
+            diccionario=dict(zip(listaDeArticulos,imagenes))   #la idea es pasar una lista dentro del archivo imagenes [imagen , version] EJ de diccionario:{<Producto:  402.100 - CODOS EPOXI H - H - EPOXI - CODO EPOXI H-H  1/2' - 2322.9 - (C/U) - 402100>: ['402100', 1695838238] }
+                  
         context ={
-            'articulos':articulosOrdenados,
+            'articulos':diccionario,
             'lineas':lineas,
-            'catalogos':listaDeCatalogos
+            'catalogos':listaDeCatalogos,
+            'MEDIA_URL': settings.MEDIA_URL
             }
-        print(articulos)
         return render(request,'Portal/mostrarArticulos.html', context)
     pass
 
