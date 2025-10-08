@@ -175,7 +175,7 @@ def portalSearch(request):
         articulosOrdenados=articulos.order_by('cod_producto')
         imagenes=[] 
         listaDeArticulos=[]
-        
+        diccionario={} 
         for item in articulosOrdenados:
             listaDeArticulos.append(item)
             combo=[]
