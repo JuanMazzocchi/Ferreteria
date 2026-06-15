@@ -449,10 +449,10 @@ def enviarPedidoDelCarrito(request):         # corrobora si el usuario exise y m
                 messages.success(request, 'Email enviado correctamente.')
                 return redirect('lineas')
             
-            except:
-                
-                messages.error(request,'Algo salio mal')
-                return redirect('lineas')
+            except Exception as e:
+                print("ERROR EMAIL:", e)
+                messages.error(request, f'Error al enviar email: {str(e)}')
+                return redirect('lineas') 
         else:
             messages.error(request,"Usuario o contraseña invalidos")
             return redirect('lineas')
