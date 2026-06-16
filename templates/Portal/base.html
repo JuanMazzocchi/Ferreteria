@@ -115,7 +115,7 @@
       </div>
 
       <div id="terminarPedido" style="display:none;" >
-        <form method='POST' action={% url 'enviarPedidoDelCarrito' %}>
+        <form method='POST' action={% url 'enviarPedidoDelCarrito' %} autocomplete="on" id='FormularioDeEnviar'>
           {% csrf_token %}
           {% if message %}
           <h2>{{message}}</h2>
@@ -123,17 +123,17 @@
           <div class="container d-inline justify-content-center justify-content-evenly mb-2">  
             <div class='row justify-content-center'> 
               {% if user.username %}
-              <div class="form-group col-3">
+              <div class="form-group col-3" style="display: none;">
                 <label for="formGroupExampleInput" class="labelForm"><b>Usuario</b></label>
                 <input type="text" name='username' class="form-control" id="formGroupExampleInput" placeholder="Nombre" autocomplete="username"  >
               </div>
-              <div class="form-group col-3">
+              <div class="form-group col-3" style="display: none;">
                 <label for="formGroupExampleInput2" class="labelForm"><b>Contraseña</b></label>
                 <input type="password" name="password" class="form-control" id="formGroupExampleInput2" autocomplete="current-password" >
               </div>
 
               {% endif %}
-              {% if not user.username %}
+              {% comment %} {% if not user.username %}
             <div class="form-group col-3">   
               <label for="formGroupExampleInput" class="labelForm"><b>Usuario</b></label>
               <input type="text" name='username' class="form-control" id="formGroupExampleInput" placeholder="Nombre" autocomplete="username" >
@@ -142,7 +142,7 @@
               <label for="formGroupExampleInput2" class="labelForm"><b>Contraseña</b></label>
               <input type="password" name="password" class="form-control" id="formGroupExampleInput2" autocomplete="current-password"  >
             </div>
-            {% endif %}
+            {% endif %} {% endcomment %}
              
 
              
@@ -150,31 +150,31 @@
             <div class='row justify-content-center'>
               <div class="form-group col-8 ">
                 <label for="formGroupExampleInput3" class="labelForm"><b>Nombre del cliente</b></label>
-                <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="textMensaje"></input>
+                <input type="text" class="form-control" id="NombreCliente" rows="3" name="textMensaje" required autocomplete="name"></input>
               </div>
               <div class="form-group col-8 ">
                 <label for="formGroupExampleInput3" class="labelForm"><b>Cuit</b></label>
-                <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="cuit"></input>
+                <input type="text" class="form-control" id="CuitCliente" rows="3" name="cuit" required></input>
               </div>
               <div class="form-group col-8">
                 <label for="formGroupExampleInput3" class="labelForm"><b>Direccion y localidad</b></label>
-                <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="direccion"></input>
+                <input type="text" class="form-control" id="DireccionCliente" rows="3" name="direccion" required  autocomplete="street-address"></input>
               </div>
               <div class="form-group col-8">
                 <label for="formGroupExampleInput3" class="labelForm"><b>Teléfono</b></label>
-                <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="telefono"></input>
+                <input type="text" class="form-control" id="TelefonoCliente" rows="3" name="telefono" required  autocomplete="tel"></input>
               </div>
               <div class="form-group col-8">
                 <label for="formGroupExampleInput3" class="labelForm"><b>Correo electronico</b></label>
-                <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="correo"></input>
+                <input type="text" class="form-control" id="EmailCliente" rows="3" name="correo" required autocomplete="email"></input>
               </div>
               <div class="form-group col-8">
                 <label for="formGroupExampleInput3" class="labelForm"><b>Expreso</b></label>
-                <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="expreso"></input>
+                <input type="text" class="form-control" id="ExpresoCliente" rows="3" name="expreso" autocomplete="shipping"></input>
               </div>
               <div class="form-group col-8">
                 <label for="formGroupExampleInput3" class="labelForm"><b>Nota aclaratoria</b></label>
-                <input type="textArea" class="form-control" id="formGroupExampleInput3" rows="3" name="nota"></input>
+                <input type="text" class="form-control" id="NotaCliente" rows="3" name="nota" name="nota"></input>
               </div>
             </div>
           </div>

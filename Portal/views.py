@@ -43,7 +43,7 @@ def contacto(request):
 
     return render(request, 'Portal/contacto.html', context)
 
-# @login_required
+@login_required
 def lineas(request):
  
     lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
@@ -71,7 +71,7 @@ def lineas(request):
 def about(request):
     return render(request, 'Portal/about.html')
 
-# @login_required
+@login_required
 def seleccion(request,linea):   
          
         # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
@@ -114,7 +114,7 @@ def seleccion(request,linea):
             }
         return render(request,'Portal/mostrarRubros.html', context)
     
-# @login_required    
+@login_required    
 def gondola(request,rubro,linea):
     
     # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct()  
@@ -146,7 +146,7 @@ def gondola(request,rubro,linea):
     # print(context)
     return render(request,'Portal/mostrarArticulos.html' ,context )
 
-# @login_required
+@login_required
 def portalSearch(request):
     
     if request.method =='GET':
@@ -155,23 +155,25 @@ def portalSearch(request):
         # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
         lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
         keyword=request.GET.get('keyword')
-        # print(keyword)
+        if not keyword:
+            articulos = Producto.objects.none()
+        else:
+            
+            lista=keyword.split()
+            
+            query=Q()
+            
+            for palabra in lista:
+                query &=Q(descripcion__icontains=palabra) 
+            # print(query)         
+            cod=Producto.objects.all().filter(cod_producto__contains=keyword)
+            # linea=Producto.objects.all().filter(linea__icontains=keyword)
+            # rubro=Producto.objects.all().filter(rubro__icontains=keyword)
+            desc=Producto.objects.all().filter(query) 
+            # articulos=cod.union(linea,rubro,desc)
+            articulos=cod.union(desc)
+            # print(articulos)
         
-        lista=keyword.split()
-        
-        query=Q()
-        
-        for palabra in lista:
-            query &=Q(descripcion__icontains=palabra) 
-        # print(query)         
-        cod=Producto.objects.all().filter(cod_producto__contains=keyword)
-        # linea=Producto.objects.all().filter(linea__icontains=keyword)
-        # rubro=Producto.objects.all().filter(rubro__icontains=keyword)
-        desc=Producto.objects.all().filter(query) 
-        # articulos=cod.union(linea,rubro,desc)
-        articulos=cod.union(desc)
-        # print(articulos)
-       
         articulosOrdenados=articulos.order_by('cod_producto')
         imagenes=[] 
         listaDeArticulos=[]
@@ -198,38 +200,39 @@ def portalSearch(request):
 
 def loginView(request):
     
-    # if request.user.is_authenticated:
-    #     # print('logueado')
-    #     return redirect('lineas')
+    if request.user.is_authenticated:
+        print('logueado')
+        return redirect('lineas')
     
-    # if request.method == 'POST':
+    if request.method == 'POST':
             
-    #     username=request.POST['username']
-    #     password=request.POST['password']
-    #     # print(username)
-    #     user=authenticate(request, username=username, password=password)
+        username=request.POST['username']
+        password=request.POST['password']
+        # print(username)
+        user=authenticate(request, username=username, password=password)
         
-    #     if user is not None:
-    #         login(request,user)
-    #         # print('autorizado')
-    #         return redirect('lineas')
-    #     else:
-    #         formulario_login = LoginForm()
+        if user is not None:
+            login(request,user)
+            print('autorizado')
+            return redirect('lineas')
+        else:
+            formulario_login = LoginForm()
 
-    #         context = {
-    #             'formulario_login': formulario_login,
-    #             'messages':"Nombre o contraseña incorrectos"
-    #         }
-    #         return render(request, 'Portal/login.html',context)
-    # else:
+            context = {
+                'formulario_login': formulario_login,
+                'messages':"Nombre o contraseña incorrectos"
+            }
+            return render(request, 'Portal/login.html',context)
+    else:
         
-    #     formulario_login = LoginForm()
+        formulario_login = LoginForm()
 
-    # context = {
-    #     'formulario_login': formulario_login,
-    # }
-
-    return redirect('lineas')
+    context = {
+        'formulario_login': formulario_login,
+    }
+     
+    
+    return render(request, 'Portal/login.html', context)
     
     
 def logoutView(request):

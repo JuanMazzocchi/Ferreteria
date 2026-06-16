@@ -1,7 +1,22 @@
 <header id="arriba">
   {% load static %}
   
+  <script>
+   document.addEventListener('DOMContentLoaded', function () {
 
+    const input = document.getElementById('keyword');
+    const boton = document.getElementById('buscar');
+
+    function actualizarBoton() {
+        boton.disabled = input.value.trim() === '';
+    }
+
+    input.addEventListener('input', actualizarBoton);
+
+    actualizarBoton();
+
+});
+  </script>
   <nav class="navbar fixed-top container-fluid d-xs-none d-sm-none d-md-flex d-lg-flex  justify-content-start py-0 border-bottom border-dark border-3" id="paraPC" style='background-color: rgb(53, 152, 101);'>
     <div id="contenedorLogo" class='mt-0 col-sm-3 col-md-2 col-lg-1'>
      <a href='/lineas'> <img src={% static 'img/julcarSuperior.jpg' %} class='navbar-brand py-0 ps-1' width="80%" id="logoPc" >  </a>
@@ -9,8 +24,8 @@
     <div id="contenedorSearchCarritoDescargasLogout" class='col-md-3 col-lg-3 m-1'>
       <div>
         <form class="d-flex" role='search' action={% url 'portalSearch' %} method='get'>
-          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="buscar" name="keyword">
-          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="buscar" name="keyword" id="keyword">
+          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" disabled id="buscar"><i class="bi bi-search"></i></button>
         </form>
       </div>
       <div class='row'>
