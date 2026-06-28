@@ -562,28 +562,26 @@ function btnVolverClicked(){
 };
 
 
-const enviarFinal=document.getElementById('enviarFinal');
-enviarFinal?.addEventListener('click',cerrarYborrar)
+const enviarFinal = document.getElementById('FormularioDeEnviar');
 
-function cerrarYborrar(){
-  Swal.fire({
-    title: 'Su nota de pedido ha sido enviada',
-    showDenyButton: false,
-    showCancelButton: false,
-    confirmButtonText: 'OK',
-    timer:1000,
-     
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      btnVaciarClicked()
-    } else if (result.isDenied) {
-      btnVaciarClicked()
+enviarFinal.addEventListener('submit', function () {
+
+    if (!this.checkValidity()) {
+        return;
     }
-  })
-  btnVaciarClicked()
-  
-};
+
+    cerrarYborrar();
+});
+
+function cerrarYborrar() {
+    Swal.fire({
+        title: 'Su nota de pedido ha sido enviada',
+        confirmButtonText: 'OK',
+        timer: 1000
+    });
+
+    btnVaciarClicked();
+}
 
 function modal(event){
     // console.log("first")
