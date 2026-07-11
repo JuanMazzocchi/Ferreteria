@@ -11,12 +11,13 @@ from Administrador.models import ListaDePrecios, PedidoPorMail, CatalogoSanitari
 from django.http import FileResponse
 import os
 from pathlib import Path
-from django.db.models import Q
+from django.db.models import Q, Value
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib import messages
 from django.http import HttpResponse
 from Ferreteria import settings
+from django.db.models.functions import Replace
 
 
 
@@ -145,58 +146,120 @@ def gondola(request,rubro,linea):
         }
     # print(context)
     return render(request,'Portal/mostrarArticulos.html' ,context )
+ 
+from django.db.models.functions import Replace
 
 @login_required
 def portalSearch(request):
-    
-    if request.method =='GET':
-        
-        # lineas=Producto.objects.order_by().values_list('linea',flat=True).distinct() 
-        # prioridad=ListaPrioritariaDeLineas.objects.values_list('archivo',flat=True)
-        lineas=Producto.objects.values_list('linea',flat=True).distinct().order_by('ordenLinea')
-        keyword=request.GET.get('keyword')
+
+    if request.method == 'GET':
+
+        lineas = (
+            Producto.objects
+            .values_list('linea', flat=True)
+            .distinct()
+            .order_by('ordenLinea')
+        )
+
+        keyword = request.GET.get('keyword')
+
         if not keyword:
             articulos = Producto.objects.none()
-        else:
-            
-            lista=keyword.split()
-            
-            query=Q()
-            
-            for palabra in lista:
-                query &=Q(descripcion__icontains=palabra) 
-            # print(query)         
-            cod=Producto.objects.all().filter(cod_producto__contains=keyword)
-            # linea=Producto.objects.all().filter(linea__icontains=keyword)
-            # rubro=Producto.objects.all().filter(rubro__icontains=keyword)
-            desc=Producto.objects.all().filter(query) 
-            # articulos=cod.union(linea,rubro,desc)
-            articulos=cod.union(desc)
-            # print(articulos)
-        
-        articulosOrdenados=articulos.order_by('cod_producto')
-        imagenes=[] 
-        listaDeArticulos=[]
-        diccionario={} 
-        for item in articulosOrdenados:
-            listaDeArticulos.append(item)
-            combo=[]
-            file_path = os.path.join(settings.MEDIA_ROOT,"img" ,(item.imagen[:-1])+'.jpg')
-            version = int(os.path.getmtime(file_path)) if os.path.exists(file_path) else 0
-            combo.append(item.imagen[:-1])   #le quito el salto de linea invisible al final ([:-1])
-            combo.append(version)
-            imagenes.append(combo) 
-            diccionario=dict(zip(listaDeArticulos,imagenes))   #la idea es pasar una lista dentro del archivo imagenes [imagen , version] EJ de diccionario:{<Producto:  402.100 - CODOS EPOXI H - H - EPOXI - CODO EPOXI H-H  1/2' - 2322.9 - (C/U) - 402100>: ['402100', 1695838238] }
-                  
-        context ={
-            'articulos':diccionario,
-            'lineas':lineas,
-            'catalogos':listaDeCatalogos,
-            'MEDIA_URL': settings.MEDIA_URL
-            }
-        return render(request,'Portal/mostrarArticulos.html', context)
-    pass
 
+        else:
+
+            keyword_sin_puntos = keyword.replace('.', '')
+
+            lista = keyword.split()
+
+            query = Q()
+
+            for palabra in lista:
+                palabra_sin_puntos = palabra.replace('.', '')
+                if not palabra_sin_puntos.isdigit():
+
+                    query &= Q(
+                        descripcion__icontains=palabra
+                    ) 
+
+            # BUSQUEDA POR CODIGO IGNORANDO PUNTOS
+            ids_cod = (
+                Producto.objects
+                .annotate(
+                    codigo_limpio=Replace(
+                        'cod_producto',
+                        Value('.'),
+                        Value('')
+                    )
+                )
+                .filter(
+                    codigo_limpio__icontains=keyword_sin_puntos
+                )
+                .values_list('id', flat=True)
+            )
+
+            cod = Producto.objects.filter(
+                id__in=ids_cod
+            )
+
+            desc = Producto.objects.filter(query)
+
+            # reemplaza union por OR
+            articulos = Producto.objects.filter(
+                Q(id__in=cod.values('id')) |
+                Q(id__in=desc.values('id'))
+            ).distinct()
+
+        articulosOrdenados = articulos.order_by('cod_producto')
+
+        imagenes = []
+        listaDeArticulos = []
+        diccionario = {}
+
+        for item in articulosOrdenados:
+
+            listaDeArticulos.append(item)
+
+            combo = []
+
+            file_path = os.path.join(
+                settings.MEDIA_ROOT,
+                "img",
+                (item.imagen[:-1]) + '.jpg'
+            )
+
+            version = (
+                int(os.path.getmtime(file_path))
+                if os.path.exists(file_path)
+                else 0
+            )
+
+            combo.append(item.imagen[:-1])
+            combo.append(version)
+
+            imagenes.append(combo)
+
+            diccionario = dict(
+                zip(
+                    listaDeArticulos,
+                    imagenes
+                )
+            )
+
+        context = {
+            'articulos': diccionario,
+            'lineas': lineas,
+            'catalogos': listaDeCatalogos,
+            'MEDIA_URL': settings.MEDIA_URL
+        }
+
+        return render(
+            request,
+            'Portal/mostrarArticulos.html',
+            context
+        )
+
+    pass
 
 def loginView(request):
     

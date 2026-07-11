@@ -1,31 +1,15 @@
 <header id="arriba">
   {% load static %}
   
-  <script>
-   document.addEventListener('DOMContentLoaded', function () {
-
-    const input = document.getElementById('keyword');
-    const boton = document.getElementById('buscar');
-
-    function actualizarBoton() {
-        boton.disabled = input.value.trim() === '';
-    }
-
-    input.addEventListener('input', actualizarBoton);
-
-    actualizarBoton();
-
-});
-  </script>
   <nav class="navbar fixed-top container-fluid d-xs-none d-sm-none d-md-flex d-lg-flex  justify-content-start py-0 border-bottom border-dark border-3" id="paraPC" style='background-color: rgb(53, 152, 101);'>
     <div id="contenedorLogo" class='mt-0 col-sm-3 col-md-2 col-lg-1'>
      <a href='/lineas'> <img src={% static 'img/julcarSuperior.jpg' %} class='navbar-brand py-0 ps-1' width="80%" id="logoPc" >  </a>
     </div>
     <div id="contenedorSearchCarritoDescargasLogout" class='col-md-3 col-lg-3 m-1'>
       <div>
-        <form class="d-flex" role='search' action={% url 'portalSearch' %} method='get'>
-          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="buscar" name="keyword" id="keyword">
-          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" disabled id="buscar"><i class="bi bi-search"></i></button>
+        <form class="d-flex form-busqueda" role='search' action={% url 'portalSearch' %} method='get'>
+          <input class="form-control me-2 keyword" type="search" placeholder="Buscar" aria-label="buscar" name="keyword" id="keyword">
+          <button class="btn btn-outline-dark my-2 my-sm-0 buscar" type="submit" disabled id="buscar"><i class="bi bi-search"></i></button>
         </form>
       </div>
       <div class='row'>
@@ -134,9 +118,9 @@
       <a href='/lineas'> <img src={% static 'img/julcarSuperior.jpg' %} class='navbar-item py-0' width="60px" >  </a>
      </div>
          
-    <form class="d-flex w-50" role='search' action={% url 'portalSearch' %} method='get'>
-      <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="buscar" name="keyword">
-      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+    <form class="d-flex w-50 form-busqueda" role='search' action={% url 'portalSearch' %} method='get'>
+      <input class="form-control me-2 keyword" type="search" placeholder="Buscar" aria-label="buscar" name="keyword">
+      <button class="btn btn-outline-dark my-2 my-sm-0 buscar" type="submit" id="buscar" disabled><i class="bi bi-search"></i></button>
     </form>
     <a href="#" id="btn-toggle2" class="btn-toggle  btn btn-outline-dark"><i class="bi bi-cart-fill " style="font-size: 23px;"></i></a>
     <div class="collapse navbar-collapse flex-wrap" id="navbarSupportedContent2">
@@ -230,5 +214,26 @@
 
     </div>
   </nav>
+    <script>
+      {% comment %} cambia el disabled de la lupa {% endcomment %}
+ document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('.form-busqueda').forEach(form => {
+
+        const input = form.querySelector('.keyword');
+        const boton = form.querySelector('.buscar');
+
+        function actualizarBoton() {
+            boton.disabled = input.value.trim() === '';
+        }
+
+        input.addEventListener('input', actualizarBoton);
+
+        actualizarBoton();
+
+    });
+
+});
+  </script>
   
 </header>

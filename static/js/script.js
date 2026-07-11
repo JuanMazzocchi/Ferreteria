@@ -564,14 +564,16 @@ function btnVolverClicked(){
 
 const enviarFinal = document.getElementById('FormularioDeEnviar');
 
-enviarFinal.addEventListener('submit', function () {
+if (enviarFinal) {
+    enviarFinal.addEventListener('submit', function () {
 
-    if (!this.checkValidity()) {
-        return;
-    }
+        if (!this.checkValidity()) {
+            return;
+        }
 
-    cerrarYborrar();
-});
+        cerrarYborrar();
+    });
+}
 
 function cerrarYborrar() {
     Swal.fire({
